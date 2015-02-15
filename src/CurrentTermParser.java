@@ -1,7 +1,7 @@
 /**
  * @author: Gurpreet
  */
-public class CurrentTermParser extends Parser
+public class CurrentTermParser extends Parser 
 {
     
 }

@@ -1,7 +1,7 @@
 /**
  * @author: Gurpreet
  */
-public class LongTermParser extends Parser
+public class LongTermParser extends Parser 
 {
     
 }
