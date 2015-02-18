@@ -19,7 +19,7 @@ public class LocationList
     
     public Location searchList(String name)
     {
-        return new Location();
+        return new Location("London");
     }
     
     public boolean isLocationInList(Location location)

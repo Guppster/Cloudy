@@ -10,4 +10,12 @@ public class ShortTermData extends BaseData
         super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description);
         this.time = time;
     }//End of constructor
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 }//End of class

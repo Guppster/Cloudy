@@ -14,4 +14,28 @@ public class CurrentTermData extends BaseData
         this.sunrise = sunrise;
         this.sunset = sunset;
     }
+
+    public int getPrecipitation() {
+        return precipitation;
+    }
+
+    public void setPrecipitation(int precipitation) {
+        this.precipitation = precipitation;
+    }
+
+    public int getSunrise() {
+        return sunrise;
+    }
+
+    public void setSunrise(int sunrise) {
+        this.sunrise = sunrise;
+    }
+
+    public int getSunset() {
+        return sunset;
+    }
+
+    public void setSunset(int sunset) {
+        this.sunset = sunset;
+    }
 }

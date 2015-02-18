@@ -14,4 +14,28 @@ public class LongTermData extends BaseData
         this.tempEve = tempEve;
         this.tempMorn = tempMorn;
     }//End of constructor
+
+    public double getTempNight() {
+        return tempNight;
+    }
+
+    public void setTempNight(double tempNight) {
+        this.tempNight = tempNight;
+    }
+
+    public double getTempEve() {
+        return tempEve;
+    }
+
+    public void setTempEve(double tempEve) {
+        this.tempEve = tempEve;
+    }
+
+    public double getTempMorn() {
+        return tempMorn;
+    }
+
+    public void setTempMorn(double tempMorn) {
+        this.tempMorn = tempMorn;
+    }
 }//End of LongTermData class

@@ -7,6 +7,7 @@ public class Location
     private TermObject shortTerm;
     private TermObject longTerm;
     private TermObject currentTerm;
+
     
     public Location(String name, TermObject shortTerm, TermObject longTerm, TermObject currentTerm)
     {
@@ -28,32 +29,17 @@ public class Location
     
     public TermObject getShortTerm()
     {
-        return new TermObject() {
-            @Override
-            public int hashCode() {
-                return super.hashCode();
-            }
-        };
+        return shortTerm;
     }
 
     public TermObject getLongTerm()
     {
-        return new TermObject() {
-            @Override
-            public int hashCode() {
-                return super.hashCode();
-            }
-        };
+        return longTerm;
     }
 
     public TermObject getCurrentTerm()
     {
-        return new TermObject() {
-            @Override
-            public int hashCode() {
-                return super.hashCode();
-            }
-        };
+        return currentTerm;
     }
 
     public void setName(String name) 
