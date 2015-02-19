@@ -11,7 +11,7 @@ public class Main
     {
         locations = new LocationList();
         config = new Configuration(locations);
-        netController = new NetworkController();
+        netController = new NetworkController(location);
     }//End of main method
     
     private static void update()
