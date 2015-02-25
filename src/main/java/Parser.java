@@ -9,7 +9,8 @@ public abstract class Parser
     protected OkHttpClient client;
     protected JSONObject dataRaw;
     protected BaseData dataFormatted;
-    
+    protected final String baseURL = "http://api.openweathermap.org/data/2.5/weather?q=";
+
     protected Parser()
     {
         client = new OkHttpClient();
@@ -17,7 +18,7 @@ public abstract class Parser
     }
     
     protected abstract TermObject parse();
-    
-    protected abstract void fetchForecast(String str);
+
+    protected abstract BaseData getDetails(String rawJSONData);
 
 }//End of parser abstract class
