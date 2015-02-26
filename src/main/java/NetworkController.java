@@ -8,19 +8,39 @@ public class NetworkController
     private Parser parser;
     private TermObject term;
 
-    //Specific constructor
+    /**
+     * General constructor 
+     */
+    public NetworkController()
+    {
+
+    }
+
+    /**
+     * Specific constructor 
+     * @param location
+     */
     public NetworkController(Location location)
     {
         this.location = location;
-    }
-    
-    //General constructor
-    public NetworkController()
-    {
-        
+        fetch();
     }
 
-    public void fetchCurrent()
+    /**
+     * Updates all terms for current location object
+     */
+    public void fetch()
+    {
+        fetchCurrent();
+        fetchLong();
+        fetchShort();
+    }//End of fetchCurrent method
+
+
+    /**
+     * Updates the current term
+     */
+    private void fetchCurrent()
     {
         parser = new CurrentTermParser(location.getName());
         
@@ -29,7 +49,10 @@ public class NetworkController
         location.setCurrentTerm(term);
     }//End of fetchCurrent method
 
-    public void fetchLong()
+    /**
+     * Updates the long term
+     */
+    private void fetchLong()
     {
         parser = new LongTermParser(location.getName());
         
@@ -38,7 +61,10 @@ public class NetworkController
         location.setCurrentTerm(term);
     }//End of fetchLong method
 
-    public void fetchShort()
+    /**
+     * Updates the short term
+     */
+    private void fetchShort()
     {
         parser = new ShortTermParser(location.getName());
 
@@ -47,11 +73,19 @@ public class NetworkController
         location.setCurrentTerm(term);
     }//End of fetchShort method
 
+    /**
+     * Returns the current location
+     * @return  currently stored location object
+     */
     public Location getLocation()
     {
         return location;
     }//End of getLocation method
 
+    /**
+     * Sets the current location
+     * @param location
+     */
     public void setLocation(Location location)
     {
         this.location = location;
