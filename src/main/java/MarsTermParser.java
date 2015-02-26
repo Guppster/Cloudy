@@ -3,6 +3,14 @@
  */
 public class MarsTermParser extends Parser
 {
+    private String locationName;
+    private LongTermData[] data;
+    
+    //Constructor
+    public MarsTermParser(String locationName)
+    {
+        this.locationName = locationName;
+    }//End of constructor
 
     @Override
     protected TermObject parse()
@@ -14,11 +22,5 @@ public class MarsTermParser extends Parser
     protected BaseData getDetails(String rawJSONData)
     {
         return null;
-    }
-
-    @Override
-    protected void fetchForecast(String str)
-    {
-
     }
 }

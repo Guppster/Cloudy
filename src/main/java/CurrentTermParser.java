@@ -23,7 +23,7 @@ public class CurrentTermParser extends Parser
     @Override
     protected TermObject parse()
     {
-        Request request = new Request.Builder().url(baseURL + locationName).build();
+        Request request = new Request.Builder().url(baseURL + currentModifier + locationName).build();
 
         Call call = client.newCall(request);
 
@@ -68,11 +68,11 @@ public class CurrentTermParser extends Parser
         JSONObject forecast = new JSONObject(rawJSONData);
         
         JSONObject sys = forecast.getJSONObject("sys");
-        JSONObject weather = forecast.getJSONObject("weather");
+        JSONObject weather = forecast.getJSONArray("weather").getJSONObject(0);
         JSONObject main = forecast.getJSONObject("main");
         JSONObject wind = forecast.getJSONObject("wind");
         JSONObject rain = forecast.getJSONObject("rain");
-        
+
         return new CurrentTermData(
                 rain.getInt("3h"),
                 sys.getInt("sunrise"),
