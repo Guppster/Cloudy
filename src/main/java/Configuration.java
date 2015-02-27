@@ -108,7 +108,33 @@ public class Configuration
     
     public boolean load()
     {
-        return false;
+        byte [] locationBytes = new byte[10];
+        byte [] viewableBytes = new byte[10];
+        String units = "";
+
+        try
+        {
+            locations.setLocationList(byteArrayToLocations(prefs.getByteArray("locations", locationBytes)));
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+
+        prefs.get("tempUnits", units);
+
+        switch(units)
+        {
+            case "IMPERIAL":
+                degrees = degrees.IMPERIAL;
+                break;
+            case "METRIC":
+                degrees = degrees.METRIC;
+        }
+
+        viewObject = byteArrayToBoolean(prefs.getByteArray("viewableObjects", viewableBytes));
+        
+        return true;
     }
 
     /**
