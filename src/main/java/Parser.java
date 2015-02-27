@@ -1,10 +1,11 @@
+
 import com.squareup.okhttp.OkHttpClient;
 import org.json.JSONObject;
 
 /**
  * @author: Gurpreet
  */
-public abstract class Parser 
+public abstract class Parser
 {
     protected OkHttpClient client;
     protected JSONObject dataRaw;
