@@ -24,6 +24,7 @@ public class LongTermParser extends Parser
     public LongTermParser(String locationName)
     {
         this.locationName = locationName;
+        config.load();
     }//End of constructor
 
     @Override

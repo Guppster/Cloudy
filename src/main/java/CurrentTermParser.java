@@ -20,6 +20,7 @@ public class CurrentTermParser extends Parser
     public CurrentTermParser(String locationName)
     {
         this.locationName = locationName;
+        config.load();
     }//End of constructor
     
     @Override
