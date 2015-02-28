@@ -15,6 +15,7 @@ public class ShortTermParser extends Parser
 {
     private String locationName;
     private ShortTermData[] data;
+    private Configuration config;
 
     /**
      * Constructor
@@ -23,12 +24,28 @@ public class ShortTermParser extends Parser
     public ShortTermParser(String locationName)
     {
         this.locationName = locationName;
+        config.load();
     }//End of constructor
 
     @Override
     protected TermObject parse()
     {
-        Request request = new Request.Builder().url(baseURL + shortModifier + locationName).build();
+        String url = "";
+        
+        switch(config.getDegrees())
+        {
+            case IMPERIAL:
+            {
+                url = baseURL + shortModifier + locationName + imperialModifier;
+                break;
+            }
+            case METRIC:
+            {
+                url = baseURL + shortModifier + locationName + metricModifier;
+            }
+        }
+        
+        Request request = new Request.Builder().url(url).build();
 
         Call call = client.newCall(request);
 

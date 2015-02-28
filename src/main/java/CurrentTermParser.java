@@ -14,6 +14,7 @@ public class CurrentTermParser extends Parser
 {
     private String locationName;
     private CurrentTermData[] data;
+    private Configuration config;
 
     //Constructor
     public CurrentTermParser(String locationName)
@@ -24,7 +25,22 @@ public class CurrentTermParser extends Parser
     @Override
     protected TermObject parse()
     {
-        Request request = new Request.Builder().url(baseURL + currentModifier + locationName).build();
+        String url = "";
+
+        switch(config.getDegrees())
+        {
+            case IMPERIAL:
+            {
+                url = baseURL + currentModifier + locationName + imperialModifier;
+                break;
+            }
+            case METRIC:
+            {
+                url = baseURL + currentModifier + locationName + metricModifier;
+            }
+        }
+
+        Request request = new Request.Builder().url(url).build();
 
         Call call = client.newCall(request);
 

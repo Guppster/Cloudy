@@ -15,6 +15,7 @@ public class LongTermParser extends Parser
 {
     private String locationName;
     private LongTermData[] data;
+    private Configuration config;
 
     /**
      * Constructor
@@ -28,7 +29,22 @@ public class LongTermParser extends Parser
     @Override
     protected TermObject parse()
     {
-        Request request = new Request.Builder().url(baseURL + longModifier + locationName).build();
+        String url = "";
+
+        switch(config.getDegrees())
+        {
+            case IMPERIAL:
+            {
+                url = baseURL + longModifier + locationName + imperialModifier;
+                break;
+            }
+            case METRIC:
+            {
+                url = baseURL + longModifier + locationName + metricModifier;
+            }
+        }
+
+        Request request = new Request.Builder().url(url).build();
 
         Call call = client.newCall(request);
 
