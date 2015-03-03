@@ -12,6 +12,7 @@
     <orderEntry type="library" name="Maven: com.squareup.okhttp:okhttp:2.2.0" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20141113" level="project" />
-    <orderEntry type="library" name="tween-engine-api-sources" level="project" />
+    <orderEntry type="library" name="Maven: com.aurelienribon:team21:1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.aurelienribon:team21-sources:1.0" level="project" />
   </component>
 </module>

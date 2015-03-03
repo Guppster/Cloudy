@@ -5,14 +5,13 @@
     	
 	<modelVersion>4.0.0</modelVersion>
 
-    	<groupId>team21</groupId>
+    	<groupId>main.java</groupId>
     	<artifactId>team21</artifactId>
 	    <packaging> jar </packaging>
     	<version>1.0-SNAPSHOT</version>
 
 
     	<dependencies>
-        
         	<dependency>
             		<groupId>com.squareup.okhttp</groupId>
             		<artifactId>okhttp</artifactId>
@@ -24,8 +23,26 @@
             		<artifactId>json</artifactId>
             		<version>20141113</version>
         	</dependency>
-  	</dependencies>
 
+            <dependency>
+                <groupId>com.aurelienribon</groupId>
+                <artifactId>team21</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aurelienribon</groupId>
+                <artifactId>team21-sources</artifactId>
+                <version>1.0</version>
+            </dependency>
+        </dependencies>
+
+    <repositories>
+        <repository>
+            <id>repo</id>
+            <url>file://${project.basedir}/repo</url>
+        </repository>
+    </repositories>
 
 	<build>
 		<plugins>
