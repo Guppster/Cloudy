@@ -4,12 +4,15 @@ import com.squareup.okhttp.OkHttpClient;
 import org.json.JSONObject;
 
 /**
+ * Apstract class used to obtain Json objects from the website and decode
+ *
  * @author: Gurpreet
  */
 public abstract class Parser
 {
-    protected OkHttpClient client;
-    protected JSONObject dataRaw;
+    ///// Attributes /////
+    protected OkHttpClient client;// website host
+    protected JSONObject dataRaw; //the Json object directly recieved from the web
     protected BaseData dataFormatted;
     protected final String baseURL = "http://api.openweathermap.org/data/2.5/";
     protected final String currentModifier = "weather?q=";
@@ -18,13 +21,13 @@ public abstract class Parser
     protected final String imperialModifier = "&units=imperial";
     protected final String metricModifier = "&units=metric";
 
-
+    ///// Constructor /////
     protected Parser()
     {
         client = new OkHttpClient();
         dataRaw = new JSONObject();
     }
-    
+
     protected abstract TermObject parse();
 
     protected abstract BaseData getDetails(String rawJSONData);
