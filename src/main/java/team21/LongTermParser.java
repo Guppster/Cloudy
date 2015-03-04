@@ -112,7 +112,7 @@ public class LongTermParser extends Parser
      * * Extract Specific data from each group and storing to LongTermData
      *
      * @param rawJSONData
-     * @return
+     * @return LongTermData Object
      */
     @Override
     protected LongTermData getDetails(String rawJSONData)

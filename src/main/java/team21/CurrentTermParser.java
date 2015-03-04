@@ -11,25 +11,35 @@ import java.io.IOException;
 /**
  * @author: Gurpreet
  */
-public class CurrentTermParser extends Parser 
+public class CurrentTermParser extends Parser
 {
-    private String locationName;
-    private CurrentTermData[] data;
-    private Configuration config;
+    ///// Attributes /////
+    private String locationName; // location
+    private CurrentTermData[] data; // an array of forecast
+    private Configuration config; // User preference
 
-    //Constructor
+    /**
+     * Constructor
+     *
+     * @param locationName A formatted (city, province) string
+     */
     public CurrentTermParser(String locationName)
     {
         this.locationName = locationName;
         config.load();
     }//End of constructor
-    
+
+    /**
+     * use the preferred units to get specific versions of data in the given units and extract the JSONObject
+     *
+     * @return CurrentTerm object
+     */
     @Override
     protected TermObject parse()
     {
         String url = "";
 
-        switch(config.getDegrees())
+        switch (config.getDegrees())
         {
             case IMPERIAL:
             {
@@ -65,27 +75,31 @@ public class CurrentTermParser extends Parser
                     if (!response.isSuccessful())
                     {
 
-                    }
-                    else
+                    } else
                     {
                         data[0] = getDetails(JSONData);
                     }
-                }
-                catch (IOException e)
+                } catch (IOException e)
                 {
                     System.out.println(e);
                 }
             }
         });
-        
+
         return new CurrentTerm(data);
     }//End of parse method
 
+    /**
+     * Extract Specific data from each group and storing to CurrentTermData
+     *
+     * @param rawJSONData
+     * @return CurrentTermData Object
+     */
     @Override
     protected CurrentTermData getDetails(String rawJSONData)
     {
         JSONObject forecast = new JSONObject(rawJSONData);
-        
+
         JSONObject sys = forecast.getJSONObject("sys");
         JSONObject weather = forecast.getJSONArray("weather").getJSONObject(0);
         JSONObject main = forecast.getJSONObject("main");

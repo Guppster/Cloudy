@@ -113,7 +113,7 @@ public class ShortTermParser extends Parser
      * Extract Specific data from each group and storing to ShortTermData
      *
      * @param rawJSONData
-     * @return
+     * @return ShortTermData object
      */
     @Override
     protected ShortTermData getDetails(String rawJSONData)
