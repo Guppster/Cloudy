@@ -1,13 +1,16 @@
 package team21;
 
 /**
+ * Class storing the data for Current Term. Extends BaseData and have additional attributes, precipitation, sunrise, and sunset
+ *
  * @author: Gurpreet
  */
+
 public class CurrentTermData extends BaseData
 {
-    private int precipitation;
-    private int sunrise;
-    private int sunset;
+    private int precipitation; //level or precipitation
+    private int sunrise;//time of expected sunrise
+    private int sunset;//time of expected sunset
 
     public CurrentTermData(int precipitation, int sunrise, int sunset, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description)
     {
@@ -17,27 +20,36 @@ public class CurrentTermData extends BaseData
         this.sunset = sunset;
     }
 
-    public int getPrecipitation() {
+
+    ///// Getters and Setters for the attributes in this class ONLY /////
+
+    public int getPrecipitation()
+    {
         return precipitation;
     }
 
-    public void setPrecipitation(int precipitation) {
+    public void setPrecipitation(int precipitation)
+    {
         this.precipitation = precipitation;
     }
 
-    public int getSunrise() {
+    public int getSunrise()
+    {
         return sunrise;
     }
 
-    public void setSunrise(int sunrise) {
+    public void setSunrise(int sunrise)
+    {
         this.sunrise = sunrise;
     }
 
-    public int getSunset() {
+    public int getSunset()
+    {
         return sunset;
     }
 
-    public void setSunset(int sunset) {
+    public void setSunset(int sunset)
+    {
         this.sunset = sunset;
     }
 }
