@@ -1,12 +1,16 @@
 package team21;
 
 /**
+ * Class extending TermObject to store 1 MarsData (TermObject used for consistency)
+ *
  * @author: Gurpreet
  */
 public class MarsTerm extends TermObject
 {
+    ///// Attribute //////
     private MarsData[] Mdata;
-    
+
+    ///// Constructor //////
     public MarsTerm(MarsData [] Mdata)
     {
         super(1);

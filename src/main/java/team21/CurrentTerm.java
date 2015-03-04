@@ -1,7 +1,7 @@
 package team21;
 
 /**
- * * Class extending TermObject to store 1 object (TermObject used for consistency)
+ * Class extending TermObject to store 1 CurrentTermData (TermObject used for consistency)
  *
  * @author: Gurpreet
  */
