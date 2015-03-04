@@ -9,7 +9,7 @@ import java.util.prefs.Preferences;
 /**
  * @author: Gurpreet
  */
-public class Configuration 
+public class Configuration
 {
     private Preferences prefs;
     private LocationList locations;
@@ -17,7 +17,7 @@ public class Configuration
     private boolean[] viewObject;
 
     /**
-     * * 
+     * *
      * @param locations
      * @param degrees
      * @param viewObject
@@ -31,7 +31,7 @@ public class Configuration
     }
 
     /**
-     * * 
+     * *
      * @param locations
      */
     public Configuration(LocationList locations)
@@ -41,7 +41,7 @@ public class Configuration
     }
 
     /**
-     * * 
+     * *
      * @return
      */
     public LocationList getLocations() {
@@ -49,7 +49,7 @@ public class Configuration
     }
 
     /**
-     * * 
+     * *
      * @param locations
      */
     public void setLocations(LocationList locations) {
@@ -57,7 +57,7 @@ public class Configuration
     }
 
     /**
-     * * 
+     * *
      * @return
      */
     public boolean[] getViewObject() {
@@ -73,7 +73,7 @@ public class Configuration
     }
 
     /**
-     * * 
+     * *
      * @return
      */
     public tempUnits getDegrees()
@@ -89,7 +89,7 @@ public class Configuration
     {
         this.degrees = degrees;
     }
-    
+
     public boolean save()
     {
         try
@@ -102,12 +102,12 @@ public class Configuration
         }
 
         prefs.put("tempUnits", degrees.name());
-        
+
         prefs.putByteArray("viewableObjects", viewableObjectsToByteArray());
-        
+
         return true;
     }
-    
+
     public boolean load()
     {
         byte [] locationBytes = new byte[10];
@@ -135,12 +135,12 @@ public class Configuration
         }
 
         viewObject = byteArrayToBoolean(prefs.getByteArray("viewableObjects", viewableBytes));
-        
+
         return true;
     }
 
     /**
-     * * 
+     * *
      * @return
      * @throws IOException
      */
@@ -148,17 +148,17 @@ public class Configuration
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(baos);
-        
-        for (Location element : locations.getLocationList()) 
+
+        for (Location element : locations.getLocationList())
         {
             out.writeUTF(element.getName());
         }
-        
+
         return baos.toByteArray();
     }
 
     /**
-     * * 
+     * *
      * @param bytes
      * @return
      * @throws IOException
@@ -166,20 +166,20 @@ public class Configuration
     private ArrayList<Location> byteArrayToLocations(byte[] bytes) throws IOException
     {
         ArrayList<Location> arr = new ArrayList<Location>();
-        
+
         ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
         DataInputStream in = new DataInputStream(bais);
-        
+
         while (in.available() > 0)
         {
             arr.add(new Location(in.readUTF()));
         }
-        
+
         return arr;
     }
 
     /**
-     * * 
+     * *
      * @return
      */
     private byte[] viewableObjectsToByteArray()
@@ -196,15 +196,15 @@ public class Configuration
     private boolean[] byteArrayToBoolean(byte[] bytes)
     {
         boolean[] bits = new boolean[bytes.length * 8];
-        
-        for (int i = 0; i < bytes.length * 8; i++) 
+
+        for (int i = 0; i < bytes.length * 8; i++)
         {
             if ((bytes[i / 8] & (1 << (7 - (i % 8)))) > 0)
             {
                 bits[i] = true;
             }
         }
-        
+
         return bits;
     }
 }//End of Configuration
