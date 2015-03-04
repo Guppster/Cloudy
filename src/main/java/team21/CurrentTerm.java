@@ -1,12 +1,16 @@
 package team21;
 
 /**
+ * * Class extending TermObject to store 1 object (TermObject used for consistency)
+ *
  * @author: Gurpreet
  */
 public class CurrentTerm extends TermObject
 {
+    ///// Attribute //////
     private CurrentTermData[] Cdata;
 
+    ///// Constructor //////
     public CurrentTerm(CurrentTermData[] Cdata)
     {
         super(1);
