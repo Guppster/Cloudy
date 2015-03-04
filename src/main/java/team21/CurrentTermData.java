@@ -1,7 +1,7 @@
 package team21;
 
 /**
- * Class storing the data for Current Term. Extends BaseData and have additional attributes, precipitation, sunrise, and sunset
+ * Class storing the current weather data. Extends BaseData and have additional attributes, precipitation, sunrise, and sunset
  *
  * @author: Gurpreet
  */
