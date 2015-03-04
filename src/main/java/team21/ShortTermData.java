@@ -1,11 +1,13 @@
 package team21;
 
 /**
+ * Class storing the short-term weather data. Extends BaseData and have additional attribute, time
+ *
  * @author: Gurpreet
  */
-public class ShortTermData extends BaseData 
+public class ShortTermData extends BaseData
 {
-    private String time;
+    private String time; // time of day in which these current weather value is valid for
 
     public ShortTermData(String time, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description)
     {
@@ -13,11 +15,15 @@ public class ShortTermData extends BaseData
         this.time = time;
     }//End of constructor
 
-    public String getTime() {
+    ///// Getters and Setters /////
+
+    public String getTime()
+    {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(String time)
+    {
         this.time = time;
     }
 }//End of class
