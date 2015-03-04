@@ -21,7 +21,7 @@ public class CurrentTermData extends BaseData
     }
 
 
-    ///// Getters and Setters for the attributes in this class ONLY /////
+    ///// Getters and Setters /////
 
     public int getPrecipitation()
     {
