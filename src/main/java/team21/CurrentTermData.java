@@ -8,10 +8,13 @@ package team21;
 
 public class CurrentTermData extends BaseData
 {
+
+    ///// Attributes //////
     private int precipitation; //level or precipitation
     private int sunrise;//time of expected sunrise
     private int sunset;//time of expected sunset
 
+    ///// Constructor //////
     public CurrentTermData(int precipitation, int sunrise, int sunset, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description)
     {
         super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description);

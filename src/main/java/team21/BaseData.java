@@ -1,12 +1,13 @@
 package team21;
 
 /**
- * Class is an abstract class for the storage of all data related to weather
+ * Abstract Class for the storage of all data related to weather
  *
  * @author: Gurpreet
  */
 public abstract class BaseData
 {
+    ///// Attributes //////
     private double temp; //current temperature
     private double tempMin; //minimum temperature
     private double tempMax; //maximum temperature
@@ -16,7 +17,7 @@ public abstract class BaseData
     private String iconID; //address to icon
     private String description; //short description of current weather
 
-
+    ///// Constructor /////
     protected BaseData(double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description)
     {
         this.temp = temp;

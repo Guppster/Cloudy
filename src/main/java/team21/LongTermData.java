@@ -7,10 +7,12 @@ package team21;
  */
 public class LongTermData extends BaseData
 {
+    ///// Attributes //////
     private double tempNight; //temperature through the night
     private double tempEve; //temperature through the evening
     private double tempMorn; //temperature in the morning
 
+    ///// Constructor /////
     public LongTermData(double tempNight, double tempEve, double tempMorn, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description)
     {
         super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description);
