@@ -9,6 +9,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 /**
+ * Class obtains the JSONObjects from the website and store it into MarsData
+ *
  * @author: Gurpreet
  */
 public class MarsTermParser extends Parser
@@ -75,8 +77,7 @@ public class MarsTermParser extends Parser
     }
 
     /**
-     *    Extract Specific data from each group and storing to MarsData
-
+     * Extract Specific data from each group and storing to MarsData
      *
      * @param rawJSONData
      * @return MarsData object
@@ -100,12 +101,12 @@ public class MarsTermParser extends Parser
     }//End of getDetails method
 
     /**
-     *   use the preferred units to get specific versions of JSON Object
-     *   and return the correct min and max values
+     * use the preferred units to get specific versions of JSON Object
+     * and return the correct min and max values
      *
      * @param report
      * @param temp
-     * @param minOrMax 
+     * @param minOrMax
      * @return
      */
     private double getConvertedTemp(JSONObject report, double temp, boolean minOrMax)

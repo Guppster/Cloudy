@@ -9,6 +9,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 /**
+ * Class obtains the JSONObjects from the website and store it into CurrentTermData
+ *
  * @author: Gurpreet
  */
 public class CurrentTermParser extends Parser

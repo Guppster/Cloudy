@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 /**
+ * Class obtains the JSONObjects from the website and store it into ShortTermData
+ *
  * @author: Gurpreet
  */
 public class ShortTermParser extends Parser

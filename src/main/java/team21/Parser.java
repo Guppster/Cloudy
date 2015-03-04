@@ -4,7 +4,7 @@ import com.squareup.okhttp.OkHttpClient;
 import org.json.JSONObject;
 
 /**
- * Apstract class used to obtain Json objects from the website and decode
+ * Apstract class used to obtain Json objects from the website and decodes its content
  *
  * @author: Gurpreet
  */
