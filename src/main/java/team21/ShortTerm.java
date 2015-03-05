@@ -9,7 +9,7 @@ public class ShortTerm extends TermObject
     
     public ShortTerm(ShortTermData[] Sdata)
     {
-        super(5);
+        super(8);
         this.Sdata = Sdata;
         parseTermData();
     }//End of constructor

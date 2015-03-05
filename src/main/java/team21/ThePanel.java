@@ -7,6 +7,8 @@ import aurelienribon.tweenengine.Tween;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -14,9 +16,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class ThePanel extends JPanel {
-	private static final Color FG_COLOR = new Color(0xFFFFFF);
-	private static final Color BG_COLOR = new Color(0x3B5998);
-	private static final Color BORDER_COLOR = new Color(0x000000);
+	private static Color FG_COLOR = new Color(0xFFFFFF);
+	private static Color BG_COLOR = new Color(0x73b0de);
+	private static Color BORDER_COLOR = new Color(0xff702e);
 
 	private static final TweenManager tweenManager = SLAnimator.createTweenManager();
 	private final JLabel label = new JLabel();
@@ -29,9 +31,9 @@ public class ThePanel extends JPanel {
 	public ThePanel(String name, String imgPath) {
 		setBackground(BG_COLOR);
 		setLayout(new BorderLayout());
-
+        
 		label.setForeground(FG_COLOR);
-		label.setFont(new Font("Sans", Font.BOLD, 90));
+		label.setFont(new Font("Sans", Font.BOLD, 25));
 		label.setVerticalAlignment(SwingConstants.CENTER);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setText(name);
@@ -41,6 +43,9 @@ public class ThePanel extends JPanel {
 		} catch (IOException ex) {
 			System.err.println("[error] cannot read image path '" + imgPath + "'");
 			add(label, BorderLayout.CENTER);
+
+            setComponentOrientation(
+                    ComponentOrientation.LEFT_TO_RIGHT);
 		}
 
 		addMouseListener(new MouseAdapter() {

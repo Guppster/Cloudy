@@ -9,7 +9,7 @@ public class LongTerm extends TermObject
 
     public LongTerm(LongTermData[] Ldata)
     {
-        super(8);
+        super(5);
         this.Ldata = Ldata;
         parseTermData();
     }//End of constructor

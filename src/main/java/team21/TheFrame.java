@@ -8,11 +8,11 @@ import java.awt.*;
 
 public class TheFrame extends JFrame {
 	private final SLPanel panel = new SLPanel();
-	private final ThePanel p1 = new ThePanel("1", "data/img1.jpg");
-	private final ThePanel p2 = new ThePanel("2", "data/img2.jpg");
-	private final ThePanel p3 = new ThePanel("3", "data/img3.jpg");
-	private final ThePanel p4 = new ThePanel("4", "data/img4.jpg");
-	private final ThePanel p5 = new ThePanel("5", "data/img5.jpg");
+	private final ThePanel p1 = new ThePanel("Locations", "data/img1.jpg");
+	private final ThePanel p2 = new ThePanel("Mars", "data/img2.jpg");
+	private final ThePanel p3 = new ThePanel("Long Term", "data/img3.jpg");
+	private final ThePanel p4 = new ThePanel("Short Term", "data/img4.jpg");
+	private final ThePanel p5 = new ThePanel("Current Weather", "data/img5.jpg");
 	private final SLConfig mainCfg, p1Cfg, p2Cfg, p3Cfg, p4Cfg, p5Cfg;
 
 	public TheFrame() {
@@ -29,7 +29,7 @@ public class TheFrame extends JFrame {
 
 		mainCfg = new SLConfig(panel)
 			.gap(10, 10)
-			.row(1f).col(250).col(1f).col(2f)
+			.row(1f).col(1.5f).col(1f).col(2f)
 			.beginGrid(0, 0)
 				.row(2f).row(1f).col(1f)
 				.place(0, 0, p1)
@@ -44,7 +44,7 @@ public class TheFrame extends JFrame {
 
 		p1Cfg = new SLConfig(panel)
 			.gap(10, 10)
-			.row(1f).col(250).col(1f).col(2f)
+			.row(1f).col(1.5f).col(1f).col(2f)
 			.place(0, 0, p1)
 			.beginGrid(0, 1)
 				.row(1f).row(2f).col(1f)
