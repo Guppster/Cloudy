@@ -3,11 +3,14 @@ package team21;
 import java.util.ArrayList;
 
 /**
+ * Class
+ *
  * @author: Gurpreet
  */
-public class LocationList 
+public class LocationList
 {
-    private ArrayList<Location> regions;
+    ///// Attribute /////
+    private ArrayList<Location> regions; // a list of locations
 
     /**
      * General Constructor
@@ -19,7 +22,8 @@ public class LocationList
 
     /**
      * Specific Constructor
-     * @param regions
+     *
+     * @param regions the list of locations
      */
     public LocationList(ArrayList<Location> regions)
     {
@@ -27,17 +31,31 @@ public class LocationList
     }//End of specific constructor
 
     /**
-     * * 
-     * @param name
-     * @return
+     * Search for a specific location in a list. It returns a Location object or null (if the location is not in the list)
+     *
+     * @param name the location as a string
+     * @return default Location object (London)
      */
     public Location searchList(String name)
     {
-        return new Location("London");
+        if (!regions.isEmpty())
+        {
+            //if the list is not empty, illiterate to see if location exist
+            for (int i = 0; i < regions.size(); i++)
+            {
+                if (region.get(i).getName().equals(name))
+                {
+                    return region.get(i);
+                }
+            }
+        }
+
+        //return london as default
+        return null;
+
     }
 
     /**
-     * * 
      * @param location
      * @return
      */
@@ -47,25 +65,39 @@ public class LocationList
     }
 
     /**
-     * * 
+     * Add a location to the list
+     *
      * @param location
      */
     public void addRegion(Location location)
     {
-        
+        regions.add(location);
     }
 
     /**
-     * * 
+     * Remove a location from the list
+     *
      * @param location
      */
     public void deleteRegion(Location location)
     {
-        
+        if (!regions.isEmpty())
+        {
+            //if the list is not empty, illiterate to see if location exist
+            for (int i = 0; i < regions.size(); i++)
+            {
+                if (region.get(i).getName().equals(name))
+                {
+                    regions.remove(i);
+                }
+            }
+        }
     }
 
     /**
-     * @return
+     * get the list
+     *
+     * @return the entire ArrayList
      */
     public ArrayList<Location> getLocationList()
     {
@@ -73,11 +105,12 @@ public class LocationList
     }
 
     /**
-     * *
+     * set the entire list
+     *
      * @param regions
      */
     public void setLocationList(ArrayList<Location> regions)
     {
-        this.regions = regions; 
+        this.regions = regions;
     }
 }//End of LocationList

@@ -1,16 +1,26 @@
 package team21;
 
 /**
+ * Class grouping the various forecast of a specific location.
+ *
  * @author: Gurpreet
  */
-public class Location 
+public class Location
 {
+    ///// Attributes /////
     private String name;
-    private TermObject shortTerm;
+    private TermObject shortTerm; //
     private TermObject longTerm;
     private TermObject currentTerm;
 
-    
+    /**
+     * Specific Constructor
+     *
+     * @param name        location
+     * @param shortTerm   link to short term forecast
+     * @param longTerm    link to long term forecast
+     * @param currentTerm link to current forecast
+     */
     public Location(String name, TermObject shortTerm, TermObject longTerm, TermObject currentTerm)
     {
         this.name = name;
@@ -18,17 +28,24 @@ public class Location
         this.longTerm = longTerm;
         this.currentTerm = currentTerm;
     }//End of specific constructor
-    
+
+    /**
+     * General Constructor
+     *
+     * @param name location
+     */
     public Location(String name)
     {
         this.name = name;
     }//End of general constructor
-    
+
+    ///// Getters and Setters /////
+
     public String getName()
     {
         return "";
     }
-    
+
     public TermObject getShortTerm()
     {
         return shortTerm;
@@ -44,22 +61,22 @@ public class Location
         return currentTerm;
     }
 
-    public void setName(String name) 
+    public void setName(String name)
     {
         this.name = name;
     }
 
-    public void setShortTerm(TermObject shortTerm) 
+    public void setShortTerm(TermObject shortTerm)
     {
         this.shortTerm = shortTerm;
     }
 
-    public void setLongTerm(TermObject longTerm) 
+    public void setLongTerm(TermObject longTerm)
     {
         this.longTerm = longTerm;
     }
 
-    public void setCurrentTerm(TermObject currentTerm) 
+    public void setCurrentTerm(TermObject currentTerm)
     {
         this.currentTerm = currentTerm;
     }
