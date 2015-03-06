@@ -7,17 +7,23 @@ package team21;
  */
 public class MarsTerm extends TermObject
 {
-    ///// Attribute //////
+    /**** Fields ****/
     private MarsData[] Mdata;
 
-    ///// Constructor //////
+    /**
+     *
+     * @param Mdata
+     */
     public MarsTerm(MarsData [] Mdata)
     {
         super(1);
         this.Mdata = Mdata;
         parseTermData();
     }
-    
+
+    /**
+     *
+     */
     @Override
     protected void parseTermData()
     {

@@ -7,7 +7,7 @@ package team21;
  */
 public class Location
 {
-    ///// Attributes /////
+    /**** Fields ****/
     private String name;
     private TermObject shortTerm; //
     private TermObject longTerm;
@@ -39,7 +39,7 @@ public class Location
         this.name = name;
     }//End of general constructor
 
-    ///// Getters and Setters /////
+    /**** Getters and Setters ****/
 
     public String getName()
     {

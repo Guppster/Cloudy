@@ -7,10 +7,13 @@ package team21;
  */
 public abstract class TermObject
 {
-    ///// Attribute //////
+    /**** Fields ****/
     protected BaseData[] data;
 
-    ///// Constructor /////
+    /**
+     *
+     * @param size
+     */
     protected TermObject(int size)
     {
         data = new BaseData[size];

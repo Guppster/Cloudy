@@ -7,10 +7,13 @@ package team21;
  */
 public class CurrentTerm extends TermObject
 {
-    ///// Attribute //////
+    /**** Fields ****/
     private CurrentTermData[] Cdata;
 
-    ///// Constructor //////
+    /**
+     *
+     * @param Cdata
+     */
     public CurrentTerm(CurrentTermData[] Cdata)
     {
         super(1);
@@ -18,6 +21,9 @@ public class CurrentTerm extends TermObject
         parseTermData();
     }//End of constructor
 
+    /**
+     *
+     */
     protected void parseTermData()
     {
         for (int i = 0; i < data.length; i++)

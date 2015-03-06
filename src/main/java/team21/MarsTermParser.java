@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class MarsTermParser extends Parser
 {
-    ///// Attributes /////
+    /**** Fields ****/
     private String locationName;
     private MarsData[] data;
     private Configuration config;

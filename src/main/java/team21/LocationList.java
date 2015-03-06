@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class LocationList
 {
-    ///// Attribute /////
+    /**** Fields ****/
     private ArrayList<Location> regions; // a list of locations
 
     /**
@@ -95,7 +95,7 @@ public class LocationList
     }
 
     /**
-     * get the list
+     * Get the list
      *
      * @return the entire ArrayList
      */
@@ -105,7 +105,7 @@ public class LocationList
     }
 
     /**
-     * set the entire list
+     * Set the entire list
      *
      * @param regions
      */

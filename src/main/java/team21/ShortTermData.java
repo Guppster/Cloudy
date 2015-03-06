@@ -7,10 +7,21 @@ package team21;
  */
 public class ShortTermData extends BaseData
 {
-    ///// Attribute //////
-    private String time; // time of day in which these current weather value is valid for
+    /**** Fields ****/
+    private String time;         // time of day in which these current weather value is valid for
 
-    ///// Constructor /////
+    /**
+     * 
+     * @param time
+     * @param temp
+     * @param tempMin
+     * @param tempMax
+     * @param windSpeed
+     * @param windDirection
+     * @param pressure
+     * @param iconID
+     * @param description
+     */
     public ShortTermData(String time, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description)
     {
         super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description);

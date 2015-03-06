@@ -16,10 +16,10 @@ import java.io.IOException;
  */
 public class ShortTermParser extends Parser
 {
-    ///// Attributes /////
-    private String locationName; //location
-    private ShortTermData[] data; // an array of forecasts (each element represent the forecast for that hour)
-    private Configuration config; //user preference
+    /**** Fields ****/
+    private String locationName;        //Stores the name of the location
+    private ShortTermData[] data;       //Stores an array of forecasts (each element represent the forecast for that hour)
+    private Configuration config;       //Stores the user's preference
 
     /**
      * Constructor

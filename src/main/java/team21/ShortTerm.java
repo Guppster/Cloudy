@@ -7,10 +7,13 @@ package team21;
  */
 public class ShortTerm extends TermObject
 {
-    ///// Attribute //////
+    /**** Fields ****/
     private ShortTermData[] Sdata;
 
-    ///// Constructor /////
+    /**
+     *
+     * @param Sdata
+     */
     public ShortTerm(ShortTermData[] Sdata)
     {
         super(8);
@@ -19,6 +22,9 @@ public class ShortTerm extends TermObject
 
     }//End of constructor
 
+    /**
+     *
+     */
     protected void parseTermData()
     {
         for (int i = 0; i < data.length; i++)

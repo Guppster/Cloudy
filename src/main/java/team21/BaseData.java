@@ -7,7 +7,7 @@ package team21;
  */
 public abstract class BaseData
 {
-    ///// Attributes //////
+    /**** Fields ****/
     private double temp; //current temperature
     private double tempMin; //minimum temperature
     private double tempMax; //maximum temperature
@@ -17,7 +17,17 @@ public abstract class BaseData
     private String iconID; //address to icon
     private String description; //short description of current weather
 
-    ///// Constructor /////
+    /**
+     *
+     * @param temp
+     * @param tempMin
+     * @param tempMax
+     * @param windSpeed
+     * @param windDirection
+     * @param pressure
+     * @param iconID
+     * @param description
+     */
     protected BaseData(double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description)
     {
         this.temp = temp;
@@ -30,7 +40,7 @@ public abstract class BaseData
         this.description = description;
     }
 
-    ///// GETTERS AND SETTER /////
+    /***** GETTERS AND SETTER *****/
 
     public double getTemp()
     {

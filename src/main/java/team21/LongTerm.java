@@ -7,10 +7,13 @@ package team21;
  */
 public class LongTerm extends TermObject
 {
-    ///// Attribute //////
+    /**** Fields ****/
     private LongTermData[] Ldata;
 
-    ///// Constructor /////
+    /**
+     *
+     * @param Ldata
+     */
     public LongTerm(LongTermData[] Ldata)
     {
         super(5);
@@ -19,6 +22,9 @@ public class LongTerm extends TermObject
 
     }//End of constructor
 
+    /**
+     *
+     */
     protected void parseTermData()
     {
         for (int i = 0; i < data.length; i++)

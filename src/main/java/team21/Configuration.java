@@ -11,10 +11,10 @@ import java.util.prefs.Preferences;
  */
 public class Configuration
 {
-    ///// Attributes /////
-    private Preferences prefs; // user specific preferences
-    private LocationList locations; // list of locations
-    private tempUnits degrees; // preferred units
+    /**** Fields ****/
+    private Preferences prefs; 			//User specific preferences
+    private LocationList locations; 	//List of locations
+    private tempUnits degrees; 			//Preferred units
     private boolean[] viewObject;
 
     /**
