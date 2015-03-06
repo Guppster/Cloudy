@@ -43,9 +43,9 @@ public class LocationList
             //if the list is not empty, illiterate to see if location exist
             for (int i = 0; i < regions.size(); i++)
             {
-                if (region.get(i).getName().equals(name))
+                if (regions.get(i).getName().equals(name))
                 {
-                    return region.get(i);
+                    return regions.get(i);
                 }
             }
         }
@@ -86,7 +86,7 @@ public class LocationList
             //if the list is not empty, illiterate to see if location exist
             for (int i = 0; i < regions.size(); i++)
             {
-                if (region.get(i).getName().equals(name))
+                if (regions.get(i).getName().equals(location.getName()))
                 {
                     regions.remove(i);
                 }

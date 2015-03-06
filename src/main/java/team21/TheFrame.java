@@ -17,7 +17,7 @@ public class TheFrame extends JFrame {
 
 	public TheFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Sliding Panels Test");
+		setTitle("Cloudy");
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().add(panel, BorderLayout.CENTER);
 

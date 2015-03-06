@@ -31,7 +31,7 @@ public class ThePanel extends JPanel {
 	public ThePanel(String name, String imgPath) {
 		setBackground(BG_COLOR);
 		setLayout(new BorderLayout());
-        
+
 		label.setForeground(FG_COLOR);
 		label.setFont(new Font("Sans", Font.BOLD, 25));
 		label.setVerticalAlignment(SwingConstants.CENTER);
