@@ -6,17 +6,18 @@ import team21.slidinglayout.*;
 /**
  * @author: Gurpreet
  */
-public class Main 
+public class Main
 {
     private static LocationList locations;
     private static Configuration config;
     private static NetworkController netController;
 
     /**
-     * * 
+     * *
+     *
      * @param args
      */
-    public static void main(String [] args)
+    public static void main(String[] args)
     {
         locations = new LocationList();
         config = new Configuration(locations);
@@ -29,7 +30,7 @@ public class Main
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        
+
     }//End of main method
 
     /**
@@ -37,10 +38,24 @@ public class Main
      */
     private static void update()
     {
-        for(Location region : locations.getLocationList())
+        for (Location region : locations.getLocationList())
         {
             netController.setLocation(region);
             netController.fetch();
         }
     }
+
+    ///// Getter /////
+
+    public LocationList getLocations()
+    {
+        return locations;
+    }
+
+    public Configuration getConfig()
+    {
+        return config;
+    }
+
+
 }//End of main class
