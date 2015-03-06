@@ -11,15 +11,17 @@ import java.util.prefs.Preferences;
  */
 public class Configuration
 {
-    private Preferences prefs;
-    private LocationList locations;
-    private tempUnits degrees;
+    ///// Attributes /////
+    private Preferences prefs; // user specific preferences
+    private LocationList locations; // list of locations
+    private tempUnits degrees; // preferred units
     private boolean[] viewObject;
 
     /**
-     * *
-     * @param locations
-     * @param degrees
+     * Specific Constructor
+     *
+     * @param locations  list of locations
+     * @param degrees    preferred unit of measure
      * @param viewObject
      */
     public Configuration(LocationList locations, tempUnits degrees, boolean[] viewObject)
@@ -31,8 +33,9 @@ public class Configuration
     }
 
     /**
-     * *
-     * @param locations
+     * General Constructor
+     *
+     * @param locations list of locations
      */
     public Configuration(LocationList locations)
     {
@@ -41,55 +44,10 @@ public class Configuration
     }
 
     /**
-     * *
-     * @return
+     * convert data into binary to save preferences
+     *
+     * @return whether saving has been successful
      */
-    public LocationList getLocations() {
-        return locations;
-    }
-
-    /**
-     * *
-     * @param locations
-     */
-    public void setLocations(LocationList locations) {
-        this.locations = locations;
-    }
-
-    /**
-     * *
-     * @return
-     */
-    public boolean[] getViewObject() {
-        return viewObject;
-    }
-
-    /**
-     * *
-     * @param viewObject
-     */
-    public void setViewObject(boolean[] viewObject) {
-        this.viewObject = viewObject;
-    }
-
-    /**
-     * *
-     * @return
-     */
-    public tempUnits getDegrees()
-    {
-        return degrees;
-    }
-
-    /**
-     * *
-     * @param degrees
-     */
-    public void setDegrees(tempUnits degrees)
-    {
-        this.degrees = degrees;
-    }
-
     public boolean save()
     {
         try
@@ -108,10 +66,15 @@ public class Configuration
         return true;
     }
 
+    /**
+     * method used to load data and preferences upon starting up the application
+     *
+     * @return whether loading was successful
+     */
     public boolean load()
     {
-        byte [] locationBytes = new byte[10];
-        byte [] viewableBytes = new byte[10];
+        byte[] locationBytes = new byte[10];
+        byte[] viewableBytes = new byte[10];
         String units = "";
 
         try
@@ -125,7 +88,7 @@ public class Configuration
 
         prefs.get("tempUnits", units);
 
-        switch(units)
+        switch (units)
         {
             case "IMPERIAL":
                 degrees = degrees.IMPERIAL;
@@ -141,6 +104,7 @@ public class Configuration
 
     /**
      * *
+     *
      * @return
      * @throws IOException
      */
@@ -159,6 +123,7 @@ public class Configuration
 
     /**
      * *
+     *
      * @param bytes
      * @return
      * @throws IOException
@@ -180,6 +145,7 @@ public class Configuration
 
     /**
      * *
+     *
      * @return
      */
     private byte[] viewableObjectsToByteArray()
@@ -190,6 +156,7 @@ public class Configuration
 
     /**
      * *
+     *
      * @param bytes
      * @return
      */
@@ -207,4 +174,38 @@ public class Configuration
 
         return bits;
     }
+
+    ///// Getters and Setters /////
+
+    public LocationList getLocations()
+    {
+        return locations;
+    }
+
+    public void setLocations(LocationList locations)
+    {
+        this.locations = locations;
+    }
+
+    public boolean[] getViewObject()
+    {
+        return viewObject;
+    }
+
+    public void setViewObject(boolean[] viewObject)
+    {
+        this.viewObject = viewObject;
+    }
+
+    public tempUnits getDegrees()
+    {
+        return degrees;
+    }
+
+    public void setDegrees(tempUnits degrees)
+    {
+        this.degrees = degrees;
+    }
+
+
 }//End of Configuration
