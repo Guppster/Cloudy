@@ -10,30 +10,40 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 /**
+ * Class obtains the JSONObjects from the website and store it into LongTermData
+ *
  * @author: Gurpreet
  */
-public class LongTermParser extends Parser 
+public class LongTermParser extends Parser
 {
-    private String locationName;
-    private LongTermData[] data;
-    private Configuration config;
+    ///// Attributes /////
+    private String locationName; // location
+    private LongTermData[] data; // an array of forecasts (each element represent the forecast for that day)
+    private Configuration config; // user preference
 
     /**
      * Constructor
+     *
      * @param locationName A formatted (city, province) string
      */
     public LongTermParser(String locationName)
     {
         this.locationName = locationName;
         config.load();
+
     }//End of constructor
 
+    /**
+     * use the preferred units to get specific versions of data in the given units and extract the JSONObject
+     *
+     * @return a LongTerm object
+     */
     @Override
     protected TermObject parse()
     {
         String url = "";
 
-        switch(config.getDegrees())
+        switch (config.getDegrees())
         {
             case IMPERIAL:
             {
@@ -69,13 +79,11 @@ public class LongTermParser extends Parser
                     if (!response.isSuccessful())
                     {
 
-                    }
-                    else
+                    } else
                     {
                         getArray(JSONData);
                     }
-                }
-                catch (IOException e)
+                } catch (IOException e)
                 {
                     System.out.println(e);
                 }
@@ -85,18 +93,29 @@ public class LongTermParser extends Parser
         return new LongTerm(data);
     }//End of parse method
 
+    /**
+     * Extracting groups of data from the JSONObject. (there are 5 sets of data -- forecasts for the next 5 days)
+     *
+     * @param jsonData
+     */
     private void getArray(String jsonData)
     {
         JSONObject forecast = new JSONObject(jsonData);
 
         JSONArray arr = forecast.getJSONArray("list");
-        
+
         for (int i = 0; i < arr.length(); i++)
         {
             data[i] = getDetails(arr.getJSONObject(i).toString());
         }
     }
 
+    /**
+     * * Extract Specific data from each group and storing to LongTermData
+     *
+     * @param rawJSONData
+     * @return LongTermData Object
+     */
     @Override
     protected LongTermData getDetails(String rawJSONData)
     {

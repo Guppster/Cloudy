@@ -10,30 +10,40 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 /**
+ * Class obtains the JSONObjects from the website and store it into ShortTermData
+ *
  * @author: Gurpreet
  */
 public class ShortTermParser extends Parser
 {
-    private String locationName;
-    private ShortTermData[] data;
-    private Configuration config;
+    ///// Attributes /////
+    private String locationName; //location
+    private ShortTermData[] data; // an array of forecasts (each element represent the forecast for that hour)
+    private Configuration config; //user preference
 
     /**
      * Constructor
+     *
      * @param locationName A formatted (city, province) string
      */
     public ShortTermParser(String locationName)
     {
         this.locationName = locationName;
         config.load();
+
     }//End of constructor
 
+    /**
+     * use the preferred units to get specific versions of data in the given units and extract the JSONObject
+     *
+     * @return a ShortTerm object
+     */
     @Override
     protected TermObject parse()
     {
         String url = "";
-        
-        switch(config.getDegrees())
+
+        switch (config.getDegrees())
         {
             case IMPERIAL:
             {
@@ -45,7 +55,7 @@ public class ShortTermParser extends Parser
                 url = baseURL + shortModifier + locationName + metricModifier;
             }
         }
-        
+
         Request request = new Request.Builder().url(url).build();
 
         Call call = client.newCall(request);
@@ -69,13 +79,11 @@ public class ShortTermParser extends Parser
                     if (!response.isSuccessful())
                     {
 
-                    }
-                    else
+                    } else
                     {
                         getArray(JSONData);
                     }
-                }
-                catch (IOException e)
+                } catch (IOException e)
                 {
                     System.out.println(e);
                 }
@@ -83,8 +91,14 @@ public class ShortTermParser extends Parser
         });
 
         return new ShortTerm(data);
+
     }//End of parse method
 
+    /**
+     * Extracting groups of data from the JSONObject. (there are 8 sets of data -- 3 hour forecasts for 24 hours)
+     *
+     * @param jsonData
+     */
     private void getArray(String jsonData)
     {
         JSONObject forecast = new JSONObject(jsonData);
@@ -97,6 +111,12 @@ public class ShortTermParser extends Parser
         }
     }
 
+    /**
+     * Extract Specific data from each group and storing to ShortTermData
+     *
+     * @param rawJSONData
+     * @return ShortTermData object
+     */
     @Override
     protected ShortTermData getDetails(String rawJSONData)
     {
@@ -107,7 +127,7 @@ public class ShortTermParser extends Parser
         JSONObject clouds = forecast.getJSONObject("clouds");
         JSONObject wind = forecast.getJSONObject("wind");
         JSONObject snow = forecast.getJSONObject("snow");
-        
+
 
         return new ShortTermData(
                 forecast.getString("dt_txt"),

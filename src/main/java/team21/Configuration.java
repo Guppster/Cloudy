@@ -9,17 +9,19 @@ import java.util.prefs.Preferences;
 /**
  * @author: Gurpreet
  */
-public class Configuration 
+public class Configuration
 {
-    private Preferences prefs;
-    private LocationList locations;
-    private tempUnits degrees;
+    ///// Attributes /////
+    private Preferences prefs; // user specific preferences
+    private LocationList locations; // list of locations
+    private tempUnits degrees; // preferred units
     private boolean[] viewObject;
 
     /**
-     * * 
-     * @param locations
-     * @param degrees
+     * Specific Constructor
+     *
+     * @param locations  list of locations
+     * @param degrees    preferred unit of measure
      * @param viewObject
      */
     public Configuration(LocationList locations, tempUnits degrees, boolean[] viewObject)
@@ -31,8 +33,9 @@ public class Configuration
     }
 
     /**
-     * * 
-     * @param locations
+     * General Constructor
+     *
+     * @param locations list of locations
      */
     public Configuration(LocationList locations)
     {
@@ -41,55 +44,10 @@ public class Configuration
     }
 
     /**
-     * * 
-     * @return
+     * convert data into binary to save preferences
+     *
+     * @return whether saving has been successful
      */
-    public LocationList getLocations() {
-        return locations;
-    }
-
-    /**
-     * * 
-     * @param locations
-     */
-    public void setLocations(LocationList locations) {
-        this.locations = locations;
-    }
-
-    /**
-     * * 
-     * @return
-     */
-    public boolean[] getViewObject() {
-        return viewObject;
-    }
-
-    /**
-     * *
-     * @param viewObject
-     */
-    public void setViewObject(boolean[] viewObject) {
-        this.viewObject = viewObject;
-    }
-
-    /**
-     * * 
-     * @return
-     */
-    public tempUnits getDegrees()
-    {
-        return degrees;
-    }
-
-    /**
-     * *
-     * @param degrees
-     */
-    public void setDegrees(tempUnits degrees)
-    {
-        this.degrees = degrees;
-    }
-    
     public boolean save()
     {
         try
@@ -102,16 +60,21 @@ public class Configuration
         }
 
         prefs.put("tempUnits", degrees.name());
-        
+
         prefs.putByteArray("viewableObjects", viewableObjectsToByteArray());
-        
+
         return true;
     }
-    
+
+    /**
+     * method used to load data and preferences upon starting up the application
+     *
+     * @return whether loading was successful
+     */
     public boolean load()
     {
-        byte [] locationBytes = new byte[10];
-        byte [] viewableBytes = new byte[10];
+        byte[] locationBytes = new byte[10];
+        byte[] viewableBytes = new byte[10];
         String units = "";
 
         try
@@ -125,7 +88,7 @@ public class Configuration
 
         prefs.get("tempUnits", units);
 
-        switch(units)
+        switch (units)
         {
             case "IMPERIAL":
                 degrees = degrees.IMPERIAL;
@@ -135,12 +98,13 @@ public class Configuration
         }
 
         viewObject = byteArrayToBoolean(prefs.getByteArray("viewableObjects", viewableBytes));
-        
+
         return true;
     }
 
     /**
-     * * 
+     * *
+     *
      * @return
      * @throws IOException
      */
@@ -148,17 +112,18 @@ public class Configuration
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(baos);
-        
-        for (Location element : locations.getLocationList()) 
+
+        for (Location element : locations.getLocationList())
         {
             out.writeUTF(element.getName());
         }
-        
+
         return baos.toByteArray();
     }
 
     /**
-     * * 
+     * *
+     *
      * @param bytes
      * @return
      * @throws IOException
@@ -166,20 +131,21 @@ public class Configuration
     private ArrayList<Location> byteArrayToLocations(byte[] bytes) throws IOException
     {
         ArrayList<Location> arr = new ArrayList<Location>();
-        
+
         ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
         DataInputStream in = new DataInputStream(bais);
-        
+
         while (in.available() > 0)
         {
             arr.add(new Location(in.readUTF()));
         }
-        
+
         return arr;
     }
 
     /**
-     * * 
+     * *
+     *
      * @return
      */
     private byte[] viewableObjectsToByteArray()
@@ -190,21 +156,56 @@ public class Configuration
 
     /**
      * *
+     *
      * @param bytes
      * @return
      */
     private boolean[] byteArrayToBoolean(byte[] bytes)
     {
         boolean[] bits = new boolean[bytes.length * 8];
-        
-        for (int i = 0; i < bytes.length * 8; i++) 
+
+        for (int i = 0; i < bytes.length * 8; i++)
         {
             if ((bytes[i / 8] & (1 << (7 - (i % 8)))) > 0)
             {
                 bits[i] = true;
             }
         }
-        
+
         return bits;
     }
+
+    ///// Getters and Setters /////
+
+    public LocationList getLocations()
+    {
+        return locations;
+    }
+
+    public void setLocations(LocationList locations)
+    {
+        this.locations = locations;
+    }
+
+    public boolean[] getViewObject()
+    {
+        return viewObject;
+    }
+
+    public void setViewObject(boolean[] viewObject)
+    {
+        this.viewObject = viewObject;
+    }
+
+    public tempUnits getDegrees()
+    {
+        return degrees;
+    }
+
+    public void setDegrees(tempUnits degrees)
+    {
+        this.degrees = degrees;
+    }
+
+
 }//End of Configuration

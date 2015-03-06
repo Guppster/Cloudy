@@ -1,17 +1,22 @@
 package team21;
 
 /**
+ * Class extending TermObject to store an array of 8 ShortTermData (weather data for every 3 hours for 24 hours = 8 Data object)
+ *
  * @author: Gurpreet
  */
 public class ShortTerm extends TermObject
 {
+    ///// Attribute //////
     private ShortTermData[] Sdata;
-    
+
+    ///// Constructor /////
     public ShortTerm(ShortTermData[] Sdata)
     {
         super(8);
         this.Sdata = Sdata;
         parseTermData();
+
     }//End of constructor
 
     protected void parseTermData()

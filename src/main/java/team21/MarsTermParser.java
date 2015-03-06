@@ -9,19 +9,22 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 /**
+ * Class obtains the JSONObjects from the website and store it into MarsData
+ *
  * @author: Gurpreet
  */
 public class MarsTermParser extends Parser
 {
+    ///// Attributes /////
     private String locationName;
     private MarsData[] data;
     private Configuration config;
 
     /**
-     * *
-     * @param locationName
+     * Constructor
+     *
+     * @param locationName A formatted (city, province) string
      */
-    //Constructor
     public MarsTermParser(String locationName)
     {
         this.locationName = locationName;
@@ -29,8 +32,9 @@ public class MarsTermParser extends Parser
     }//End of constructor
 
     /**
-     * * 
-     * @return
+     * use the preferred units to get specific versions of data in the given units and extract the JSONObject
+     *
+     * @return MarsTerm object
      */
     @Override
     protected TermObject parse()
@@ -58,13 +62,11 @@ public class MarsTermParser extends Parser
                     if (!response.isSuccessful())
                     {
 
-                    }
-                    else
+                    } else
                     {
                         data[0] = getDetails(JSONData);
                     }
-                }
-                catch (IOException e)
+                } catch (IOException e)
                 {
                     System.out.println(e);
                 }
@@ -75,9 +77,10 @@ public class MarsTermParser extends Parser
     }
 
     /**
-     * * 
+     * Extract Specific data from each group and storing to MarsData
+     *
      * @param rawJSONData
-     * @return
+     * @return MarsData object
      */
     @Override
     protected MarsData getDetails(String rawJSONData)
@@ -98,7 +101,9 @@ public class MarsTermParser extends Parser
     }//End of getDetails method
 
     /**
-     * * 
+     * use the preferred units to get specific versions of JSON Object
+     * and return the correct min and max values
+     *
      * @param report
      * @param temp
      * @param minOrMax
@@ -107,8 +112,8 @@ public class MarsTermParser extends Parser
     private double getConvertedTemp(JSONObject report, double temp, boolean minOrMax)
     {
         tempUnits units = config.getDegrees();
-        
-        switch(units)
+
+        switch (units)
         {
             case IMPERIAL:
                 return minOrMax ? report.getDouble("min_temp_fahrenheit") : report.getDouble("max_temp_fahrenheit");
