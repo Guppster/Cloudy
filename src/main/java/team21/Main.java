@@ -44,18 +44,4 @@ public class Main
             netController.fetch();
         }
     }
-
-    ///// Getter /////
-
-    public LocationList getLocations()
-    {
-        return locations;
-    }
-
-    public Configuration getConfig()
-    {
-        return config;
-    }
-
-
 }//End of main class
