@@ -11,8 +11,6 @@ public class TempValues
     public void main(String[] args)
     {
         Main app = new Main();
-        LocationList locations = app.getLocations();
-        Configuration config = app.getConfig();
         Scanner read = new Scanner(System.in);
 
         //search location (user input)
@@ -23,7 +21,7 @@ public class TempValues
         String officalName; ///NEED HELP?
 
         //Access Current Data (as long as you have the "official" name of the location)
-        Location local = locations.searchList(officalName);
+        Location local = app.locations.searchList(officalName);
         if (local != null)
         {
             //convert data to usable form (icon and description is already string, so extraction is all that's needed)
