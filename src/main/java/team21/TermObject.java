@@ -20,6 +20,8 @@ public abstract class TermObject
 
     }//End of constructor
 
+    protected abstract BaseData[] getData();
+
 
     /**
      * Fill in data field with a specific type of BaseData,

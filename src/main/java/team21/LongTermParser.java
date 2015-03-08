@@ -57,7 +57,6 @@ public class LongTermParser extends Parser
             }
         }
 
-        System.out.println(url);
 
         Request request = new Request.Builder().url(url).build();
 

@@ -8,7 +8,7 @@ package team21;
 public class CurrentTerm extends TermObject
 {
     /****Fields****/
-    private CurrentTermData[] Cdata;
+    protected CurrentTermData[] Cdata;
 
     /**
      * @param Cdata
@@ -19,6 +19,15 @@ public class CurrentTerm extends TermObject
         this.Cdata = Cdata;
         parseTermData();
     }//End of constructor
+
+    /**
+     *
+     * @return
+     */
+    public BaseData[] getData()
+    {
+        return Cdata;
+    }
 
     protected void parseTermData()
     {

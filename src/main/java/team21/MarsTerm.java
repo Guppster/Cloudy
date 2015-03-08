@@ -21,6 +21,15 @@ public class MarsTerm extends TermObject
     }
 
     /**
+     *
+     * @return
+     */
+    public BaseData[] getData()
+    {
+        return Mdata;
+    }
+
+    /**
      * set temperature data for Mars
      */
     @Override

@@ -21,6 +21,16 @@ public class LongTerm extends TermObject
 
     }//End of constructor
 
+
+    /**
+     *
+     * @return
+     */
+    public BaseData[] getData()
+    {
+        return Ldata;
+    }
+
     /**
      * set the data of long term
      */

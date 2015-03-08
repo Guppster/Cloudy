@@ -59,7 +59,7 @@ public class NetworkController
         
         term = parser.parse();
 
-        location.setCurrentTerm(term);
+        location.setLongTerm(term);
     }//End of fetchLong method
 
     /**
@@ -71,7 +71,7 @@ public class NetworkController
 
         term = parser.parse();
 
-        location.setCurrentTerm(term);
+        location.setShortTerm(term);
     }//End of fetchShort method
 
     /**

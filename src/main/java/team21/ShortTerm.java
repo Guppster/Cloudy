@@ -22,7 +22,16 @@ public class ShortTerm extends TermObject
     }//End of constructor
 
     /**
-     * set shortterm data
+     *
+     * @return
+     */
+    public BaseData[] getData()
+    {
+        return Sdata;
+    }
+
+    /**
+     * set short term data
      */
     protected void parseTermData()
     {
