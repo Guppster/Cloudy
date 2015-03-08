@@ -116,8 +116,8 @@ public class Configuration
 
     /**
      * *
-     *
-     * @return
+     * store the locations information into byteArray
+     * @return the byteArray
      * @throws IOException
      */
     private byte[] locationsToByteArray() throws IOException
@@ -135,9 +135,9 @@ public class Configuration
 
     /**
      * *
-     *
+     * convert those bytes in byteArray to locations and store them in a new array
      * @param bytes
-     * @return
+     * @return new array with the locations
      * @throws IOException
      */
     private ArrayList<Location> byteArrayToLocations(byte[] bytes) throws IOException
@@ -157,7 +157,7 @@ public class Configuration
 
     /**
      * *
-     *
+     * create new BitArray for viewable objects
      * @return
      */
     private byte[] viewableObjectsToByteArray()
@@ -189,31 +189,37 @@ public class Configuration
 
     ///// Getters and Setters /////
 
+    ////get locations from location list////
     public LocationList getLocations()
     {
         return locations;
     }
 
+    ////set locations in location list////
     public void setLocations(LocationList locations)
     {
         this.locations = locations;
     }
 
+    ////get viewable object(as boolean)////
     public boolean[] getViewObject()
     {
         return viewObject;
     }
 
+    ////set viewable objects(as boolean)////
     public void setViewObject(boolean[] viewObject)
     {
         this.viewObject = viewObject;
     }
 
+    ////get the degrees with proper units////
     public tempUnits getDegrees()
     {
         return degrees;
     }
 
+    ////set degrees with proper units////
     public void setDegrees(tempUnits degrees)
     {
         this.degrees = degrees;

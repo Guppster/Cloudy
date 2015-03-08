@@ -19,15 +19,15 @@ public class SetInitialLocationDialog extends JDialog {
 
 		setTitle("Set Initial Location");
 
-		JLabel label = new JLabel("Enter a Location!");
-		label.setForeground(Color.WHITE);
+		JLabel label = new JLabel("Enter a Location!");            //////let user to enter the location name
+		label.setForeground(Color.WHITE);                          //////set foreground color to white
 		label.setFont(new Font(label.getFont().getFontName(), Font.PLAIN, 20));
 
 		JPanel panel = new JPanel(new GridBagLayout());
-		panel.setBackground(new Color(0xAA05579));
+		panel.setBackground(new Color(0xAA05579));                 //////set background color to the new defined color
 		panel.setLayout(new GridBagLayout());
 		panel.add(label);
-		panel.setPreferredSize(new Dimension(400, 300));
+		panel.setPreferredSize(new Dimension(400, 300));           /////set the size of the new label
 
 		panel.setFocusable(true);
 		panel.requestFocusInWindow();
