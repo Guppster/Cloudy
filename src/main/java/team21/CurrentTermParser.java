@@ -30,6 +30,7 @@ public class CurrentTermParser extends Parser
         this.locationName = locationName;
         config = new Configuration();
         config.load();
+        data = new CurrentTermData[1];
     }//End of constructor
 
     /**
@@ -77,7 +78,7 @@ public class CurrentTermParser extends Parser
 
                     if (!response.isSuccessful())
                     {
-
+                        System.out.println("ERROR: REQUEST UNSUCCESSFUL!");
                     } else
                     {
                         data[0] = getDetails(JSONData);
@@ -107,10 +108,11 @@ public class CurrentTermParser extends Parser
         JSONObject weather = forecast.getJSONArray("weather").getJSONObject(0);
         JSONObject main = forecast.getJSONObject("main");
         JSONObject wind = forecast.getJSONObject("wind");
-        JSONObject rain = forecast.getJSONObject("rain");
+        //JSONObject rain = forecast.getJSONObject("rain");
 
         return new CurrentTermData(
-                rain.getInt("3h"),
+                //rain.getInt("3h"),
+                3,
                 sys.getInt("sunrise"),
                 sys.getInt("sunset"),
                 main.getDouble("temp"),

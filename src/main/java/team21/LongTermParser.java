@@ -29,8 +29,9 @@ public class LongTermParser extends Parser
     public LongTermParser(String locationName)
     {
         this.locationName = locationName;
+        config = new Configuration();
         config.load();
-
+        data = new LongTermData[5];
     }//End of constructor
 
     /**
@@ -55,6 +56,8 @@ public class LongTermParser extends Parser
                 url = baseURL + longModifier + locationName + metricModifier;
             }
         }
+
+        System.out.println(url);
 
         Request request = new Request.Builder().url(url).build();
 
@@ -104,7 +107,7 @@ public class LongTermParser extends Parser
 
         JSONArray arr = forecast.getJSONArray("list");
 
-        for (int i = 0; i < arr.length(); i++)
+        for (int i = 0; i < 4; i++)
         {
             data[i] = getDetails(arr.getJSONObject(i).toString());
         }

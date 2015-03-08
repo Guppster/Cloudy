@@ -29,8 +29,9 @@ public class ShortTermParser extends Parser
     public ShortTermParser(String locationName)
     {
         this.locationName = locationName;
+        config = new Configuration();
         config.load();
-
+        data = new ShortTermData[7];
     }//End of constructor
 
     /**
@@ -78,8 +79,9 @@ public class ShortTermParser extends Parser
 
                     if (!response.isSuccessful())
                     {
-
-                    } else
+                        System.out.println("ERROR: REQUEST UNSUCCESSFUL!");
+                    }
+                    else
                     {
                         getArray(JSONData);
                     }
@@ -91,7 +93,6 @@ public class ShortTermParser extends Parser
         });
 
         return new ShortTerm(data);
-
     }//End of parse method
 
     /**
@@ -105,7 +106,7 @@ public class ShortTermParser extends Parser
 
         JSONArray arr = forecast.getJSONArray("list");
 
-        for (int i = 0; i < arr.length(); i++)
+        for (int i = 0; i < 7; i++)
         {
             data[i] = getDetails(arr.getJSONObject(i).toString());
         }
@@ -126,7 +127,7 @@ public class ShortTermParser extends Parser
         JSONObject main = forecast.getJSONObject("main");
         JSONObject clouds = forecast.getJSONObject("clouds");
         JSONObject wind = forecast.getJSONObject("wind");
-        JSONObject snow = forecast.getJSONObject("snow");
+        //JSONObject snow = forecast.getJSONObject("snow");
 
 
         return new ShortTermData(

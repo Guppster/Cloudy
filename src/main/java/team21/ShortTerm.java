@@ -15,7 +15,7 @@ public class ShortTerm extends TermObject
      */
     public ShortTerm(ShortTermData[] Sdata)
     {
-        super(8);
+        super(7);
         this.Sdata = Sdata;
         parseTermData();
 
@@ -31,7 +31,4 @@ public class ShortTerm extends TermObject
             data[i] = Sdata[i];
         }
     }
-    /**
-     * store short term data in an Array
-     */
 }//End of ShortTerm Class

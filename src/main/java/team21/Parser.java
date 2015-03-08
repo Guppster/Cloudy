@@ -17,7 +17,7 @@ public abstract class Parser
     protected final String baseURL = "http://api.openweathermap.org/data/2.5/";
     protected final String currentModifier = "weather?q=";
     protected final String shortModifier = "forecast?q=";
-    protected final String longModifier = "daily?q=";
+    protected final String longModifier = "forecast/daily?q=";
     protected final String imperialModifier = "&units=imperial";
     protected final String metricModifier = "&units=metric";
 

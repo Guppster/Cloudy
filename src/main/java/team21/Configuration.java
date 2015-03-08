@@ -28,7 +28,6 @@ public class Configuration
     public Configuration(LocationList locations, tempUnits degrees, boolean[] viewObject)
     {
         prefs = Preferences.userRoot().node(this.getClass().getName());
-        sysprefs = Preferences.systemRoot().node(this.getClass().getName());
         this.locations = locations;
         this.degrees = degrees;
         this.viewObject = viewObject;
@@ -40,7 +39,6 @@ public class Configuration
     public Configuration()
     {
         prefs = Preferences.userRoot().node(this.getClass().getName());
-        sysprefs = Preferences.systemRoot().node(this.getClass().getName());
     }
 
     /**
