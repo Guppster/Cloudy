@@ -62,7 +62,8 @@ public class Main
     static JLabel lblHigh;
     static JLabel lblLow;
 
-    private static JFrame frame;
+    private static JFrame frameLocations;
+    private static JFrame frameForecast;
 
     /**
      * *

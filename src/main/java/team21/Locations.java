@@ -1,18 +1,22 @@
 package team21;
 
-import java.awt.Dimension;
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.*;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
 
 
 public class Locations {
 
     private JFrame frame;
-    private final String emptySpace = "                                                                                               ";
+    private JPanel locationsPanel;
+    private Dimension buttonSize;
+    private static HashMap<String, JButton> dynamicButtons;
+    private final String emptySpace = "                                                                                                  ";
+    boolean delete = false;
 
     /**
      * Launch the application.
@@ -33,6 +37,8 @@ public class Locations {
                     Locations window = new Locations();
 
                     window.frame.setVisible(true);
+
+                    dynamicButtons = new HashMap<String, JButton>();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -66,10 +72,18 @@ public class Locations {
         btnAdd.setBounds(95, 20, 85, 23);
         panel.add(btnAdd);
 
-        JButton btnDelete = new JButton("Delete");
+        final JButton btnDelete = new JButton("Delete");
         btnDelete.setBounds(275, 20, 85, 23);
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if(delete)
+                {
+                    delete = false;
+                }
+                else
+                {
+                    delete = true;
+                }
             }
         });
         panel.add(btnDelete);
@@ -78,36 +92,67 @@ public class Locations {
         btnMultiview.setBounds(455, 20, 85, 23);
         panel.add(btnMultiview);
 
-        final JPanel panel_1 = new JPanel();
-        panel_1.setBounds(0, 54, 636, 382);
-        panel.add(panel_1);
-        panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+        locationsPanel = new JPanel();
+        locationsPanel.setBounds(0, 54, 636, 382);
+        panel.add(locationsPanel);
+        locationsPanel.setLayout(new BoxLayout(locationsPanel, BoxLayout.Y_AXIS));
 
         JButton buttonMars = new JButton(emptySpace + "Mars" + emptySpace + " ");
-        panel_1.add(buttonMars);
+        locationsPanel.add(buttonMars);
 
-        final Dimension d = buttonMars.getMaximumSize();
+        buttonSize = buttonMars.getMaximumSize();
 
         Box.createVerticalStrut(10);
 
         String name = JOptionPane.showInputDialog(this, "Please enter an initial Location");
 
         JButton buttonInitial = new JButton(name);
-        buttonInitial.setMaximumSize(d);
-        panel_1.add(buttonInitial);
+        buttonInitial.setMaximumSize(buttonSize);
+        locationsPanel.add(buttonInitial);
 
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                String tempName = JOptionPane.showInputDialog(this, "Please enter a Location Name");
 
-                JButton buttonTemp = new JButton(tempName);
-                buttonTemp.setMaximumSize(d);
-                panel_1.add(buttonTemp);
-                Box.createVerticalStrut(10);
-
-                panel_1.revalidate();
-                panel_1.validate();
+                addButton();
+                locationsPanel.revalidate();
+                locationsPanel.validate();
             }
         });
+    }
+
+    public void addButton()
+    {
+        final String tempName = JOptionPane.showInputDialog(this, "Please enter a Location Name");
+
+        JButton buttonTemp = new JButton(tempName);
+        buttonTemp.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if(delete)
+                {
+                    removeButton(tempName);
+                    System.out.println("Removing " + tempName);
+                }
+                else
+                {
+                    System.out.println("Clicked " + tempName);
+                }
+            }
+        });
+        buttonTemp.setMaximumSize(buttonSize);
+        locationsPanel.add(buttonTemp);
+        dynamicButtons.put(tempName, buttonTemp);
+        Box.createVerticalStrut(10);
+    }
+
+
+    public void removeButton(String name)
+    {
+        JButton b = dynamicButtons.remove(name);
+        locationsPanel.remove(b);
+        locationsPanel.validate();
+        delete = false;
     }
 }
