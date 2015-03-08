@@ -11,7 +11,6 @@ public class ShortTerm extends TermObject
     private ShortTermData[] Sdata;
 
     /**
-     *
      * @param Sdata
      */
     public ShortTerm(ShortTermData[] Sdata)
@@ -23,7 +22,7 @@ public class ShortTerm extends TermObject
     }//End of constructor
 
     /**
-     *
+     * set shortterm data
      */
     protected void parseTermData()
     {
@@ -32,4 +31,7 @@ public class ShortTerm extends TermObject
             data[i] = Sdata[i];
         }
     }
+    /**
+     * store short term data in an Array
+     */
 }//End of ShortTerm Class

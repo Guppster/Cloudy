@@ -11,7 +11,6 @@ public class MarsTerm extends TermObject
     private MarsData[] Mdata;
 
     /**
-     *
      * @param Mdata
      */
     public MarsTerm(MarsData [] Mdata)
@@ -22,7 +21,7 @@ public class MarsTerm extends TermObject
     }
 
     /**
-     *
+     * set temperature data for Mars
      */
     @Override
     protected void parseTermData()
@@ -32,4 +31,7 @@ public class MarsTerm extends TermObject
             data[i] = Mdata[i];
         }
     }
+    /**
+     * store the data in an an Array
+     */
 }

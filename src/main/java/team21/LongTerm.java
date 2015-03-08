@@ -9,11 +9,10 @@ public class LongTerm extends TermObject
 {
     /**** Fields ****/
     private LongTermData[] Ldata;
-
     /**
-     *
      * @param Ldata
      */
+
     public LongTerm(LongTermData[] Ldata)
     {
         super(5);
@@ -23,7 +22,7 @@ public class LongTerm extends TermObject
     }//End of constructor
 
     /**
-     *
+     * set the data of long term
      */
     protected void parseTermData()
     {
@@ -32,4 +31,7 @@ public class LongTerm extends TermObject
             data[i] = Ldata[i];
         }
     }
+    /**
+     * save all data information in an array
+     */
 }
