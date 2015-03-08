@@ -14,5 +14,13 @@
     <orderEntry type="library" name="Maven: org.json:json:20141113" level="project" />
     <orderEntry type="library" name="Maven: com.aurelienribon:team21:1.0" level="project" />
     <orderEntry type="library" name="Maven: com.aurelienribon:team21-sources:1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.insubstantial:substance:6.2" level="project" />
+    <orderEntry type="library" name="Maven: com.github.insubstantial:laf-plugin:6.2" level="project" />
+    <orderEntry type="library" name="Maven: com.github.insubstantial:trident:6.2" level="project" />
+    <orderEntry type="library" name="Maven: net.jcip:jcip-annotations:1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.insubstantial:laf-widget:6.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.ant:ant:1.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.ant:ant-launcher:1.7.0" level="project" />
+    <orderEntry type="library" name="Maven: asm:asm-all:2.2.3" level="project" />
   </component>
 </module>

@@ -7,9 +7,7 @@ package team21;
  */
 public class CurrentTerm extends TermObject
 {
-    /**
-     * *Fields***
-     */
+    /****Fields****/
     private CurrentTermData[] Cdata;
 
     /**
