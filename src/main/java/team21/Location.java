@@ -11,6 +11,7 @@ public class Location
     private TermObject shortTerm; //collection of data for short term forecast at the location specified by name
     private TermObject longTerm; //collection of data for long term forecast at the location specified by name
     private TermObject currentTerm; //collection of data for current forecast at the location specified by name
+    private boolean nameFlag;
 
     /**
      * Specific Constructor initialize all attributes
@@ -23,6 +24,7 @@ public class Location
     public Location(String name, TermObject shortTerm, TermObject longTerm, TermObject currentTerm)
     {
         this.name = name;
+        nameFlag = false;
         this.shortTerm = shortTerm;
         this.longTerm = longTerm;
         this.currentTerm = currentTerm;

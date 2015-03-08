@@ -51,7 +51,7 @@ public class Configuration
         prefs = Preferences.userRoot().node(this.getClass().getName());
         this.locations = locations;
         viewObject = new boolean[10]; //Assuming there are 10 viewable objects
-        degrees = tempUnits.IMPERIAL;
+        degrees = tempUnits.METRIC;
     }
 
     private void restore()

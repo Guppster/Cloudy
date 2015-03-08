@@ -110,6 +110,8 @@ public class CurrentTermParser extends Parser
         JSONObject wind = forecast.getJSONObject("wind");
         //JSONObject rain = forecast.getJSONObject("rain");
 
+        locationName = forecast.getString("name") + sys.getString("country");
+
         return new CurrentTermData(
                 //rain.getInt("3h"),
                 3,

@@ -9,10 +9,10 @@ public class LongTerm extends TermObject
 {
     /**** Fields ****/
     private LongTermData[] Ldata;
+
     /**
      * @param Ldata
      */
-
     public LongTerm(LongTermData[] Ldata)
     {
         super(4);
