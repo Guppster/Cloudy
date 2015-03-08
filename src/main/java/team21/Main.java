@@ -266,11 +266,16 @@ public class Main
             {
                 if(delete)
                 {
-                    System.out.println("Removing: " + tempRegion.getName());
+                    removeButton(tempRegion.getName());
+                    System.out.println("Removing " + tempRegion.getName());
                 }
                 else
                 {
-                    System.out.println("Clicked: " + tempRegion.getName());
+                    System.out.println("Clicked " + tempRegion.getName());
+                    currentLocation = locations.searchList(tempRegion.getName());
+                    frameLocations.setVisible(false);
+                    initializeForecast();
+                    frameForecast.setVisible(true);
                 }
             }
         });
@@ -330,6 +335,26 @@ public class Main
             lblLow = new JLabel(Double.toString(currentLocation.getCurrentTerm().getData()[0].getTempMin()));
             lblLow.setBounds(501, 104, 46, 14);
             frameForecast.getContentPane().add(lblLow);
+
+            JLabel lblHumidityValue = new JLabel(Double.toString(currentLocation.getCurrentTerm().getData()[0].getTemp()));
+            lblHumidityValue.setBounds(80, 129, 46, 14);
+            frameForecast.getContentPane().add(lblHumidityValue);
+
+            JLabel lblWindSpeedValue = new JLabel(Double.toString(currentLocation.getCurrentTerm().getData()[0].getWindSpeed()));
+            lblWindSpeedValue.setBounds(80, 146, 46, 14);
+            frameForecast.getContentPane().add(lblWindSpeedValue);
+
+            JLabel lblPressureValue = new JLabel(Double.toString(currentLocation.getCurrentTerm().getData()[0].getPressure()));
+            lblPressureValue.setBounds(80, 166, 46, 14);
+            frameForecast.getContentPane().add(lblPressureValue);
+
+            JLabel lblSunriseValue = new JLabel(Double.toString(currentLocation.getCurrentTerm().getData()[0].getWindSpeed()));
+            lblSunriseValue.setBounds(198, 146, 46, 14);
+            frameForecast.getContentPane().add(lblSunriseValue);
+
+            JLabel lblSunsetValue = new JLabel(Double.toString(currentLocation.getCurrentTerm().getData()[0].getPressure()));
+            lblSunsetValue.setBounds(198, 165, 46, 14);
+            frameForecast.getContentPane().add(lblSunsetValue);
 
             JSeparator separator_1 = new JSeparator();
             separator_1.setBounds(0, 187, 626, 50);
