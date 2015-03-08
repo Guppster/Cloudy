@@ -3,17 +3,16 @@ package team21;
 import java.util.ArrayList;
 
 /**
- * Class
+ * Class storing a list of locations.
  *
  * @author: Gurpreet
  */
 public class LocationList
 {
-    /**** Fields ****/
     private ArrayList<Location> regions; // a list of locations
 
     /**
-     * General Constructor
+     * General Constructor initialize regions with an empty {@ArrayList}
      */
     public LocationList()
     {
@@ -21,9 +20,9 @@ public class LocationList
     }//End of general constructor
 
     /**
-     * Specific Constructor
+     * Specific Constructor initialize regions with argument passed
      *
-     * @param regions the list of locations
+     * @param regions a list of locations
      */
     public LocationList(ArrayList<Location> regions)
     {
@@ -34,7 +33,7 @@ public class LocationList
      * Search for a specific location in a list. It returns a Location object or null (if the location is not in the list)
      *
      * @param name the location as a string
-     * @return default Location object (London)
+     * @return Location  object that contains data for the passed name or <code>null</code>  if the location is not in the list
      */
     public Location searchList(String name)
     {
@@ -56,18 +55,31 @@ public class LocationList
     }
 
     /**
+     * Check if the location exist in the list. It's similar to search list, except it passes a Location argument and returns a boolean value.
+     *
      * @param location
      * @return
      */
     public boolean isLocationInList(Location location)
     {
-        return true;
+        if (!regions.isEmpty())
+        {
+            //if the list is not empty, illiterate to see if location exist
+            for (int i = 0; i < regions.size(); i++)
+            {
+                if (regions.get(i).equals(location))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
      * Add a location to the list
      *
-     * @param location
+     * @param location the location being added
      */
     public void addRegion(Location location)
     {
@@ -77,7 +89,7 @@ public class LocationList
     /**
      * Remove a location from the list
      *
-     * @param location
+     * @param location the
      */
     public void deleteRegion(Location location)
     {
@@ -95,9 +107,9 @@ public class LocationList
     }
 
     /**
-     * Get the list
+     * Extract the entire list of locations
      *
-     * @return the entire ArrayList
+     * @return the ArrayList of locations
      */
     public ArrayList<Location> getLocationList()
     {
@@ -105,9 +117,9 @@ public class LocationList
     }
 
     /**
-     * Set the entire list
+     * Update the entire list of locations
      *
-     * @param regions
+     * @param regions a new list of locations
      */
     public void setLocationList(ArrayList<Location> regions)
     {
