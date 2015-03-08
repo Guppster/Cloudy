@@ -1,12 +1,14 @@
 package team21;
 
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-
 import java.awt.*;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.EtchedBorder;
 
 
 public class tempGUI
@@ -51,7 +53,7 @@ public class tempGUI
      */
     private void initialize() {
         frame = new JFrame();
-        frame.setBounds(100, 100, 585, 477);
+        frame.setBounds(100, 100, 642, 475);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
@@ -65,145 +67,260 @@ public class tempGUI
 
         JLabel lblLocation = new JLabel(" London, Ontario");
         lblLocation.setFont(new Font("Century Gothic", Font.PLAIN, 21));
-        lblLocation.setBounds(85, 35, 231, 50);
+        lblLocation.setBounds(62, 5, 231, 50);
         frame.getContentPane().add(lblLocation);
 
         JSlider sliderShortTerm = new JSlider();
         sliderShortTerm.setPaintLabels(true);
-        sliderShortTerm.setBounds(0, 211, 579, 26);
+        sliderShortTerm.setBounds(0, 211, 626, 26);
         frame.getContentPane().add(sliderShortTerm);
 
-        JLabel label = new JLabel("-17");
-        label.setFont(new Font("Century Gothic", Font.PLAIN, 43));
-        label.setBounds(298, 35, 114, 81);
-        frame.getContentPane().add(label);
+        JLabel lblTemp = new JLabel("-17\u00B0");
+        lblTemp.setFont(new Font("Century Gothic", Font.PLAIN, 43));
+        lblTemp.setBounds(447, 33, 114, 81);
+        frame.getContentPane().add(lblTemp);
 
         JLabel lblHigh = new JLabel("10");
-        lblHigh.setBounds(308, 127, 46, 14);
+        lblHigh.setBounds(443, 104, 46, 14);
         frame.getContentPane().add(lblHigh);
 
         JLabel lblLow = new JLabel("-19");
-        lblLow.setBounds(366, 127, 46, 14);
+        lblLow.setBounds(501, 104, 46, 14);
         frame.getContentPane().add(lblLow);
 
         JSeparator separator_1 = new JSeparator();
-        separator_1.setBounds(0, 187, 579, 50);
+        separator_1.setBounds(0, 187, 626, 50);
         frame.getContentPane().add(separator_1);
 
         JPanel panel = new JPanel();
 
-        panel.setBounds(0, 269, 569, 169);
+        panel.setBounds(0, 269, 626, 169);
         frame.getContentPane().add(panel);
         panel.setLayout(null);
 
         JPanel panel_10 = new JPanel();
-        panel_10.setBounds(451, 11, 96, 147);
+        panel_10.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        panel_10.setBounds(502, 0, 111, 147);
         panel.add(panel_10);
         panel_10.setLayout(null);
 
         JLabel lblFriday = new JLabel("Friday");
-        lblFriday.setBounds(33, 11, 30, 14);
+        lblFriday.setHorizontalAlignment(SwingConstants.CENTER);
+        lblFriday.setBounds(0, 11, 111, 14);
         panel_10.add(lblFriday);
 
-        JLabel label_7 = new JLabel("High : 5");
-        label_7.setBounds(22, 74, 46, 14);
-        panel_10.add(label_7);
+        JLabel lblFridayHigh = new JLabel("5");
+        lblFridayHigh.setHorizontalAlignment(SwingConstants.CENTER);
+        lblFridayHigh.setBounds(0, 108, 52, 28);
+        panel_10.add(lblFridayHigh);
 
-        JLabel label_8 = new JLabel("Low : -4");
-        label_8.setBounds(22, 99, 46, 14);
-        panel_10.add(label_8);
+        JLabel lblFridayTemp = new JLabel("10\u00B0");
+        lblFridayTemp.setHorizontalAlignment(SwingConstants.CENTER);
+        lblFridayTemp.setBounds(0, 95, 111, 14);
+        panel_10.add(lblFridayTemp);
 
-        JLabel label_13 = new JLabel("10");
-        label_13.setBounds(43, 36, 12, 14);
-        panel_10.add(label_13);
+        JLabel lblFridayLow = new JLabel("-4");
+        lblFridayLow.setHorizontalAlignment(SwingConstants.CENTER);
+        lblFridayLow.setBounds(62, 108, 49, 28);
+        panel_10.add(lblFridayLow);
 
-        JPanel panel_9 = new JPanel();
-        panel_9.setBounds(345, 11, 96, 147);
-        panel.add(panel_9);
-        panel_9.setLayout(null);
+        JLabel lblFridaySummery = new JLabel("Cloudy");
+        lblFridaySummery.setHorizontalAlignment(SwingConstants.CENTER);
+        lblFridaySummery.setBounds(-1, 78, 112, 14);
+        panel_10.add(lblFridaySummery);
 
-        JLabel lblThursday = new JLabel("Thursday");
-        lblThursday.setBounds(26, 11, 45, 14);
-        panel_9.add(lblThursday);
+        JLabel imgFriday = new JLabel("");
+        imgFriday.setHorizontalAlignment(SwingConstants.CENTER);
+        imgFriday.setBounds(0, 46, 111, 14);
+        panel_10.add(imgFriday);
 
-        JLabel label_5 = new JLabel("High : 5");
-        label_5.setBounds(25, 74, 46, 14);
-        panel_9.add(label_5);
+        JPanel panel_6 = new JPanel();
+        panel_6.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        panel_6.setBounds(10, 0, 113, 147);
+        panel.add(panel_6);
+        panel_6.setLayout(null);
 
-        JLabel label_6 = new JLabel("Low : -4");
-        label_6.setBounds(25, 99, 46, 14);
-        panel_9.add(label_6);
+        JLabel lblMondayHigh = new JLabel("5");
+        lblMondayHigh.setHorizontalAlignment(SwingConstants.CENTER);
+        lblMondayHigh.setBounds(0, 106, 59, 30);
+        panel_6.add(lblMondayHigh);
 
-        JLabel label_12 = new JLabel("10");
-        label_12.setBounds(36, 36, 12, 14);
-        panel_9.add(label_12);
+        JLabel lblMonday = new JLabel("Monday");
+        lblMonday.setHorizontalAlignment(SwingConstants.CENTER);
+        lblMonday.setBounds(0, 11, 113, 14);
+        lblMonday.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        panel_6.add(lblMonday);
 
-        JPanel panel_8 = new JPanel();
-        panel_8.setBounds(239, 11, 96, 147);
-        panel.add(panel_8);
-        panel_8.setLayout(null);
+        JLabel lblMondayLow = new JLabel("-4");
+        lblMondayLow.setHorizontalAlignment(SwingConstants.CENTER);
+        lblMondayLow.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        lblMondayLow.setBounds(56, 106, 57, 30);
+        panel_6.add(lblMondayLow);
 
-        JLabel lblWednessday = new JLabel("Wednesday");
-        lblWednessday.setBounds(19, 11, 57, 14);
-        panel_8.add(lblWednessday);
+        JLabel lblMondayTemp = new JLabel("10\u00B0");
+        lblMondayTemp.setHorizontalAlignment(SwingConstants.CENTER);
+        lblMondayTemp.setBounds(0, 95, 113, 14);
+        panel_6.add(lblMondayTemp);
 
-        JLabel label_3 = new JLabel("High : 5");
-        label_3.setBounds(30, 73, 46, 14);
-        panel_8.add(label_3);
+        JLabel lblMondaySummery = new JLabel("Cloudy");
+        lblMondaySummery.setHorizontalAlignment(SwingConstants.CENTER);
+        lblMondaySummery.setBounds(0, 78, 113, 14);
+        panel_6.add(lblMondaySummery);
 
-        JLabel label_4 = new JLabel("Low : -4");
-        label_4.setBounds(30, 98, 46, 14);
-        panel_8.add(label_4);
-
-        JLabel label_11 = new JLabel("10");
-        label_11.setBounds(41, 36, 12, 14);
-        panel_8.add(label_11);
+        JLabel imgMonday = new JLabel("");
+        imgMonday.setHorizontalAlignment(SwingConstants.CENTER);
+        //imgMonday.setIcon(new ImageIcon(MainWindow.class.getResource("/sun/print/resources/oneside.png")));
+        imgMonday.setBounds(1, 46, 111, 14);
+        panel_6.add(imgMonday);
 
         JPanel panel_7 = new JPanel();
-        panel_7.setBounds(133, 11, 96, 147);
+        panel_7.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        panel_7.setBounds(133, 0, 113, 147);
         panel.add(panel_7);
         panel_7.setLayout(null);
 
         JLabel lblTuesday = new JLabel("Tuesday");
-        lblTuesday.setBounds(27, 11, 41, 14);
+        lblTuesday.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTuesday.setBounds(0, 11, 113, 14);
         panel_7.add(lblTuesday);
 
-        JLabel label_1 = new JLabel("High : 5");
-        label_1.setBounds(22, 71, 46, 14);
-        panel_7.add(label_1);
+        JLabel lblTuesdayHigh = new JLabel("5");
+        lblTuesdayHigh.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTuesdayHigh.setBounds(0, 107, 52, 29);
+        panel_7.add(lblTuesdayHigh);
 
-        JLabel label_2 = new JLabel("Low : -4");
-        label_2.setBounds(22, 96, 46, 14);
-        panel_7.add(label_2);
+        JLabel lblTuesdayTemp = new JLabel("10\u00B0");
+        lblTuesdayTemp.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTuesdayTemp.setBounds(0, 95, 113, 14);
+        panel_7.add(lblTuesdayTemp);
 
-        JLabel label_10 = new JLabel("10");
-        label_10.setBounds(37, 36, 12, 14);
-        panel_7.add(label_10);
+        JLabel lblTuesdayLow = new JLabel("-4");
+        lblTuesdayLow.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTuesdayLow.setBounds(62, 107, 51, 29);
+        panel_7.add(lblTuesdayLow);
 
-        JPanel panel_6 = new JPanel();
-        panel_6.setBounds(27, 11, 96, 147);
-        panel.add(panel_6);
-        panel_6.setLayout(null);
+        JLabel lblTuesdaySummery = new JLabel("Cloudy");
+        lblTuesdaySummery.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTuesdaySummery.setBounds(0, 78, 113, 14);
+        panel_7.add(lblTuesdaySummery);
 
-        JLabel lblHigh_1 = new JLabel("High : 5");
-        lblHigh_1.setBounds(26, 70, 46, 14);
-        panel_6.add(lblHigh_1);
+        JLabel imgTuesday = new JLabel("");
+        imgTuesday.setHorizontalAlignment(SwingConstants.CENTER);
+        imgTuesday.setBounds(1, 46, 111, 14);
+        panel_7.add(imgTuesday);
 
-        JLabel lblMonday = new JLabel("Monday");
-        lblMonday.setBounds(26, 11, 38, 14);
-        lblMonday.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-        panel_6.add(lblMonday);
+        JPanel panel_8 = new JPanel();
+        panel_8.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        panel_8.setBounds(256, 0, 113, 147);
+        panel.add(panel_8);
+        panel_8.setLayout(null);
 
-        JLabel lblNewLabel = new JLabel("Low : -4");
-        lblNewLabel.setBounds(26, 95, 46, 14);
-        panel_6.add(lblNewLabel);
+        JLabel lblWednessday = new JLabel("Wednesday");
+        lblWednessday.setHorizontalAlignment(SwingConstants.CENTER);
+        lblWednessday.setBounds(0, 11, 113, 14);
+        panel_8.add(lblWednessday);
 
-        JLabel label_9 = new JLabel("10");
-        label_9.setBounds(36, 36, 46, 14);
-        panel_6.add(label_9);
+        JLabel lblWednesdayHigh = new JLabel(" 5");
+        lblWednesdayHigh.setHorizontalAlignment(SwingConstants.CENTER);
+        lblWednesdayHigh.setBounds(0, 105, 46, 31);
+        panel_8.add(lblWednesdayHigh);
+
+        JLabel lblWednesdayTemp = new JLabel("10\u00B0");
+        lblWednesdayTemp.setHorizontalAlignment(SwingConstants.CENTER);
+        lblWednesdayTemp.setBounds(0, 95, 113, 14);
+        panel_8.add(lblWednesdayTemp);
+
+        JLabel lblWednesdayLow = new JLabel("-4");
+        lblWednesdayLow.setHorizontalAlignment(SwingConstants.CENTER);
+        lblWednesdayLow.setBounds(62, 105, 51, 31);
+        panel_8.add(lblWednesdayLow);
+
+        JLabel lblWednessdaySummery = new JLabel("Cloudy");
+        lblWednessdaySummery.setHorizontalAlignment(SwingConstants.CENTER);
+        lblWednessdaySummery.setBounds(0, 78, 113, 14);
+        panel_8.add(lblWednessdaySummery);
+
+        JLabel imgWednesday = new JLabel("");
+        imgWednesday.setHorizontalAlignment(SwingConstants.CENTER);
+        imgWednesday.setBounds(1, 46, 109, 14);
+        panel_8.add(imgWednesday);
+
+        JPanel panel_9 = new JPanel();
+        panel_9.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        panel_9.setBounds(379, 0, 113, 147);
+        panel.add(panel_9);
+        panel_9.setLayout(null);
+
+        JLabel lblThursday = new JLabel("Thursday");
+        lblThursday.setHorizontalAlignment(SwingConstants.CENTER);
+        lblThursday.setBounds(0, 11, 113, 14);
+        panel_9.add(lblThursday);
+
+        JLabel lblThursdayHigh = new JLabel("5");
+        lblThursdayHigh.setHorizontalAlignment(SwingConstants.CENTER);
+        lblThursdayHigh.setBounds(0, 107, 52, 29);
+        panel_9.add(lblThursdayHigh);
+
+        JLabel lblThursdayTemp = new JLabel("10\u00B0");
+        lblThursdayTemp.setHorizontalAlignment(SwingConstants.CENTER);
+        lblThursdayTemp.setBounds(0, 95, 113, 14);
+        panel_9.add(lblThursdayTemp);
+
+        JLabel lblThursdayLow = new JLabel("-4");
+        lblThursdayLow.setHorizontalAlignment(SwingConstants.CENTER);
+        lblThursdayLow.setBounds(62, 107, 51, 29);
+        panel_9.add(lblThursdayLow);
+
+        JLabel lvlThursdaySummery = new JLabel("Cloudy");
+        lvlThursdaySummery.setHorizontalAlignment(SwingConstants.CENTER);
+        lvlThursdaySummery.setBounds(-2, 78, 115, 14);
+        panel_9.add(lvlThursdaySummery);
+
+        JLabel imgThursday = new JLabel("");
+        imgThursday.setHorizontalAlignment(SwingConstants.CENTER);
+        imgThursday.setBounds(3, 46, 109, 14);
+        panel_9.add(imgThursday);
 
         JSeparator separator = new JSeparator();
-        separator.setBounds(0, 258, 579, 23);
+        separator.setBounds(0, 258, 626, 23);
         frame.getContentPane().add(separator);
+
+        JLabel lblNewLabel_1 = new JLabel("");
+        lblNewLabel_1.setBounds(247, 90, 46, 14);
+        frame.getContentPane().add(lblNewLabel_1);
+
+        JLabel lblWeathercondition = new JLabel("WeatherCondition");
+        lblWeathercondition.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblWeathercondition.setBounds(8, 104, 136, 14);
+        frame.getContentPane().add(lblWeathercondition);
+
+        JLabel lblHumidity = new JLabel("Humidity:");
+        lblHumidity.setBounds(8, 129, 61, 14);
+        frame.getContentPane().add(lblHumidity);
+
+        JLabel lblWindSpeed = new JLabel("Wind Speed:");
+        lblWindSpeed.setBounds(8, 146, 81, 14);
+        frame.getContentPane().add(lblWindSpeed);
+
+        JLabel lblPressure = new JLabel("Pressure:");
+        lblPressure.setBounds(8, 165, 66, 14);
+        frame.getContentPane().add(lblPressure);
+
+        JLabel lblSunrise = new JLabel("Sunrise:");
+        lblSunrise.setBounds(150, 146, 46, 14);
+        frame.getContentPane().add(lblSunrise);
+
+        JLabel lblSunset = new JLabel("Sunset:");
+        lblSunset.setBounds(150, 165, 46, 14);
+        frame.getContentPane().add(lblSunset);
+
+        JButton btnRefresh = new JButton("Refresh");
+        btnRefresh.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+            }
+        });
+        btnRefresh.setBounds(531, 11, 89, 23);
+        frame.getContentPane().add(btnRefresh);
     }
 }
