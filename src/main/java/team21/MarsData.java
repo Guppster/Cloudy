@@ -8,15 +8,16 @@ package team21;
 public class MarsData extends BaseData
 {
     /**
+     * Constructor  sends the rest to the super class
      *
-     * @param temp
-     * @param tempMin
-     * @param tempMax
-     * @param windSpeed
-     * @param windDirection
-     * @param pressure
-     * @param iconID
-     * @param description
+     * @param temp          the current temperature
+     * @param tempMin       the minimum predicted temperature
+     * @param tempMax       the maximum predicted temperature
+     * @param windSpeed     the expected wind speed
+     * @param windDirection the direction the wind blows
+     * @param pressure      the current air pressure
+     * @param iconID        the string representing the icon that will be used to visually display the current weather
+     * @param description   a short description of the weather
      */
     public MarsData(double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description)
     {
