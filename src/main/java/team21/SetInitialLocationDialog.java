@@ -28,13 +28,11 @@ public class SetInitialLocationDialog extends JDialog {
 		panel.setLayout(new GridBagLayout());
 		panel.add(label);
 		panel.setPreferredSize(new Dimension(400, 300));
-        
+
 		panel.setFocusable(true);
 		panel.requestFocusInWindow();
 
 		getContentPane().add(panel);
 
-		SwingUtils.createDialogBackPanel(this, parent.getContentPane());
-		SwingUtils.addEscapeToCloseSupport(this, true);
 	}
 }
