@@ -28,6 +28,7 @@ public class CurrentTermParser extends Parser
     public CurrentTermParser(String locationName)
     {
         this.locationName = locationName;
+        config = new Configuration();
         config.load();
     }//End of constructor
 

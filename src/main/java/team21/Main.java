@@ -81,20 +81,33 @@ public class Main
     public static void main(String[] args)
     {
         locations = new LocationList();
+
+
+        Location tempRegion = new Location("toronto");
+        locations.addRegion(tempRegion);
+
         config = new Configuration(locations);
+
+        config.save();
         netController = new NetworkController();
 
 
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
+        EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                try
+                {
                     JFrame.setDefaultLookAndFeelDecorated(true);//Allows the Look and Feel to change the window frame GUI
 
                     try
                     {
                         //Set the Look and Feel to Magellan
                         UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceMagellanLookAndFeel");
-                    }catch(Exception e){System.out.println("Substance-Magellan failed to initialize");}
+                    } catch (Exception e)
+                    {
+                        System.out.println("Substance-Magellan failed to initialize");
+                    }
 
                     initializeLocations();
 
@@ -102,7 +115,8 @@ public class Main
 
                     dynamicButtons = new HashMap<String, JButton>();
 
-                } catch (Exception e) {
+                } catch (Exception e)
+                {
                     e.printStackTrace();
                 }
             }
@@ -134,11 +148,12 @@ public class Main
     {
         final String tempName = JOptionPane.showInputDialog(frameLocations, "Please enter a Location Name");
 
-        locations.addRegion(new Location(tempName));
+        final Location tempRegion = new Location(tempName);
+        locations.addRegion(tempRegion);
 
         update();
 
-        JButton buttonTemp = new JButton(tempName);
+        JButton buttonTemp = new JButton(tempRegion.getName());
         buttonTemp.addActionListener(new ActionListener()
         {
             @Override
@@ -146,18 +161,18 @@ public class Main
             {
                 if(delete)
                 {
-                    removeButton(tempName);
-                    System.out.println("Removing " + tempName);
+                    removeButton(tempRegion.getName());
+                    System.out.println("Removing " + tempRegion.getName());
                 }
                 else
                 {
-                    System.out.println("Clicked " + tempName);
+                    System.out.println("Clicked " + tempRegion.getName());
                 }
             }
         });
         buttonTemp.setMaximumSize(buttonSize);
         locationsPanel.add(buttonTemp);
-        dynamicButtons.put(tempName, buttonTemp);
+        dynamicButtons.put(tempRegion.getName(), buttonTemp);
         Box.createVerticalStrut(10);
     }
 

@@ -13,6 +13,7 @@ public class Configuration
 {
     /**** Fields ****/
     private Preferences prefs; 			//User specific preferences
+    private Preferences sysprefs; 		//System specific preferences
     private LocationList locations; 	//List of locations
     private tempUnits degrees; 			//Preferred units
     private boolean[] viewObject;
@@ -27,20 +28,37 @@ public class Configuration
     public Configuration(LocationList locations, tempUnits degrees, boolean[] viewObject)
     {
         prefs = Preferences.userRoot().node(this.getClass().getName());
+        sysprefs = Preferences.systemRoot().node(this.getClass().getName());
         this.locations = locations;
         this.degrees = degrees;
         this.viewObject = viewObject;
     }
 
     /**
-     * General Constructor
+     * Default Constructor to retrieve data
+     */
+    public Configuration()
+    {
+        prefs = Preferences.userRoot().node(this.getClass().getName());
+        sysprefs = Preferences.systemRoot().node(this.getClass().getName());
+    }
+
+    /**
+     * General Constructor to make basic configuration object
      *
      * @param locations list of locations
      */
     public Configuration(LocationList locations)
     {
+        prefs = Preferences.userRoot().node(this.getClass().getName());
         this.locations = locations;
         viewObject = new boolean[10]; //Assuming there are 10 viewable objects
+        degrees = tempUnits.IMPERIAL;
+    }
+
+    private void restore()
+    {
+
     }
 
     /**
@@ -77,6 +95,7 @@ public class Configuration
         byte[] viewableBytes = new byte[10];
         String units = "";
 
+        /*
         try
         {
             locations.setLocationList(byteArrayToLocations(prefs.getByteArray("locations", locationBytes)));
@@ -85,8 +104,9 @@ public class Configuration
             e.printStackTrace();
             return false;
         }
+        */
 
-        prefs.get("tempUnits", units);
+        units = prefs.get("tempUnits", "IMPERIAL");
 
         switch (units)
         {
