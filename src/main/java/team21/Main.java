@@ -5,6 +5,7 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 /**
  * @author: Gurpreet
@@ -15,6 +16,14 @@ public class Main
     private static Configuration config;
     private static NetworkController netController;
     private static Location currentLocation;
+
+    private static JPanel locationsPanel;
+    private static Dimension buttonSize;
+    private static HashMap<String, JButton> dynamicButtons;
+    private static final String emptySpace = "                                                                                                  ";
+    private static boolean  delete = false;
+
+    private static JFrame frameLocations;
 
     static JLabel lblFriday;
     static JLabel lblFridayHigh;
@@ -62,7 +71,6 @@ public class Main
     static JLabel lblHigh;
     static JLabel lblLow;
 
-    private static JFrame frameLocations;
     private static JFrame frameForecast;
 
     /**
@@ -88,9 +96,11 @@ public class Main
                         UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceMagellanLookAndFeel");
                     }catch(Exception e){System.out.println("Substance-Magellan failed to initialize");}
 
-                    initialize();
+                    initializeLocations();
 
-                    frame.setVisible(true);
+                    frameLocations.setVisible(true);
+
+                    dynamicButtons = new HashMap<String, JButton>();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -98,27 +108,9 @@ public class Main
             }
         });
 
-        checkInitialRun();
-
-        currentLocation = locations.searchList(currentLocation.getName());
-
+        //checkInitialRun();
 
     }//End of main method
-
-    private static void checkInitialRun()
-    {
-        if(locations.isListEmpty())
-        {
-            SetInitialLocationDialog dialog = new SetInitialLocationDialog(frame);
-            SwingUtils.fadeIn(dialog);
-            //Add region to location list
-        }
-        else
-        {
-            update();
-            updateGUI();
-        }
-    }
 
 
     /**
@@ -136,11 +128,149 @@ public class Main
     /**
      * Initialize the contents of the frame.
      */
-    private static void initialize() {
-        frame = new JFrame();
-        frame.setBounds(100, 100, 642, 475);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
+
+
+    public static void addButton()
+    {
+        final String tempName = JOptionPane.showInputDialog(frameLocations, "Please enter a Location Name");
+
+        locations.addRegion(new Location(tempName));
+
+        update();
+
+        JButton buttonTemp = new JButton(tempName);
+        buttonTemp.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if(delete)
+                {
+                    removeButton(tempName);
+                    System.out.println("Removing " + tempName);
+                }
+                else
+                {
+                    System.out.println("Clicked " + tempName);
+                }
+            }
+        });
+        buttonTemp.setMaximumSize(buttonSize);
+        locationsPanel.add(buttonTemp);
+        dynamicButtons.put(tempName, buttonTemp);
+        Box.createVerticalStrut(10);
+    }
+
+
+    public static void removeButton(String name)
+    {
+        JButton b = dynamicButtons.remove(name);
+        locationsPanel.remove(b);
+        locationsPanel.validate();
+        delete = false;
+    }
+
+    private static void initializeLocations()
+    {
+        frameLocations = new JFrame();
+        frameLocations.setResizable(false);
+        frameLocations.setBounds(100, 100, 642, 473);
+        frameLocations.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        final JPanel panel = new JPanel();
+        panel.setBounds(10, 32, 603, 390);
+        frameLocations.getContentPane().add(panel);
+        panel.setLayout(null);
+
+        JButton btnAdd = new JButton("Add");
+        btnAdd.setBounds(95, 20, 85, 23);
+        panel.add(btnAdd);
+
+        final JButton btnDelete = new JButton("Delete");
+        btnDelete.setBounds(275, 20, 85, 23);
+        btnDelete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(delete)
+                {
+                    delete = false;
+                }
+                else
+                {
+                    delete = true;
+                }
+            }
+        });
+        panel.add(btnDelete);
+
+        JButton btnMultiview = new JButton("MultiView");
+        btnMultiview.setBounds(455, 20, 85, 23);
+        panel.add(btnMultiview);
+
+        locationsPanel = new JPanel();
+        locationsPanel.setBounds(0, 54, 636, 382);
+        panel.add(locationsPanel);
+        locationsPanel.setLayout(new BoxLayout(locationsPanel, BoxLayout.Y_AXIS));
+
+        JButton buttonMars = new JButton(emptySpace + "Mars" + emptySpace + " ");
+        buttonMars.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if(delete)
+                {
+                    System.out.println("Access Denied: Removing Mars is Not Allowed ");
+                }
+                else
+                {
+                    System.out.println("Clicked Mars");
+                }
+            }
+        });
+        locationsPanel.add(buttonMars);
+
+        buttonSize = buttonMars.getMaximumSize();
+
+        Box.createVerticalStrut(10);
+
+        final String name = JOptionPane.showInputDialog(frameLocations, "Please enter an initial Location");
+
+        final JButton buttonInitial = new JButton(name);
+        buttonInitial.setMaximumSize(buttonSize);
+        buttonInitial.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if(delete)
+                {
+                    System.out.println("Removing: " + buttonInitial.getName());
+                }
+                else
+                {
+                    System.out.println("Clicked: " + buttonInitial.getName());
+                }
+            }
+        });
+
+        locationsPanel.add(buttonInitial);
+
+        btnAdd.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+                addButton();
+                locationsPanel.revalidate();
+                locationsPanel.validate();
+            }
+        });
+    }
+
+    private static void initializeForecast()
+    {
+        frameForecast = new JFrame();
+        frameForecast.setBounds(100, 100, 642, 475);
+        frameForecast.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameForecast.getContentPane().setLayout(null);
 
         JButton btnGoToLocations = new JButton("=");
         btnGoToLocations.addActionListener(new ActionListener() {
@@ -148,45 +278,45 @@ public class Main
             }
         });
         btnGoToLocations.setBounds(10, 11, 41, 23);
-        frame.getContentPane().add(btnGoToLocations);
+        frameForecast.getContentPane().add(btnGoToLocations);
 
         JLabel lblLocation = new JLabel(currentLocation.getName());
         lblLocation.setFont(new Font("Century Gothic", Font.PLAIN, 21));
         lblLocation.setBounds(62, 5, 231, 50);
-        frame.getContentPane().add(lblLocation);
+        frameForecast.getContentPane().add(lblLocation);
 
         JSlider sliderShortTerm = new JSlider();
         sliderShortTerm.setPaintLabels(true);
         sliderShortTerm.setBounds(0, 211, 626, 26);
-        frame.getContentPane().add(sliderShortTerm);
+        frameForecast.getContentPane().add(sliderShortTerm);
 
         JLabel lblTemp = new JLabel(String.valueOf(currentLocation.getCurrentTerm().data[0].getTemp()));
         lblTemp.setFont(new Font("Century Gothic", Font.PLAIN, 43));
         lblTemp.setBounds(447, 33, 114, 81);
-        frame.getContentPane().add(lblTemp);
+        frameForecast.getContentPane().add(lblTemp);
 
         JLabel lblHigh = new JLabel(String.valueOf(currentLocation.getCurrentTerm().data[0].getTempMax()));
         lblHigh.setBounds(443, 104, 46, 14);
-        frame.getContentPane().add(lblHigh);
+        frameForecast.getContentPane().add(lblHigh);
 
         JLabel lblLow = new JLabel(String.valueOf(currentLocation.getCurrentTerm().data[0].getTempMin()));
         lblLow.setBounds(501, 104, 46, 14);
-        frame.getContentPane().add(lblLow);
+        frameForecast.getContentPane().add(lblLow);
 
         JSeparator separator_1 = new JSeparator();
         separator_1.setBounds(0, 187, 626, 50);
-        frame.getContentPane().add(separator_1);
+        frameForecast.getContentPane().add(separator_1);
 
-        JPanel panel = new JPanel();
+        JPanel panel2 = new JPanel();
 
-        panel.setBounds(0, 269, 626, 169);
-        frame.getContentPane().add(panel);
-        panel.setLayout(null);
+        panel2.setBounds(0, 269, 626, 169);
+        frameForecast.getContentPane().add(panel2);
+        panel2.setLayout(null);
 
         JPanel panel_10 = new JPanel();
         panel_10.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         panel_10.setBounds(502, 0, 111, 147);
-        panel.add(panel_10);
+        panel2.add(panel_10);
         panel_10.setLayout(null);
 
         JLabel lblFriday = new JLabel("Friday");
@@ -222,7 +352,7 @@ public class Main
         JPanel panel_6 = new JPanel();
         panel_6.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         panel_6.setBounds(10, 0, 113, 147);
-        panel.add(panel_6);
+        panel2.add(panel_6);
         panel_6.setLayout(null);
 
         JLabel lblMondayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().data[0].getTempMax()));
@@ -261,7 +391,7 @@ public class Main
         JPanel panel_7 = new JPanel();
         panel_7.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         panel_7.setBounds(133, 0, 113, 147);
-        panel.add(panel_7);
+        panel2.add(panel_7);
         panel_7.setLayout(null);
 
         JLabel lblTuesday = new JLabel("Tuesday");
@@ -297,7 +427,7 @@ public class Main
         JPanel panel_8 = new JPanel();
         panel_8.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         panel_8.setBounds(256, 0, 113, 147);
-        panel.add(panel_8);
+        panel2.add(panel_8);
         panel_8.setLayout(null);
 
         JLabel lblWednessday = new JLabel("Wednesday");
@@ -333,7 +463,7 @@ public class Main
         JPanel panel_9 = new JPanel();
         panel_9.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         panel_9.setBounds(379, 0, 113, 147);
-        panel.add(panel_9);
+        panel2.add(panel_9);
         panel_9.setLayout(null);
 
         JLabel lblThursday = new JLabel("Thursday");
@@ -368,36 +498,36 @@ public class Main
 
         JSeparator separator = new JSeparator();
         separator.setBounds(0, 258, 626, 23);
-        frame.getContentPane().add(separator);
+        frameForecast.getContentPane().add(separator);
 
         JLabel lblNewLabel_1 = new JLabel("");
         lblNewLabel_1.setBounds(247, 90, 46, 14);
-        frame.getContentPane().add(lblNewLabel_1);
+        frameForecast.getContentPane().add(lblNewLabel_1);
 
         JLabel lblWeathercondition = new JLabel(currentLocation.getCurrentTerm().data[0].getDescription());
         lblWeathercondition.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblWeathercondition.setBounds(8, 104, 136, 14);
-        frame.getContentPane().add(lblWeathercondition);
+        frameForecast.getContentPane().add(lblWeathercondition);
 
         JLabel lblHumidity = new JLabel("Humidity:");
         lblHumidity.setBounds(8, 129, 61, 14);
-        frame.getContentPane().add(lblHumidity);
+        frameForecast.getContentPane().add(lblHumidity);
 
         JLabel lblWindSpeed = new JLabel("Wind Speed:");
         lblWindSpeed.setBounds(8, 146, 81, 14);
-        frame.getContentPane().add(lblWindSpeed);
+        frameForecast.getContentPane().add(lblWindSpeed);
 
         JLabel lblPressure = new JLabel("Pressure:");
         lblPressure.setBounds(8, 165, 66, 14);
-        frame.getContentPane().add(lblPressure);
+        frameForecast.getContentPane().add(lblPressure);
 
         JLabel lblSunrise = new JLabel("Sunrise:");
         lblSunrise.setBounds(150, 146, 46, 14);
-        frame.getContentPane().add(lblSunrise);
+        frameForecast.getContentPane().add(lblSunrise);
 
         JLabel lblSunset = new JLabel("Sunset:");
         lblSunset.setBounds(150, 165, 46, 14);
-        frame.getContentPane().add(lblSunset);
+        frameForecast.getContentPane().add(lblSunset);
 
         JButton btnRefresh = new JButton("Refresh");
         btnRefresh.addActionListener(new ActionListener() {
@@ -407,7 +537,7 @@ public class Main
             }
         });
         btnRefresh.setBounds(531, 11, 89, 23);
-        frame.getContentPane().add(btnRefresh);
+        frameForecast.getContentPane().add(btnRefresh);
     }
 
     /*
