@@ -37,7 +37,7 @@ public class LocationList
      */
     public Location searchList(String name)
     {
-        if (!regions.isEmpty())
+        if (!isListEmpty())
         {
             //if the list is not empty, illiterate to see if location exist
             for (int i = 0; i < regions.size(); i++)
@@ -62,7 +62,7 @@ public class LocationList
      */
     public boolean isLocationInList(Location location)
     {
-        if (!regions.isEmpty())
+        if (!isListEmpty())
         {
             //if the list is not empty, illiterate to see if location exist
             for (int i = 0; i < regions.size(); i++)
@@ -93,7 +93,7 @@ public class LocationList
      */
     public void deleteRegion(Location location)
     {
-        if (!regions.isEmpty())
+        if (!isListEmpty())
         {
             //if the list is not empty, illiterate to see if location exist
             for (int i = 0; i < regions.size(); i++)
@@ -104,6 +104,15 @@ public class LocationList
                 }
             }
         }
+    }
+
+    /**
+     * Tells the classes interacting with the list if it is empty or not
+     * @return  boolean showing if list is empty or not
+     */
+    public boolean isListEmpty()
+    {
+        return regions.isEmpty();
     }
 
     /**
