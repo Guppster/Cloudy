@@ -6,6 +6,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.NumericShaper;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -69,6 +72,7 @@ public class Main
     static JLabel lblSunrise;
     static JLabel lblSunset;
     static JLabel lblLocation;
+    static JLabel lblTime;
     static JLabel lblTemp;
     static JLabel lblHigh;
     static JLabel lblLow;
@@ -559,8 +563,8 @@ public class Main
             frameForecast.getContentPane().add(lblNewLabel_1);
 
             JLabel lblWeathercondition = new JLabel(currentLocation.getCurrentTerm().getData()[0].getDescription());
-            lblWeathercondition.setFont(new Font("Tahoma", Font.PLAIN, 13));
-            lblWeathercondition.setBounds(8, 104, 136, 14);
+            lblWeathercondition.setFont(new Font("Century Gothic", Font.PLAIN, 23));
+            lblWeathercondition.setBounds(8, 90, 194, 28);
             frameForecast.getContentPane().add(lblWeathercondition);
 
             JLabel lblHumidity = new JLabel("Humidity:");
@@ -603,6 +607,15 @@ public class Main
         {
             System.out.println("Data not loaded yet... Please wait");
         }
+
+        JLabel lblLastUpdated = new JLabel("Last Updated:");
+        lblLastUpdated.setBounds(425, 125, 76, 14);
+        frameForecast.getContentPane().add(lblLastUpdated);
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy  hh:mm a");
+        lblTime = new JLabel(ZonedDateTime.now().format(format));
+        lblTime.setBounds(501, 125, 115, 14);
+        frameForecast.getContentPane().add(lblTime);
     }
 
     /*
@@ -646,5 +659,6 @@ public class Main
         imgThursday = new JLabel("");
 
         lblWeathercondition = new JLabel(currentLocation.getCurrentTerm().getData()[0].getDescription());
+        lblTime = new JLabel(ZonedDateTime.now().toString());
     }
 }//End of main class

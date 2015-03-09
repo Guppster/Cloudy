@@ -15,7 +15,7 @@ public class LongTerm extends TermObject
      */
     public LongTerm(LongTermData[] Ldata)
     {
-        super(4);
+        super(5);
         this.Ldata = Ldata;
         parseTermData();
 
