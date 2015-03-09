@@ -13,7 +13,6 @@ public class Configuration
 {
     /**** Fields ****/
     private Preferences prefs; 			//User specific preferences
-    private Preferences sysprefs; 		//System specific preferences
     private LocationList locations; 	//List of locations
     private tempUnits degrees; 			//Preferred units
     private boolean[] viewObject;
@@ -52,11 +51,6 @@ public class Configuration
         this.locations = locations;
         viewObject = new boolean[10]; //Assuming there are 10 viewable objects
         degrees = tempUnits.METRIC;
-    }
-
-    private void restore()
-    {
-
     }
 
     /**

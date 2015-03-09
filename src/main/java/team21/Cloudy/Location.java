@@ -24,7 +24,6 @@ public class Location
     public Location(String name, TermObject shortTerm, TermObject longTerm, TermObject currentTerm)
     {
         this.name = name;
-        nameFlag = false;
         this.shortTerm = shortTerm;
         this.longTerm = longTerm;
         this.currentTerm = currentTerm;
