@@ -106,7 +106,7 @@ public class LongTermParser extends Parser
 
         JSONArray arr = forecast.getJSONArray("list");
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             data[i] = getDetails(arr.getJSONObject(i).toString());
         }
