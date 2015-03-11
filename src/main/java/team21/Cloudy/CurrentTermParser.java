@@ -28,8 +28,14 @@ public class CurrentTermParser extends Parser
     public CurrentTermParser(String locationName)
     {
         this.locationName = locationName;
+
+        //Create a configuration object
         config = new Configuration();
+
+        //Load the configuration stored in file
         config.load();
+
+        //Initialize the CurrentTermdata array
         data = new CurrentTermData[1];
     }//End of constructor
 
@@ -41,46 +47,61 @@ public class CurrentTermParser extends Parser
     @Override
     protected TermObject parse()
     {
+        //A string that will contain the generated URL
         String url = "";
 
+        //A switch statement that specifies the url based on the degrees units set in the config.
         switch (config.getDegrees())
         {
             case IMPERIAL:
             {
+                //Generate and store the url based off constants
                 url = baseURL + currentModifier + locationName + imperialModifier;
                 break;
             }
             case METRIC:
             {
+                //Generate and store the url based off constants
                 url = baseURL + currentModifier + locationName + metricModifier;
             }
         }
 
+        //Create a request and pass in the URL to the OKHttp library.
         Request request = new Request.Builder().url(url).build();
 
+        //Make a new call with the OkHTTPClient and pass in the request
         Call call = client.newCall(request);
 
+        //Use the OkHttp's callback ability to ask for new data and store it when it is returned
+        final String finalUrl = url;
         call.enqueue(new Callback()
         {
+            //The following method specifies what happens when the request fails.
             @Override
             public void onFailure(Request request, IOException e)
             {
 
             }
 
+            //The following method specifies what happens when the request is successfull.
             @Override
             public void onResponse(Response response) throws IOException
             {
                 try
                 {
+                    //Take the raw data
                     String JSONData = response.body().string();
-                    System.out.println(JSONData);
 
+                    //Debug println
+                    System.out.println(finalUrl + " " + locationName + " data recieved!");
+
+                    //If the response is not successful state that there was an error
                     if (!response.isSuccessful())
                     {
                         System.out.println("ERROR: REQUEST UNSUCCESSFUL!");
                     } else
                     {
+                        //If it is successfull obtain the array of data
                         data[0] = getDetails(JSONData);
                     }
                 } catch (IOException e)
@@ -90,6 +111,7 @@ public class CurrentTermParser extends Parser
             }
         });
 
+        //Create a new longTerm object using the data array and return it
         return new CurrentTerm(data);
     }//End of parse method
 
@@ -102,16 +124,26 @@ public class CurrentTermParser extends Parser
     @Override
     protected CurrentTermData getDetails(String rawJSONData)
     {
+        //Takes the string and converts it into a JSONObject
         JSONObject forecast = new JSONObject(rawJSONData);
 
+        //Extract the sys JSONObject from forecast
         JSONObject sys = forecast.getJSONObject("sys");
+
+        //Takes the forecast JSONObject and extracts the first element of the json array
         JSONObject weather = forecast.getJSONArray("weather").getJSONObject(0);
+
+        //Extract the main JSONObject from forecast
         JSONObject main = forecast.getJSONObject("main");
+
+        //Extract the wind JSONObject from forecast
         JSONObject wind = forecast.getJSONObject("wind");
+
         //JSONObject rain = forecast.getJSONObject("rain");
 
         locationName = forecast.getString("name") + sys.getString("country");
 
+        //Obtain required data from all extracted objects and return them in the form of a LongTermObject
         return new CurrentTermData(
                 //rain.getInt("3h"),
                 3,

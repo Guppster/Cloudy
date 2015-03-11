@@ -32,45 +32,62 @@ public class NetworkController
      */
     public void fetch()
     {
+        //Fetches the current object data and initializes the currentTerm object inside of the specified location
         fetchCurrent();
+
+        //Fetches the long object data and initializes the LongTerm object inside of the specified location
         fetchLong();
+
+        //Fetches the short object data and initializes the shortTerm object inside of the specified location
         fetchShort();
+
+        //Formats debugging console output
+        System.out.println();
     }//End of fetchCurrent method
 
 
     /**
-     * Updates the current term
+     * Updates the Current term object inside of the stored location
      */
     private void fetchCurrent()
     {
+        //Creates a new specific parser object using the location name
         parser = new CurrentTermParser(location.getName());
-        
+
+        //Retrieves the new parsed data object
         term = parser.parse();
-        
+
+        //Initializes the object inside of the location
         location.setCurrentTerm(term);
     }//End of fetchCurrent method
 
     /**
-     * Updates the long term
+     * Updates the Long term object inside of the stored location
      */
     private void fetchLong()
     {
+        //Creates a new specific parser object using the location name
         parser = new LongTermParser(location.getName());
-        
+
+        //Retrieves the new parsed data object
         term = parser.parse();
 
+        //Initializes the object inside of the location
         location.setLongTerm(term);
     }//End of fetchLong method
 
     /**
-     * Updates the short term
+     *  Updates the Short term object inside of the stored location
      */
     private void fetchShort()
     {
+        //Creates a new specific parser object using the location name
         parser = new ShortTermParser(location.getName());
 
+        //Retrieves the new parsed data object
         term = parser.parse();
 
+        //Initializes the object inside of the location
         location.setShortTerm(term);
     }//End of fetchShort method
 

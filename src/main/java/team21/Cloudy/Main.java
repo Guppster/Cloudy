@@ -28,54 +28,47 @@ public class Main
 
     private static JFrame frameLocations;
 
-    static JLabel lblFriday;
-    static JLabel lblFridayHigh;
-    static JLabel lblFridayTemp;
-    static JLabel lblFridayLow;
-    static JLabel lblFridaySummery;
-    static JLabel imgFriday;
+    private static JLabel lblFridayHigh;
+    private static JLabel lblFridayTemp;
+    private static JLabel lblFridayLow;
+    private static JLabel lblFridaySummery;
+    private static JLabel imgFriday;
 
-    static JLabel lblMondayHigh;
-    static JLabel lblMonday;
-    static JLabel lblMondayLow;
-    static JLabel lblMondayTemp;
-    static JLabel lblMondaySummery;
-    static JLabel imgMonday;
+    private static JLabel lblMondayHigh;
+    private static JLabel lblMondayLow;
+    private static JLabel lblMondayTemp;
+    private static JLabel lblMondaySummery;
+    private static JLabel imgMonday;
 
-    static JLabel lblTuesday;
-    static JLabel lblTuesdayHigh;
-    static JLabel lblTuesdayTemp;
-    static JLabel lblTuesdayLow;
-    static JLabel lblTuesdaySummery;
-    static JLabel imgTuesday;
+    private static JLabel lblTuesdayHigh;
+    private static JLabel lblTuesdayTemp;
+    private static JLabel lblTuesdayLow;
+    private static JLabel lblTuesdaySummery;
+    private static JLabel imgTuesday;
 
-    static JLabel lblWednessday;
-    static JLabel lblWednesdayHigh;
-    static JLabel lblWednesdayTemp;
-    static JLabel lblWednesdayLow;
-    static JLabel lblWednessdaySummery;
-    static JLabel imgWednesday;
+    private static JLabel lblWednesdayHigh;
+    private static JLabel lblWednesdayTemp;
+    private static JLabel lblWednesdayLow;
+    private static JLabel lblWednessdaySummery;
+    private static JLabel imgWednesday;
 
-    static JLabel lblThursday;
-    static JLabel lblThursdayHigh;
-    static JLabel lblThursdayTemp;
-    static JLabel lblThursdayLow;
-    static JLabel lvlThursdaySummery;
-    static JLabel imgThursday;
+    private static JLabel lblThursdayHigh;
+    private static JLabel lblThursdayTemp;
+    private static JLabel lblThursdayLow;
+    private static JLabel lblThursdaySummery;
+    private static JLabel imgThursday;
 
-    static JLabel lblWeathercondition;
-    static JLabel lblHumidity;
-    static JLabel lblWindSpeed;
-    static JLabel lblPressure;
-    static JLabel lblSunrise;
-    static JLabel lblSunset;
-    static JLabel lblLocation;
-    static JLabel lblTime;
-    static JLabel lblTemp;
-    static JLabel lblHigh;
-    static JLabel lblLow;
+
+    private static JLabel lblWeathercondition;
+    private static JLabel lblLocation;
+    private static JLabel lblTime;
+    private static JLabel lblTemp;
+    private static JLabel lblHigh;
+    private static JLabel lblLow;
 
     private static JFrame frameForecast;
+
+    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy  hh:mm a");
 
     /**
      * *
@@ -176,8 +169,21 @@ public class Main
         });
         buttonTemp.setMaximumSize(buttonSize);
         locationsPanel.add(buttonTemp);
+
+        /*
+        Test implementation to remove errors with slow connections
+
+        System.out.println("Waiting for Data Sync:");
+        while(tempRegion.getCurrentTerm() == null || tempRegion.getShortTerm() == null || tempRegion.getLongTerm() == null)
+        {
+            System.out.print(" ... ");
+        }
+        buttonTemp.setEnabled(true);
+
         dynamicButtons.put(tempRegion.getName(), buttonTemp);
         Box.createVerticalStrut(10);
+
+        **/
     }
 
 
@@ -411,7 +417,7 @@ public class Main
             panel2.add(panel_6);
             panel_6.setLayout(null);
 
-            JLabel lblMondayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[0].getTempMax()));
+            lblMondayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[0].getTempMax()));
             lblMondayHigh.setHorizontalAlignment(SwingConstants.CENTER);
             lblMondayHigh.setBounds(0, 106, 59, 30);
             panel_6.add(lblMondayHigh);
@@ -422,23 +428,23 @@ public class Main
             lblMonday.setAlignmentY(Component.BOTTOM_ALIGNMENT);
             panel_6.add(lblMonday);
 
-            JLabel lblMondayLow = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[0].getTempMin()));
+            lblMondayLow = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[0].getTempMin()));
             lblMondayLow.setHorizontalAlignment(SwingConstants.CENTER);
             lblMondayLow.setFont(new Font("Tahoma", Font.PLAIN, 11));
             lblMondayLow.setBounds(56, 106, 57, 30);
             panel_6.add(lblMondayLow);
 
-            JLabel lblMondayTemp = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[0].getTemp()));
+            lblMondayTemp = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[0].getTemp()));
             lblMondayTemp.setHorizontalAlignment(SwingConstants.CENTER);
             lblMondayTemp.setBounds(0, 95, 113, 14);
             panel_6.add(lblMondayTemp);
 
-            JLabel lblMondaySummery = new JLabel(currentLocation.getLongTerm().getData()[0].getDescription());
+            lblMondaySummery = new JLabel(currentLocation.getLongTerm().getData()[0].getDescription());
             lblMondaySummery.setHorizontalAlignment(SwingConstants.CENTER);
             lblMondaySummery.setBounds(0, 78, 113, 14);
             panel_6.add(lblMondaySummery);
 
-            JLabel imgMonday = new JLabel("");
+            imgMonday = new JLabel("");
             imgMonday.setHorizontalAlignment(SwingConstants.CENTER);
             //imgMonday.setIcon(new ImageIcon(MainWindow.class.getResource("/sun/print/resources/oneside.png")));
             imgMonday.setBounds(1, 46, 111, 14);
@@ -455,27 +461,27 @@ public class Main
             lblTuesday.setBounds(0, 11, 113, 14);
             panel_7.add(lblTuesday);
 
-            JLabel lblTuesdayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[1].getTempMax()));
+            lblTuesdayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[1].getTempMax()));
             lblTuesdayHigh.setHorizontalAlignment(SwingConstants.CENTER);
             lblTuesdayHigh.setBounds(0, 107, 52, 29);
             panel_7.add(lblTuesdayHigh);
 
-            JLabel lblTuesdayTemp = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[1].getTemp()));
+            lblTuesdayTemp = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[1].getTemp()));
             lblTuesdayTemp.setHorizontalAlignment(SwingConstants.CENTER);
             lblTuesdayTemp.setBounds(0, 95, 113, 14);
             panel_7.add(lblTuesdayTemp);
 
-            JLabel lblTuesdayLow = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[1].getTempMin()));
+            lblTuesdayLow = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[1].getTempMin()));
             lblTuesdayLow.setHorizontalAlignment(SwingConstants.CENTER);
             lblTuesdayLow.setBounds(62, 107, 51, 29);
             panel_7.add(lblTuesdayLow);
 
-            JLabel lblTuesdaySummery = new JLabel(currentLocation.getLongTerm().getData()[1].getDescription());
+            lblTuesdaySummery = new JLabel(currentLocation.getLongTerm().getData()[1].getDescription());
             lblTuesdaySummery.setHorizontalAlignment(SwingConstants.CENTER);
             lblTuesdaySummery.setBounds(0, 78, 113, 14);
             panel_7.add(lblTuesdaySummery);
 
-            JLabel imgTuesday = new JLabel("");
+            imgTuesday = new JLabel("");
             imgTuesday.setHorizontalAlignment(SwingConstants.CENTER);
             imgTuesday.setBounds(1, 46, 111, 14);
             panel_7.add(imgTuesday);
@@ -491,27 +497,27 @@ public class Main
             lblWednessday.setBounds(0, 11, 113, 14);
             panel_8.add(lblWednessday);
 
-            JLabel lblWednesdayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[2].getTempMax()));
+            lblWednesdayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[2].getTempMax()));
             lblWednesdayHigh.setHorizontalAlignment(SwingConstants.CENTER);
             lblWednesdayHigh.setBounds(0, 105, 46, 31);
             panel_8.add(lblWednesdayHigh);
 
-            JLabel lblWednesdayTemp = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[2].getTemp()));
+            lblWednesdayTemp = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[2].getTemp()));
             lblWednesdayTemp.setHorizontalAlignment(SwingConstants.CENTER);
             lblWednesdayTemp.setBounds(0, 95, 113, 14);
             panel_8.add(lblWednesdayTemp);
 
-            JLabel lblWednesdayLow = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[2].getTempMin()));
+            lblWednesdayLow = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[2].getTempMin()));
             lblWednesdayLow.setHorizontalAlignment(SwingConstants.CENTER);
             lblWednesdayLow.setBounds(62, 105, 51, 31);
             panel_8.add(lblWednesdayLow);
 
-            JLabel lblWednessdaySummery = new JLabel(currentLocation.getLongTerm().getData()[2].getDescription());
+            lblWednessdaySummery = new JLabel(currentLocation.getLongTerm().getData()[2].getDescription());
             lblWednessdaySummery.setHorizontalAlignment(SwingConstants.CENTER);
             lblWednessdaySummery.setBounds(0, 78, 113, 14);
             panel_8.add(lblWednessdaySummery);
 
-            JLabel imgWednesday = new JLabel("");
+            imgWednesday = new JLabel("");
             imgWednesday.setHorizontalAlignment(SwingConstants.CENTER);
             imgWednesday.setBounds(1, 46, 109, 14);
             panel_8.add(imgWednesday);
@@ -527,27 +533,27 @@ public class Main
             lblThursday.setBounds(0, 11, 113, 14);
             panel_9.add(lblThursday);
 
-            JLabel lblThursdayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[3].getTempMax()));
+            lblThursdayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[3].getTempMax()));
             lblThursdayHigh.setHorizontalAlignment(SwingConstants.CENTER);
             lblThursdayHigh.setBounds(0, 107, 52, 29);
             panel_9.add(lblThursdayHigh);
 
-            JLabel lblThursdayTemp = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[3].getTemp()));
+            lblThursdayTemp = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[3].getTemp()));
             lblThursdayTemp.setHorizontalAlignment(SwingConstants.CENTER);
             lblThursdayTemp.setBounds(0, 95, 113, 14);
             panel_9.add(lblThursdayTemp);
 
-            JLabel lblThursdayLow = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[3].getTempMin()));
+            lblThursdayLow = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[3].getTempMin()));
             lblThursdayLow.setHorizontalAlignment(SwingConstants.CENTER);
             lblThursdayLow.setBounds(62, 107, 51, 29);
             panel_9.add(lblThursdayLow);
 
-            JLabel lvlThursdaySummery = new JLabel(currentLocation.getLongTerm().getData()[3].getDescription());
-            lvlThursdaySummery.setHorizontalAlignment(SwingConstants.CENTER);
-            lvlThursdaySummery.setBounds(-2, 78, 115, 14);
-            panel_9.add(lvlThursdaySummery);
+            lblThursdaySummery = new JLabel(currentLocation.getLongTerm().getData()[3].getDescription());
+            lblThursdaySummery.setHorizontalAlignment(SwingConstants.CENTER);
+            lblThursdaySummery.setBounds(-2, 78, 115, 14);
+            panel_9.add(lblThursdaySummery);
 
-            JLabel imgThursday = new JLabel("");
+            imgThursday = new JLabel("");
             imgThursday.setHorizontalAlignment(SwingConstants.CENTER);
             imgThursday.setBounds(3, 46, 109, 14);
             panel_9.add(imgThursday);
@@ -560,7 +566,7 @@ public class Main
             lblNewLabel_1.setBounds(247, 90, 46, 14);
             frameForecast.getContentPane().add(lblNewLabel_1);
 
-            JLabel lblWeathercondition = new JLabel(currentLocation.getCurrentTerm().getData()[0].getDescription());
+            lblWeathercondition = new JLabel(currentLocation.getCurrentTerm().getData()[0].getDescription());
             lblWeathercondition.setFont(new Font("Century Gothic", Font.PLAIN, 23));
             lblWeathercondition.setBounds(8, 90, 194, 28);
             frameForecast.getContentPane().add(lblWeathercondition);
@@ -592,7 +598,7 @@ public class Main
                 {
                     update();
                     try {
-                        TimeUnit.SECONDS.sleep(3);
+                        TimeUnit.SECONDS.sleep(1);
                     } catch (InterruptedException e) {
                         System.out.println("Tried updating GUI before data was recieved");
                     }
@@ -607,12 +613,11 @@ public class Main
         }
 
         JLabel lblLastUpdated = new JLabel("Last Updated:");
-        lblLastUpdated.setBounds(425, 125, 76, 14);
+        lblLastUpdated.setBounds(400, 125, 76, 14);
         frameForecast.getContentPane().add(lblLastUpdated);
 
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy  hh:mm a");
         lblTime = new JLabel(ZonedDateTime.now().format(format));
-        lblTime.setBounds(501, 125, 115, 14);
+        lblTime.setBounds(480, 125, 130, 14);
         frameForecast.getContentPane().add(lblTime);
     }
 
@@ -622,41 +627,41 @@ public class Main
     private static void updateGUI()
     {
         lblLocation = new JLabel(currentLocation.getName());
-        lblHigh = new JLabel(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getTempMax()));
-        lblTemp = new JLabel(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getTemp()));
-        lblLow = new JLabel(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getTempMin()));
+        lblHigh.setText(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getTempMax()));
+        lblTemp.setText(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getTemp()));
+        lblLow.setText(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getTempMin()));
 
-        lblFridayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[4].getTempMax()));
-        lblFridayTemp = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[4].getTemp()));
-        lblFridayLow = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[4].getTempMin()));
-        lblFridaySummery = new JLabel(currentLocation.getLongTerm().getData()[4].getDescription());
-        imgFriday = new JLabel("");
+        lblFridayHigh.setText(String.valueOf(currentLocation.getLongTerm().getData()[4].getTempMax()));
+        lblFridayTemp.setText(String.valueOf(currentLocation.getLongTerm().getData()[4].getTemp()));
+        lblFridayLow.setText(String.valueOf(currentLocation.getLongTerm().getData()[4].getTempMin()));
+        lblFridaySummery.setText(currentLocation.getLongTerm().getData()[4].getDescription());
+        imgFriday.setText("");
 
-        lblMondayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[0].getTempMax()));
-        lblMondayLow = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[0].getTempMin()));
-        lblMondayTemp = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[0].getTemp()));
-        lblMondaySummery = new JLabel(currentLocation.getLongTerm().getData()[0].getDescription());
-        imgMonday = new JLabel("");
+        lblMondayHigh.setText(String.valueOf(currentLocation.getLongTerm().getData()[0].getTempMax()));
+        lblMondayLow.setText(String.valueOf(currentLocation.getLongTerm().getData()[0].getTempMin()));
+        lblMondayTemp.setText(String.valueOf(currentLocation.getLongTerm().getData()[0].getTemp()));
+        lblMondaySummery.setText(currentLocation.getLongTerm().getData()[0].getDescription());
+        imgMonday.setText("");
 
-        lblTuesdayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[1].getTempMax()));
-        lblTuesdayTemp = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[1].getTemp()));
-        lblTuesdayLow = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[1].getTempMin()));
-        lblTuesdaySummery = new JLabel(currentLocation.getLongTerm().getData()[1].getDescription());
-        imgTuesday = new JLabel("");
+        lblTuesdayHigh.setText(String.valueOf(currentLocation.getLongTerm().getData()[1].getTempMax()));
+        lblTuesdayTemp.setText(String.valueOf(currentLocation.getLongTerm().getData()[1].getTemp()));
+        lblTuesdayLow.setText(String.valueOf(currentLocation.getLongTerm().getData()[1].getTempMin()));
+        lblTuesdaySummery.setText(currentLocation.getLongTerm().getData()[1].getDescription());
+        imgTuesday.setText("");
 
-        lblWednesdayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[2].getTempMax()));
-        lblWednesdayTemp = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[2].getTemp()));
-        lblWednesdayLow = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[2].getTempMin()));
-        lblWednessdaySummery = new JLabel(currentLocation.getLongTerm().getData()[2].getDescription());
-        imgWednesday = new JLabel("");
+        lblWednesdayHigh.setText(String.valueOf(currentLocation.getLongTerm().getData()[2].getTempMax()));
+        lblWednesdayTemp.setText(String.valueOf(currentLocation.getLongTerm().getData()[2].getTemp()));
+        lblWednesdayLow.setText(String.valueOf(currentLocation.getLongTerm().getData()[2].getTempMin()));
+        lblWednessdaySummery.setText(currentLocation.getLongTerm().getData()[2].getDescription());
+        imgWednesday.setText("");
 
-        lblThursdayHigh = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[3].getTempMax()));
-        lblThursdayTemp = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[3].getTemp()));
-        lblThursdayLow = new JLabel(String.valueOf(currentLocation.getLongTerm().getData()[3].getTempMin()));
-        lvlThursdaySummery = new JLabel(currentLocation.getLongTerm().getData()[3].getDescription());
-        imgThursday = new JLabel("");
+        lblThursdayHigh.setText(String.valueOf(currentLocation.getLongTerm().getData()[3].getTempMax()));
+        lblThursdayTemp.setText(String.valueOf(currentLocation.getLongTerm().getData()[3].getTemp()));
+        lblThursdayLow.setText(String.valueOf(currentLocation.getLongTerm().getData()[3].getTempMin()));
+        lblThursdaySummery.setText(currentLocation.getLongTerm().getData()[3].getDescription());
+        imgThursday.setText("");
 
-        lblWeathercondition = new JLabel(currentLocation.getCurrentTerm().getData()[0].getDescription());
-        lblTime = new JLabel(ZonedDateTime.now().toString());
+        lblWeathercondition.setText(currentLocation.getCurrentTerm().getData()[0].getDescription());
+        lblTime.setText(ZonedDateTime.now().format(format));
     }
 }//End of main class

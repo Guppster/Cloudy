@@ -5,6 +5,7 @@ import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -68,6 +69,7 @@ public class ShortTermParser extends Parser
         Call call = client.newCall(request);
 
         //Use the OkHttp's callback ability to ask for new data and store it when it is returned 
+        final String finalUrl = url;
         call.enqueue(new Callback()
         {
         	//The following method specifies what happens when the request fails.
@@ -87,7 +89,7 @@ public class ShortTermParser extends Parser
                     String JSONData = response.body().string();
 
                     //Debug println
-                    System.out.println(url + "data recieved!");
+                    System.out.println(finalUrl + " " + locationName + " data recieved!");
 
                     //If the response is not successful state that there was an error
                     if (!response.isSuccessful())
@@ -115,7 +117,7 @@ public class ShortTermParser extends Parser
      *
      * @param jsonData
      */
-    private void getArray(String jsonData)
+    private void getArray(String jsonData) throws JSONException
     {
     	//Creates a new JSONObject of the whole data
         JSONObject forecast = new JSONObject(jsonData);
