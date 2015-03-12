@@ -66,6 +66,7 @@ public class Main
     private static JLabel lblTemp;
     private static JLabel lblHigh;
     private static JLabel lblLow;
+    private static JToggleButton btnDelete;
 
     private static JFrame frameForecast;
 
@@ -162,7 +163,7 @@ public class Main
 
         update();
 
-        if(!problem)
+        if(!problem && !dynamicButtons.containsKey(tempRegion.getName()))
         {
             JButton buttonTemp = new JButton(tempRegion.getName());
             buttonTemp.addActionListener(new ActionListener()
@@ -170,7 +171,7 @@ public class Main
                 @Override
                 public void actionPerformed(ActionEvent e)
                 {
-                    if(delete)
+                    if(btnDelete.isSelected())
                     {
                         removeButton(tempRegion.getName());
                         System.out.println("Removing " + tempRegion.getName());
@@ -209,14 +210,14 @@ public class Main
 
         **/
     }
-    
+
     public static void removeButton(String name)
     {
         JButton b = dynamicButtons.remove(name);
         locationsPanel.remove(b);
         locationsPanel.validate();
         locationsPanel.update(locationsPanel.getGraphics());
-        delete = false;
+        btnDelete.setSelected(false);
     }
 
     private static void initializeLocations()
@@ -235,18 +236,10 @@ public class Main
         btnAdd.setBounds(95, 20, 85, 23);
         panel.add(btnAdd);
 
-        final JButton btnDelete = new JButton("Delete");
+        btnDelete = new JToggleButton("Delete");
         btnDelete.setBounds(275, 20, 85, 23);
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(delete)
-                {
-                    delete = false;
-                }
-                else
-                {
-                    delete = true;
-                }
             }
         });
         panel.add(btnDelete);
