@@ -146,9 +146,13 @@ public class Main
     public static void addButton()
     {
         final String tempName = JOptionPane.showInputDialog(frameLocations, "Please enter a Location Name");
-
+        System.out.println(tempName);
         //If input is empty, do nothing and exit method
-        if(tempName.equals(""))
+        if(tempName == null)
+        {
+          return;
+        }
+        else if(tempName.equals(""))
         {
             return;
         }
@@ -205,13 +209,13 @@ public class Main
 
         **/
     }
-
-
+    
     public static void removeButton(String name)
     {
         JButton b = dynamicButtons.remove(name);
         locationsPanel.remove(b);
         locationsPanel.validate();
+        locationsPanel.update(locationsPanel.getGraphics());
         delete = false;
     }
 
@@ -289,7 +293,7 @@ public class Main
 
         addButton();
 
-        /*
+        /* For static button (unremovable)
         final String initialname = JOptionPane.showInputDialog(frameLocations, "Please enter an initial Location");
 
         final Location tempRegion = new Location(initialname);
