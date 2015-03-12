@@ -3,6 +3,8 @@ package team21.Cloudy;
 import com.squareup.okhttp.OkHttpClient;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 /**
  * Apstract class used to obtain Json objects from the website and decodes its content
  *
@@ -34,7 +36,7 @@ public abstract class Parser
      *
      * @return
      */
-    protected abstract TermObject parse();
+    protected abstract TermObject parse() throws IOException;
 
     /**
      *

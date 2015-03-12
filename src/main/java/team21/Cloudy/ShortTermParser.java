@@ -41,7 +41,7 @@ public class ShortTermParser extends Parser
      * @return a ShortTerm object
      */
     @Override
-    protected TermObject parse()
+    protected TermObject parse() throws IOException
     {
     	//A string that will contain the generated URL
         String url = "";
@@ -65,50 +65,23 @@ public class ShortTermParser extends Parser
        	//Create a request and pass in the URL to the OKHttp library. 
         Request request = new Request.Builder().url(url).build();
 
+
         //Make a new call with the OkHTTPClient and pass in the request
         Call call = client.newCall(request);
 
-        //Use the OkHttp's callback ability to ask for new data and store it when it is returned 
-        final String finalUrl = url;
-        call.enqueue(new Callback()
-        {
-        	//The following method specifies what happens when the request fails.
-            @Override
-            public void onFailure(Request request, IOException e)
-            {
+        //Use OkHttp's ability to ask for new data and store it when it is returned
+        Response response = call.execute();
 
-            }
+        //Take the raw data
+        String JSONData = response.body().string();
 
-            //The following method specifies what happens when the request is successfull. 
-            @Override
-            public void onResponse(Response response) throws IOException
-            {
-                try
-                {
-                	//Take the raw data 
-                    String JSONData = response.body().string();
+        //Debug println
+        System.out.println(url + " " + locationName + " data recieved!");
 
-                    //Debug println
-                    System.out.println(finalUrl + " " + locationName + " data recieved!");
+        //Populate the data array from JSONArray
+        getArray(JSONData);
 
-                    //If the response is not successful state that there was an error
-                    if (!response.isSuccessful())
-                    {
-                        System.out.println("ERROR: REQUEST UNSUCCESSFUL!");
-                    }
-                    else
-                    {
-                    	//If it is successfull obtain the array of data
-                        getArray(JSONData);
-                    }
-                } catch (IOException e)
-                {
-                    System.out.println(e);
-                }
-            }
-        });
-
-		//Create a new shortTerm object using the data array and return it
+        //Create a new ShortTerm object using the data array and return it
         return new ShortTerm(data);
     }//End of parse method
 

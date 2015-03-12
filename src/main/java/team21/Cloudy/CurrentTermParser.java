@@ -45,7 +45,7 @@ public class CurrentTermParser extends Parser
      * @return CurrentTerm object
      */
     @Override
-    protected TermObject parse()
+    protected TermObject parse() throws IOException
     {
         //A string that will contain the generated URL
         String url = "";
@@ -72,44 +72,17 @@ public class CurrentTermParser extends Parser
         //Make a new call with the OkHTTPClient and pass in the request
         Call call = client.newCall(request);
 
-        //Use the OkHttp's callback ability to ask for new data and store it when it is returned
-        final String finalUrl = url;
-        call.enqueue(new Callback()
-        {
-            //The following method specifies what happens when the request fails.
-            @Override
-            public void onFailure(Request request, IOException e)
-            {
+        //Use OkHttp's ability to ask for new data and store it when it is returned
+        Response response = call.execute();
 
-            }
+        //Take the raw data
+        String JSONData = response.body().string();
 
-            //The following method specifies what happens when the request is successfull.
-            @Override
-            public void onResponse(Response response) throws IOException
-            {
-                try
-                {
-                    //Take the raw data
-                    String JSONData = response.body().string();
+        //Debug println
+        System.out.println(url + " " + locationName + " data recieved!");
 
-                    //Debug println
-                    System.out.println(finalUrl + " " + locationName + " data recieved!");
-
-                    //If the response is not successful state that there was an error
-                    if (!response.isSuccessful())
-                    {
-                        System.out.println("ERROR: REQUEST UNSUCCESSFUL!");
-                    } else
-                    {
-                        //If it is successfull obtain the array of data
-                        data[0] = getDetails(JSONData);
-                    }
-                } catch (IOException e)
-                {
-                    System.out.println(e);
-                }
-            }
-        });
+        //Populate the data array with JSONElements
+        data[0] = getDetails(JSONData);
 
         //Create a new longTerm object using the data array and return it
         return new CurrentTerm(data);

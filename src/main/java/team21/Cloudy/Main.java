@@ -25,6 +25,7 @@ public class Main
     private static HashMap<String, JButton> dynamicButtons;
     private static final String emptySpace = "                                                                                                  ";
     private static boolean  delete = false;
+    private static boolean  problem = false;
 
     private static JFrame frameLocations;
 
@@ -128,7 +129,11 @@ public class Main
         for (Location region : locations.getLocationList())
         {
             netController.setLocation(region);
-            netController.fetch();
+            if(!netController.fetch())
+            {
+                problem = true;
+                break;
+            }
         }
     }
 
@@ -146,29 +151,38 @@ public class Main
 
         update();
 
-        JButton buttonTemp = new JButton(tempRegion.getName());
-        buttonTemp.addActionListener(new ActionListener()
+        if(!problem)
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
+            JButton buttonTemp = new JButton(tempRegion.getName());
+            buttonTemp.addActionListener(new ActionListener()
             {
-                if(delete)
+                @Override
+                public void actionPerformed(ActionEvent e)
                 {
-                    removeButton(tempRegion.getName());
-                    System.out.println("Removing " + tempRegion.getName());
+                    if(delete)
+                    {
+                        removeButton(tempRegion.getName());
+                        System.out.println("Removing " + tempRegion.getName());
+                    }
+                    else
+                    {
+                        System.out.println("Clicked " + tempRegion.getName());
+                        currentLocation = locations.searchList(tempRegion.getName());
+                        frameLocations.setVisible(false);
+                        initializeForecast();
+                        frameForecast.setVisible(true);
+                    }
                 }
-                else
-                {
-                    System.out.println("Clicked " + tempRegion.getName());
-                    currentLocation = locations.searchList(tempRegion.getName());
-                    frameLocations.setVisible(false);
-                    initializeForecast();
-                    frameForecast.setVisible(true);
-                }
-            }
-        });
-        buttonTemp.setMaximumSize(buttonSize);
-        locationsPanel.add(buttonTemp);
+            });
+            buttonTemp.setMaximumSize(buttonSize);
+            locationsPanel.add(buttonTemp);
+            dynamicButtons.put(tempRegion.getName(), buttonTemp);
+        }
+        else
+        {
+            locations.deleteRegion(tempRegion);
+            problem = false;
+        }
 
         /*
         Test implementation to remove errors with slow connections
@@ -180,7 +194,6 @@ public class Main
         }
         buttonTemp.setEnabled(true);
 
-        dynamicButtons.put(tempRegion.getName(), buttonTemp);
         Box.createVerticalStrut(10);
 
         **/

@@ -1,5 +1,9 @@
 package team21.Cloudy;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+
 /**
  * @author: Gurpreet
  */
@@ -30,26 +34,37 @@ public class NetworkController
     /**
      * Updates all terms for current location object
      */
-    public void fetch()
+    public boolean fetch()
     {
-        //Fetches the current object data and initializes the currentTerm object inside of the specified location
-        fetchCurrent();
+        try
+        {
+            //Fetches the current object data and initializes the currentTerm object inside of the specified location
+            fetchCurrent();
 
-        //Fetches the long object data and initializes the LongTerm object inside of the specified location
-        fetchLong();
+            //Fetches the long object data and initializes the LongTerm object inside of the specified location
+            fetchLong();
 
-        //Fetches the short object data and initializes the shortTerm object inside of the specified location
-        fetchShort();
+            //Fetches the short object data and initializes the shortTerm object inside of the specified location
+            fetchShort();
+        }
+        catch(IOException | JSONException j)
+        {
+            System.out.println("A Problem as occured while fetching data for: " + location.getName() + "\n");
+            System.out.println(j);
+            return false;
+        }
 
         //Formats debugging console output
         System.out.println();
+
+        return true;
     }//End of fetchCurrent method
 
 
     /**
      * Updates the Current term object inside of the stored location
      */
-    private void fetchCurrent()
+    private void fetchCurrent() throws IOException
     {
         //Creates a new specific parser object using the location name
         parser = new CurrentTermParser(location.getName());
@@ -64,7 +79,7 @@ public class NetworkController
     /**
      * Updates the Long term object inside of the stored location
      */
-    private void fetchLong()
+    private void fetchLong() throws IOException
     {
         //Creates a new specific parser object using the location name
         parser = new LongTermParser(location.getName());
@@ -79,7 +94,7 @@ public class NetworkController
     /**
      *  Updates the Short term object inside of the stored location
      */
-    private void fetchShort()
+    private void fetchShort() throws IOException
     {
         //Creates a new specific parser object using the location name
         parser = new ShortTermParser(location.getName());
