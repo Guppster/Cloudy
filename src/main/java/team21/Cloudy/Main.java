@@ -256,7 +256,8 @@ public class Main
         panel.add(locationsPanel);
         locationsPanel.setLayout(new BoxLayout(locationsPanel, BoxLayout.Y_AXIS));
 
-        JButton buttonMars = new JButton(emptySpace + "Mars" + emptySpace + " ");
+        JButton buttonMars = new JButton("Mars");
+        buttonMars.setMaximumSize(new Dimension(frameLocations.getWidth(), 100));
         buttonMars.addActionListener(new ActionListener()
         {
             @Override
