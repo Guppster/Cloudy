@@ -103,11 +103,12 @@ public class Main
                         System.out.println("Substance-Magellan failed to initialize");
                     }
 
+                    dynamicButtons = new HashMap<String, JButton>();
+
                     initializeLocations();
 
                     frameLocations.setVisible(true);
 
-                    dynamicButtons = new HashMap<String, JButton>();
 
                 } catch (Exception e)
                 {
@@ -145,6 +146,12 @@ public class Main
     public static void addButton()
     {
         final String tempName = JOptionPane.showInputDialog(frameLocations, "Please enter a Location Name");
+
+        //If input is empty, do nothing and exit method
+        if(tempName.equals(""))
+        {
+            return;
+        }
 
         final Location tempRegion = new Location(tempName);
         locations.addRegion(tempRegion);
@@ -269,8 +276,19 @@ public class Main
 
         buttonSize = buttonMars.getMaximumSize();
 
-        Box.createVerticalStrut(10);
 
+        btnAdd.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+                addButton();
+                locationsPanel.revalidate();
+                locationsPanel.validate();
+            }
+        });
+
+        addButton();
+
+        /*
         final String initialname = JOptionPane.showInputDialog(frameLocations, "Please enter an initial Location");
 
         final Location tempRegion = new Location(initialname);
@@ -302,15 +320,8 @@ public class Main
         });
 
         locationsPanel.add(buttonInitial);
+        */
 
-        btnAdd.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-
-                addButton();
-                locationsPanel.revalidate();
-                locationsPanel.validate();
-            }
-        });
     }
 
     private static void initializeForecast()
