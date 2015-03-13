@@ -23,7 +23,6 @@ public class Main
     private static JPanel locationsPanel;
     private static Dimension buttonSize;
     private static HashMap<String, JButton> dynamicButtons;
-    private static final String emptySpace = "                                                                                                  ";
     private static boolean  delete = false;
     private static boolean  problem = false;
 
@@ -146,7 +145,7 @@ public class Main
 
     public static void addButton()
     {
-        final String tempName = JOptionPane.showInputDialog(frameLocations, "Please enter a Location Name");
+        final String tempName = CustomInputDialog.showInputDialog("Input a Location", "Which region's weather would you like to see today?", "Enter a location here");
         System.out.println(tempName);
         //If input is empty, do nothing and exit method
         if(tempName == null)
