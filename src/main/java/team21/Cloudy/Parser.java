@@ -22,6 +22,7 @@ public abstract class Parser
     protected final String longModifier = "forecast/daily?q=";
     protected final String imperialModifier = "&units=imperial";
     protected final String metricModifier = "&units=metric";
+    protected final String APIKEY = "&APPID=f71bff5f1401ac6b892251d425cea917";
 
     /**
      *

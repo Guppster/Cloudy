@@ -52,13 +52,13 @@ public class ShortTermParser extends Parser
             case IMPERIAL:
             {
             	//Generate and store the url based off constants
-                url = baseURL + shortModifier + locationName + imperialModifier;
+                url = baseURL + shortModifier + locationName + imperialModifier + APIKEY;
                 break;
             }
             case METRIC:
             {
             	//Generate and store the url based off constants
-                url = baseURL + shortModifier + locationName + metricModifier;
+                url = baseURL + shortModifier + locationName + metricModifier + APIKEY;
             }
         }
 

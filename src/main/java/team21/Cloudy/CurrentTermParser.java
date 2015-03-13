@@ -56,13 +56,13 @@ public class CurrentTermParser extends Parser
             case IMPERIAL:
             {
                 //Generate and store the url based off constants
-                url = baseURL + currentModifier + locationName + imperialModifier;
+                url = baseURL + currentModifier + locationName + imperialModifier + APIKEY;
                 break;
             }
             case METRIC:
             {
                 //Generate and store the url based off constants
-                url = baseURL + currentModifier + locationName + metricModifier;
+                url = baseURL + currentModifier + locationName + metricModifier + APIKEY;
             }
         }
 

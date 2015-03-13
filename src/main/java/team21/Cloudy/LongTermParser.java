@@ -58,13 +58,13 @@ public class LongTermParser extends Parser
             case IMPERIAL:
             {
             	//Generate and store the url based off constants
-                url = baseURL + longModifier + locationName + imperialModifier;
+                url = baseURL + longModifier + locationName + imperialModifier + APIKEY;
                 break;
             }
             case METRIC:
             {
             	//Generate and store the url based off constants
-                url = baseURL + longModifier + locationName + metricModifier;
+                url = baseURL + longModifier + locationName + metricModifier + APIKEY;
             }
         }
 
