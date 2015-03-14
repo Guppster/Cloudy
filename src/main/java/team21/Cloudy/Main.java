@@ -297,6 +297,7 @@ public class Main
                 }
             }
         });
+        buttonMars.setFont(new Font("Century Gothic", Font.PLAIN, 25));
         locationsPanel.add(buttonMars);
 
         buttonSize = buttonMars.getMaximumSize();
