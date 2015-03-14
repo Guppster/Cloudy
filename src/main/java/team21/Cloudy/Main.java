@@ -68,6 +68,8 @@ public class Main
     private static JToggleButton btnDelete;
 
     private static JFrame frameForecast;
+    private static WaitLayerUI layerUI;
+    private static JLayer<JPanel> jlayer;
 
     private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy  hh:mm a");
 
@@ -160,7 +162,11 @@ public class Main
         final Location tempRegion = new Location(tempName);
         locations.addRegion(tempRegion);
 
+        layerUI.start();
+
         update();
+
+        layerUI.stop();
 
         if(!problem && !dynamicButtons.containsKey(tempRegion.getName()))
         {
@@ -174,6 +180,7 @@ public class Main
                     {
                         removeButton(tempRegion.getName());
                         System.out.println("Removing " + tempRegion.getName());
+                        reinitializeDelete();
                     }
                     else
                     {
@@ -186,8 +193,10 @@ public class Main
                 }
             });
             buttonTemp.setMaximumSize(buttonSize);
+            buttonTemp.setFont(new Font("Century Gothic", Font.PLAIN, 36));
             locationsPanel.add(buttonTemp);
             dynamicButtons.put(tempRegion.getName(), buttonTemp);
+            reinitializeDelete();
         }
         else
         {
@@ -210,6 +219,18 @@ public class Main
         **/
     }
 
+    private static void reinitializeDelete()
+    {
+        if(dynamicButtons.isEmpty())
+        {
+            btnDelete.setVisible(false);
+        }
+        else
+        {
+            btnDelete.setVisible(true);
+        }
+    }
+
     public static void removeButton(String name)
     {
         JButton b = dynamicButtons.remove(name);
@@ -226,25 +247,31 @@ public class Main
         frameLocations.setBounds(100, 100, 642, 473);
         frameLocations.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        layerUI = new WaitLayerUI();
+
         final JPanel panel = new JPanel();
         panel.setBounds(10, 32, 603, 390);
-        frameLocations.getContentPane().add(panel);
+
         panel.setLayout(null);
 
         JButton btnAdd = new JButton("Add");
+        btnAdd.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         btnAdd.setBounds(95, 20, 85, 23);
         panel.add(btnAdd);
 
         btnDelete = new JToggleButton("Delete");
         btnDelete.setBounds(275, 20, 85, 23);
+        btnDelete.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             }
         });
         panel.add(btnDelete);
+        btnDelete.setVisible(false);
 
         JButton btnMultiview = new JButton("MultiView");
         btnMultiview.setBounds(455, 20, 85, 23);
+        btnMultiview.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         panel.add(btnMultiview);
 
         locationsPanel = new JPanel();
@@ -282,6 +309,10 @@ public class Main
                 locationsPanel.validate();
             }
         });
+
+        jlayer = new JLayer<JPanel>(panel, layerUI);
+
+        frameLocations.getContentPane().add(panel);
 
         addButton();
 
