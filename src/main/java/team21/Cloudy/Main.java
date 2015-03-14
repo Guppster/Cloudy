@@ -246,6 +246,7 @@ public class Main
         frameLocations.setResizable(false);
         frameLocations.setBounds(100, 100, 642, 473);
         frameLocations.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameLocations.setTitle("Cloudy : Location List");
 
         layerUI = new WaitLayerUI();
 
@@ -360,6 +361,7 @@ public class Main
             frameForecast.setBounds(100, 100, 642, 475);
             frameForecast.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frameForecast.getContentPane().setLayout(null);
+            frameForecast.setTitle("Cloudy : Forecast for " + currentLocation.getName());
 
             JButton btnGoToLocations = new JButton("=");
             btnGoToLocations.addActionListener(new ActionListener()

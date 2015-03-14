@@ -76,7 +76,6 @@ public class keyTextField extends KeyAdapter
     {
         try
         {
-            System.out.println(keyTextField.class.getResource("/other/city_list_clean.txt").getPath());
             BufferedReader in = new BufferedReader(new InputStreamReader(keyTextField.class.getResourceAsStream("/other/city_list_clean.txt")));
             String str;
 
