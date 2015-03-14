@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
@@ -76,7 +76,8 @@ public class keyTextField extends KeyAdapter
     {
         try
         {
-            BufferedReader in = new BufferedReader(new FileReader(keyTextField.class.getResource("/city_list_clean.txt").getPath()));
+            System.out.println(keyTextField.class.getResource("/other/city_list_clean.txt").getPath());
+            BufferedReader in = new BufferedReader(new InputStreamReader(keyTextField.class.getResourceAsStream("/other/city_list_clean.txt")));
             String str;
 
             while ((str = in.readLine()) != null)
