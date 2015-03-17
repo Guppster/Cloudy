@@ -70,6 +70,7 @@ public class Main
     private static JFrame frameForecast;
     private static WaitLayerUI layerUI;
     private static JLayer<JPanel> jlayer;
+    private static Location tempRegion;
 
     private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy  hh:mm a");
 
@@ -86,7 +87,6 @@ public class Main
 
         config.save();
         netController = new NetworkController();
-
 
         EventQueue.invokeLater(new Runnable()
         {
@@ -119,8 +119,6 @@ public class Main
             }
         });
 
-        //checkInitialRun();
-
     }//End of main method
 
 
@@ -149,17 +147,15 @@ public class Main
     {
         final String tempName = CustomInputDialog.showInputDialog("Input a Location", "Which region's weather would you like to see today?", "Enter a location here");
         System.out.println(tempName);
-        //If input is empty, do nothing and exit method
-        if(tempName == null)
+
+        //If input is empty, do nothing and exit method but update the mars location
+        if(tempName == null || tempName.equals(""))
         {
-          return;
-        }
-        else if(tempName.equals(""))
-        {
+            update();
             return;
         }
 
-        final Location tempRegion = new Location(tempName);
+        tempRegion = new Location(tempName);
         locations.addRegion(tempRegion);
 
         layerUI.start();
@@ -281,6 +277,7 @@ public class Main
         locationsPanel.setLayout(new BoxLayout(locationsPanel, BoxLayout.Y_AXIS));
 
         JButton buttonMars = new JButton("Mars");
+        tempRegion = new Location("mars");
         buttonMars.setMaximumSize(new Dimension(frameLocations.getWidth(), 100));
         buttonMars.addActionListener(new ActionListener()
         {
@@ -294,10 +291,15 @@ public class Main
                 else
                 {
                     System.out.println("Clicked: Mars");
+                    currentLocation = locations.searchList("mars");
+                    frameLocations.setVisible(false);
+                    initializeForecast();
+                    frameForecast.setVisible(true);
                 }
             }
         });
         buttonMars.setFont(new Font("Century Gothic", Font.PLAIN, 25));
+        locations.addRegion(tempRegion);
         locationsPanel.add(buttonMars);
 
         buttonSize = buttonMars.getMaximumSize();

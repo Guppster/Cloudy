@@ -28,7 +28,8 @@ public class MarsTermParser extends Parser
     public MarsTermParser(String locationName)
     {
         this.locationName = locationName;
-        config.load();
+        data = new MarsData[1];
+        //config.load();
     }//End of constructor
 
     /**
@@ -37,42 +38,30 @@ public class MarsTermParser extends Parser
      * @return MarsTerm object
      */
     @Override
-    protected TermObject parse()
+    protected TermObject parse() throws IOException
     {
-        Request request = new Request.Builder().url("http://marsweather.ingenology.com/v1/latest/?format=json").build();
+        //A string that will contain the generated URL
+        String url = "http://marsweather.ingenology.com/v1/latest/?format=json";
 
+        //Create a request and pass in the URL to the OKHttp library.
+        Request request = new Request.Builder().url(url).build();
+
+        //Make a new call with the OkHTTPClient and pass in the request
         Call call = client.newCall(request);
 
-        call.enqueue(new Callback()
-        {
-            @Override
-            public void onFailure(Request request, IOException e)
-            {
+        //Use OkHttp's ability to ask for new data and store it when it is returned
+        Response response = call.execute();
 
-            }
+        //Take the raw data
+        String JSONData = response.body().string();
 
-            @Override
-            public void onResponse(Response response) throws IOException
-            {
-                try
-                {
-                    String JSONData = response.body().string();
-                    System.out.println(JSONData);
+        //Debug println
+        System.out.println(url + " " + locationName + " data recieved!");
 
-                    if (!response.isSuccessful())
-                    {
+        //Populate the data array with JSONElements
+        data[0] = getDetails(JSONData);
 
-                    } else
-                    {
-                        data[0] = getDetails(JSONData);
-                    }
-                } catch (IOException e)
-                {
-                    System.out.println(e);
-                }
-            }
-        });
-
+        //Create a new MarsTerm object using the data array and return it
         return new MarsTerm(data);
     }
 
@@ -88,12 +77,32 @@ public class MarsTermParser extends Parser
         JSONObject forecast = new JSONObject(rawJSONData);
         JSONObject report = forecast.getJSONObject("report");
 
+        String tagMin = "";
+        String tagMax = "";
+
+        //tempUnits units = config.getDegrees();
+        tempUnits units = tempUnits.METRIC;
+
+        switch (units)
+        {
+            case IMPERIAL:
+                tagMin = "min_temp_fahrenheit";
+                tagMax = "max_temp_fahrenheit";
+                break;
+            case METRIC:
+                tagMin = "min_temp";
+                tagMax = "max_temp";
+                break;
+        }
+
         return new MarsData(
-                getConvertedTemp(report, report.getDouble("temp"), true),
-                getConvertedTemp(report, report.getDouble("temp_min"), false),
-                getConvertedTemp(report, report.getDouble("temp_max"), true),
-                report.getDouble("wind_speed"),
-                Integer.valueOf(report.getString("wind_direction")),
+                getAvg(report.getDouble(tagMin), report.getDouble(tagMax)),
+                report.getDouble(tagMin),
+                report.getDouble(tagMax),
+                //report.getDouble("wind_speed"),
+                32,
+                //Integer.valueOf(report.getString("wind_direction")),
+                5,
                 report.getDouble("pressure"),
                 report.getString("season"),
                 report.getString("atmo_opacity")
@@ -101,26 +110,13 @@ public class MarsTermParser extends Parser
     }//End of getDetails method
 
     /**
-     * use the preferred units to get specific versions of JSON Object
-     * and return the correct min and max values
-     *
-     * @param report
-     * @param temp
-     * @param minOrMax
+     * Return the average of the two parameters
+     * @param tempMin
+     * @param tempMax
      * @return
      */
-    private double getConvertedTemp(JSONObject report, double temp, boolean minOrMax)
+    private double getAvg(double tempMin, double tempMax)
     {
-        tempUnits units = config.getDegrees();
-
-        switch (units)
-        {
-            case IMPERIAL:
-                return minOrMax ? report.getDouble("min_temp_fahrenheit") : report.getDouble("max_temp_fahrenheit");
-            case METRIC:
-                return minOrMax ? report.getDouble("min_temp") : report.getDouble("max_temp");
-            default:
-                return 0;
-        }
-    }
-}
+        return ((tempMin + tempMax) / 2);
+    }//End of getAvg method
+}//End of MarsTermParser class

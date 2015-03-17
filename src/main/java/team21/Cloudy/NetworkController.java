@@ -38,14 +38,21 @@ public class NetworkController
     {
         try
         {
-            //Fetches the current object data and initializes the currentTerm object inside of the specified location
-            fetchCurrent();
+            if(location.getName().equalsIgnoreCase("mars"))
+            {
+                fetchMars();
+            }
+            else
+            {
+                //Fetches the current object data and initializes the currentTerm object inside of the specified location
+                fetchCurrent();
 
-            //Fetches the long object data and initializes the LongTerm object inside of the specified location
-            fetchLong();
+                //Fetches the long object data and initializes the LongTerm object inside of the specified location
+                fetchLong();
 
-            //Fetches the short object data and initializes the shortTerm object inside of the specified location
-            fetchShort();
+                //Fetches the short object data and initializes the shortTerm object inside of the specified location
+                fetchShort();
+            }
         }
         catch(IOException | JSONException j)
         {
@@ -60,6 +67,20 @@ public class NetworkController
         return true;
     }//End of fetchCurrent method
 
+    /**
+     * Updates the Current term object inside of the stored location
+     */
+    private void fetchMars() throws IOException
+    {
+        //Creates a new specific parser object using the location name
+        parser = new MarsTermParser(location.getName());
+
+        //Retrieves the new parsed data object
+        term = parser.parse();
+
+        //Initializes the object inside of the location
+        location.setCurrentTerm(term);
+    }//End of fetchCurrent method
 
     /**
      * Updates the Current term object inside of the stored location
