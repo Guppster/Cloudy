@@ -166,7 +166,7 @@ public class Main
 
         if(!problem && !dynamicButtons.containsKey(tempRegion.getName()))
         {
-            JButton buttonTemp = new JButton(tempRegion.getName());
+            JButton buttonTemp = new JButton(tempName);
             buttonTemp.addActionListener(new ActionListener()
             {
                 @Override
@@ -174,14 +174,14 @@ public class Main
                 {
                     if(btnDelete.isSelected())
                     {
-                        removeButton(tempRegion.getName());
-                        System.out.println("Removing " + tempRegion.getName());
+                        removeButton(tempName);
+                        System.out.println("Removing " + tempName);
                         reinitializeDelete();
                     }
                     else
                     {
-                        System.out.println("Clicked " + tempRegion.getName());
-                        currentLocation = locations.searchList(tempRegion.getName());
+                        System.out.println("Clicked " + tempName);
+                        currentLocation = locations.searchList(tempName);
                         frameLocations.setVisible(false);
                         initializeForecast();
                         frameForecast.setVisible(true);
@@ -189,9 +189,9 @@ public class Main
                 }
             });
             buttonTemp.setMaximumSize(buttonSize);
-            buttonTemp.setFont(new Font("Century Gothic", Font.PLAIN, 36));
+            buttonTemp.setFont(new Font("Century Gothic", Font.PLAIN, 25));
             locationsPanel.add(buttonTemp);
-            dynamicButtons.put(tempRegion.getName(), buttonTemp);
+            dynamicButtons.put(tempName, buttonTemp);
             reinitializeDelete();
         }
         else
@@ -256,6 +256,15 @@ public class Main
         btnAdd.setBounds(95, 20, 85, 23);
         panel.add(btnAdd);
 
+        btnAdd.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+                addButton();
+                locationsPanel.revalidate();
+                locationsPanel.validate();
+            }
+        });
+
         btnDelete = new JToggleButton("Delete");
         btnDelete.setBounds(275, 20, 85, 23);
         btnDelete.setFont(new Font("Century Gothic", Font.PLAIN, 12));
@@ -303,16 +312,6 @@ public class Main
         locationsPanel.add(buttonMars);
 
         buttonSize = buttonMars.getMaximumSize();
-
-
-        btnAdd.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-
-                addButton();
-                locationsPanel.revalidate();
-                locationsPanel.validate();
-            }
-        });
 
         jlayer = new JLayer<JPanel>(panel, layerUI);
 
