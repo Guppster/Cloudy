@@ -25,6 +25,7 @@ public class Main
     private static HashMap<String, JButton> dynamicButtons;
     private static boolean  delete = false;
     private static boolean  problem = false;
+    private static boolean displayable = false;
 
     private static JFrame frameLocations;
 
@@ -109,9 +110,6 @@ public class Main
 
                     initializeLocations();
 
-                    frameLocations.setVisible(true);
-
-
                 } catch (Exception e)
                 {
                     e.printStackTrace();
@@ -152,11 +150,13 @@ public class Main
         if(tempName == null || tempName.equals(""))
         {
             update();
+            displayable = false;
             return;
         }
 
         tempRegion = new Location(tempName);
         locations.addRegion(tempRegion);
+        currentLocation = tempRegion;
 
         layerUI.start();
 
@@ -193,11 +193,13 @@ public class Main
             locationsPanel.add(buttonTemp);
             dynamicButtons.put(tempName, buttonTemp);
             reinitializeDelete();
+            displayable = true;
         }
         else
         {
             locations.deleteRegion(tempRegion);
             problem = false;
+            displayable = false;
         }
 
         /*
@@ -262,6 +264,13 @@ public class Main
                 addButton();
                 locationsPanel.revalidate();
                 locationsPanel.validate();
+
+                if(displayable)
+                {
+                    frameLocations.setVisible(false);
+                    initializeForecast();
+                    frameForecast.setVisible(true);
+                }
             }
         });
 
@@ -318,6 +327,13 @@ public class Main
         frameLocations.getContentPane().add(panel);
 
         addButton();
+
+        if(displayable)
+        {
+            frameLocations.setVisible(false);
+            initializeForecast();
+            frameForecast.setVisible(true);
+        }
 
         /* For static button (unremovable)
         final String initialname = JOptionPane.showInputDialog(frameLocations, "Please enter an initial Location");
