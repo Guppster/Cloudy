@@ -56,7 +56,7 @@ public class MarsTermParser extends Parser
         String JSONData = response.body().string();
 
         //Debug println
-        System.out.println(url + " " + locationName + " data recieved!");
+        System.out.println(locationName + " data received!");
 
         //Populate the data array with JSONElements
         data[0] = getDetails(JSONData);

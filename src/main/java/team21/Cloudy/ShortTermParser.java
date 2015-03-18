@@ -76,7 +76,7 @@ public class ShortTermParser extends Parser
         String JSONData = response.body().string();
 
         //Debug println
-        System.out.println(url + " " + locationName + " data recieved!");
+        System.out.println(locationName + " short-term data received!");
 
         //Populate the data array from JSONArray
         getArray(JSONData);

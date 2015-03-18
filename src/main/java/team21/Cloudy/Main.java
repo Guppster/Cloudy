@@ -181,7 +181,7 @@ public class Main
                     }
                     else
                     {
-                        System.out.println("Clicked " + tempName);
+                        System.out.println("Opening " + tempName);
                         currentLocation = locations.searchList(tempName);
                         frameLocations.setVisible(false);
                         initializeForecast();
@@ -673,7 +673,7 @@ public class Main
                     try {
                         TimeUnit.SECONDS.sleep(1);
                     } catch (InterruptedException e) {
-                        System.out.println("Tried updating GUI before data was recieved");
+                        System.out.println("Tried updating GUI before data was received");
                     }
                     updateGUI();
                 }
@@ -682,7 +682,7 @@ public class Main
             frameForecast.getContentPane().add(btnRefresh);
         }catch(NullPointerException e)
         {
-            System.out.println("Data not loaded yet... Please wait");
+            System.out.println("Not all elements displays properly!");
         }
 
         JLabel lblLastUpdated = new JLabel("Last Updated:");
