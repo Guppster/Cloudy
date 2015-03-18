@@ -11,11 +11,18 @@ import java.util.prefs.Preferences;
  */
 public class Configuration
 {
-    /**** Fields ****/
-    private Preferences prefs; 			//User specific preferences
-    private LocationList locations; 	//List of locations
-    private tempUnits degrees; 			//Preferred units
+    /**
+     * * Fields ***
+     */
+    private Preferences prefs;            //User specific preferences
+    private LocationList locations;    //List of locations
+    private tempUnits degrees;            //Preferred units
     private boolean[] viewObject;
+    private static String tempUnit;
+    private static String windUnit;
+    private static String humidUnit;
+    private static String pressureUnit;
+
 
     /**
      * Specific Constructor
@@ -30,6 +37,22 @@ public class Configuration
         this.locations = locations;
         this.degrees = degrees;
         this.viewObject = viewObject;
+
+        //set the units
+        if (degrees.equals(tempUnits.METRIC))
+        {
+            tempUnit = " °C";
+            windUnit = " m/s";
+            pressureUnit = " kPa";
+        } else
+        {
+            tempUnit = " °F";
+            windUnit = " mph";
+            pressureUnit = " ksi";
+        }
+        humidUnit = " %";
+
+
     }
 
     /**
@@ -51,6 +74,11 @@ public class Configuration
         this.locations = locations;
         viewObject = new boolean[10]; //Assuming there are 10 viewable objects
         degrees = tempUnits.METRIC;
+        tempUnit = " °C";
+        windUnit = " m/s";
+        pressureUnit = " kPa";
+        humidUnit = " %";
+
     }
 
     /**
@@ -117,6 +145,7 @@ public class Configuration
     /**
      * *
      * store the locations information into byteArray
+     *
      * @return the byteArray
      * @throws IOException
      */
@@ -136,6 +165,7 @@ public class Configuration
     /**
      * *
      * convert those bytes in byteArray to locations and store them in a new array
+     *
      * @param bytes
      * @return new array with the locations
      * @throws IOException
@@ -158,6 +188,7 @@ public class Configuration
     /**
      * *
      * create new BitArray for viewable objects
+     *
      * @return
      */
     private byte[] viewableObjectsToByteArray()
@@ -225,5 +256,24 @@ public class Configuration
         this.degrees = degrees;
     }
 
+    public String getTempUnit()
+    {
+        return tempUnit;
+    }
+
+    public String getWindUnit()
+    {
+        return windUnit;
+    }
+
+    public String getHumidUnit()
+    {
+        return humidUnit;
+    }
+
+    public String getPressureUnit()
+    {
+        return pressureUnit;
+    }
 
 }//End of Configuration
