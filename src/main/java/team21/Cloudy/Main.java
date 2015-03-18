@@ -175,6 +175,7 @@ public class Main
                     if(btnDelete.isSelected())
                     {
                         removeButton(tempName);
+                        locations.deleteRegion(locations.searchList(tempName));
                         System.out.println("Removing " + tempName);
                         reinitializeDelete();
                     }
