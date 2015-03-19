@@ -162,8 +162,6 @@ public class Main
 
         layerUI.stop();
 
-        System.out.println(tempRegion.getName() + " " + tempRegion.getOfficialName());
-
         if(!problem && !dynamicButtons.containsKey(tempName))
         {
             JButton buttonTemp = new JButton(locations.searchList(tempName).getOfficialName());
@@ -398,7 +396,7 @@ public class Main
             btnGoToLocations.setBounds(10, 11, 41, 23);
             frameForecast.getContentPane().add(btnGoToLocations);
 
-            lblLocation = new JLabel(currentLocation.getName());
+            lblLocation = new JLabel(currentLocation.getOfficialName());
             lblLocation.setFont(new Font("Century Gothic", Font.PLAIN, 36));
             lblLocation.setBounds(62, 5, 231, 50);
             frameForecast.getContentPane().add(lblLocation);
