@@ -62,6 +62,8 @@ public class ShortTermParser extends Parser
             }
         }
 
+        System.out.println(url);
+
        	//Create a request and pass in the URL to the OKHttp library. 
         Request request = new Request.Builder().url(url).build();
 

@@ -12,6 +12,7 @@ public class CurrentTermData extends BaseData
     private int precipitation; //level or precipitation
     private int sunrise;//time of expected sunrise
     private int sunset;//time of expected sunset
+    private String countryCode;
 
     /**
      * Constructor initialize the attributes with the first three parameters and sends the rest to the super class
@@ -28,9 +29,10 @@ public class CurrentTermData extends BaseData
      * @param iconID        the string representing the icon that will be used to visually display the current weather
      * @param description   a short description of the weather
      */
-    public CurrentTermData(int precipitation, int sunrise, int sunset, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description)
+    public CurrentTermData(int precipitation, int sunrise, int sunset, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, String countryCode)
     {
         super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description);
+        super.setCountryCode(countryCode);
         this.precipitation = precipitation;
         this.sunrise = sunrise;
         this.sunset = sunset;

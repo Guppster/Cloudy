@@ -15,6 +15,7 @@ public abstract class BaseData
     private double pressure; //pressure
     private String iconID; //address to icon
     private String description; //short description of current weather
+    private String countryCode;
 
     /**
      * Class Constructor initialize all of attributes to the class
@@ -26,7 +27,7 @@ public abstract class BaseData
      * @param windDirection the direction the wind blows
      * @param pressure      the current air pressure
      * @param iconID        the string representing the icon that will be used to visually display the current weather
-     * @param description   a short describption of the weather
+     * @param description   a short description of the weather
      */
     protected BaseData(double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description)
     {
@@ -198,5 +199,15 @@ public abstract class BaseData
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    public String getCountryCode()
+    {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode)
+    {
+        this.countryCode = countryCode;
     }
 }//End of BaseData class

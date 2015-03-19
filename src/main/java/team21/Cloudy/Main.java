@@ -75,9 +75,6 @@ public class Main
 
     private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy  hh:mm a");
 
-
-
-
     /**
      * *
      *
@@ -137,19 +134,15 @@ public class Main
                 break;
             }
         }
-
-
     }
 
     /**
      * Initialize the contents of the frame.
      */
-
-
     public static void addButton()
     {
         final String tempName = CustomInputDialog.showInputDialog("Input a Location", "Which region's weather would you like to see today?", "Enter a location here");
-        System.out.println(tempName);
+        System.out.println("Requesting Location: " + tempName);
 
         //If input is empty, do nothing and exit method but update the mars location
         if(tempName == null || tempName.equals(""))
@@ -169,9 +162,11 @@ public class Main
 
         layerUI.stop();
 
-        if(!problem && !dynamicButtons.containsKey(tempRegion.getName()))
+        System.out.println(tempRegion.getName() + " " + tempRegion.getOfficialName());
+
+        if(!problem && !dynamicButtons.containsKey(tempName))
         {
-            JButton buttonTemp = new JButton(tempName);
+            JButton buttonTemp = new JButton(locations.searchList(tempName).getOfficialName());
             buttonTemp.addActionListener(new ActionListener()
             {
                 @Override
@@ -339,6 +334,10 @@ public class Main
             frameLocations.setVisible(false);
             initializeForecast();
             frameForecast.setVisible(true);
+        }
+        else
+        {
+            frameLocations.setVisible(true);
         }
 
         /* For static button (unremovable)

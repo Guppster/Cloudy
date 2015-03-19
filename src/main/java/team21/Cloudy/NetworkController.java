@@ -10,6 +10,7 @@ import java.io.IOException;
 public class NetworkController
 {
     private Location location;
+    private String locationName;
     private Parser parser;
     private TermObject term;
 
@@ -28,6 +29,7 @@ public class NetworkController
     public NetworkController(Location location)
     {
         this.location = location;
+        locationName = location.getName();
         fetch();
     }
 
@@ -73,7 +75,7 @@ public class NetworkController
     private void fetchMars() throws IOException
     {
         //Creates a new specific parser object using the location name
-        parser = new MarsTermParser(location.getName());
+        parser = new MarsTermParser(locationName);
 
         //Retrieves the new parsed data object
         term = parser.parse();
@@ -88,10 +90,17 @@ public class NetworkController
     private void fetchCurrent() throws IOException
     {
         //Creates a new specific parser object using the location name
-        parser = new CurrentTermParser(location.getName());
+        parser = new CurrentTermParser(locationName);
 
         //Retrieves the new parsed data object
         term = parser.parse();
+
+        String countryCode = term.getData()[0].getCountryCode();
+
+        if(locationName.contains(","))
+        {
+            locationName = locationName.split(",")[0] + "," + countryCode;
+        }
 
         //Initializes the object inside of the location
         location.setCurrentTerm(term);
@@ -103,7 +112,7 @@ public class NetworkController
     private void fetchLong() throws IOException
     {
         //Creates a new specific parser object using the location name
-        parser = new LongTermParser(location.getName());
+        parser = new LongTermParser(locationName);
 
         //Retrieves the new parsed data object
         term = parser.parse();
@@ -118,7 +127,7 @@ public class NetworkController
     private void fetchShort() throws IOException
     {
         //Creates a new specific parser object using the location name
-        parser = new ShortTermParser(location.getName());
+        parser = new ShortTermParser(locationName);
 
         //Retrieves the new parsed data object
         term = parser.parse();
@@ -143,5 +152,6 @@ public class NetworkController
     public void setLocation(Location location)
     {
         this.location = location;
+        locationName = location.getName();
     }//End of setLocation method
 }//End of class
