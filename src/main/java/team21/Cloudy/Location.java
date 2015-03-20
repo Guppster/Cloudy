@@ -120,19 +120,11 @@ public class Location
         this.currentTerm = currentTerm;
         countryCode = this.currentTerm.getData()[0].getCountryCode();
 
-        if(name.contains(","))
-        {
-            officialName = name.split(",")[0] + "," + countryCode;
-        }
+        officialName = name.split(",")[0] + "," + countryCode;
     }
 
     public String getOfficialName()
     {
         return officialName;
-    }
-
-    public void setOfficialName(String officialName)
-    {
-        officialName = officialName;
     }
 }//End of Location class

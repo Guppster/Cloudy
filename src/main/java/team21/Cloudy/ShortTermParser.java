@@ -62,11 +62,8 @@ public class ShortTermParser extends Parser
             }
         }
 
-        System.out.println(url);
-
        	//Create a request and pass in the URL to the OKHttp library. 
         Request request = new Request.Builder().url(url).build();
-
 
         //Make a new call with the OkHTTPClient and pass in the request
         Call call = client.newCall(request);
