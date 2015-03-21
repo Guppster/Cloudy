@@ -5,6 +5,8 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -58,7 +60,6 @@ public class Main
     private static JLabel lblThursdayLow;
     private static JLabel lblThursdaySummery;
     private static JLabel imgThursday;
-
 
     private static JLabel lblWeathercondition;
     private static JLabel lblLocation;
@@ -254,7 +255,7 @@ public class Main
 
         JButton btnAdd = new JButton("Add");
         btnAdd.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-        btnAdd.setBounds(95, 20, 85, 23);
+        btnAdd.setBounds(56, 20, 89, 23);
         panel.add(btnAdd);
 
         btnAdd.addActionListener(new ActionListener() {
@@ -274,7 +275,7 @@ public class Main
         });
 
         btnDelete = new JToggleButton("Delete");
-        btnDelete.setBounds(275, 20, 85, 23);
+        btnDelete.setBounds(346, 20, 89, 23);
         btnDelete.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -284,9 +285,13 @@ public class Main
         btnDelete.setVisible(false);
 
         JButton btnMultiview = new JButton("MultiView");
-        btnMultiview.setBounds(455, 20, 85, 23);
+        btnMultiview.setBounds(201, 20, 89, 23);
         btnMultiview.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         panel.add(btnMultiview);
+
+        UnitsButton unitsToggle = new UnitsButton();
+        unitsToggle.setBounds(491, 20, 89, 23);
+        panel.add(unitsToggle);
 
         locationsPanel = new JPanel();
         locationsPanel.setBounds(0, 54, 636, 382);

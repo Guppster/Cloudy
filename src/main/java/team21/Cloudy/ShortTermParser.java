@@ -29,7 +29,7 @@ public class ShortTermParser extends Parser
      */
     public ShortTermParser(String locationName)
     {
-        this.locationName = locationName;
+        this.locationName = locationName.replace(" ", "%20");
         config = new Configuration();
         config.load();
         data = new ShortTermData[7];

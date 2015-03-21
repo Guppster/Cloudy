@@ -27,7 +27,7 @@ public class CurrentTermParser extends Parser
      */
     public CurrentTermParser(String locationName)
     {
-        this.locationName = locationName;
+        this.locationName = locationName.replace(" ", "%20");
 
         //Create a configuration object
         config = new Configuration();
