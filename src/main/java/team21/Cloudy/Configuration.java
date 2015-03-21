@@ -113,7 +113,7 @@ public class Configuration
     {
         byte[] locationBytes = new byte[10];
         byte[] viewableBytes = new byte[10];
-        String units = "";
+        String units;
 
         /*
         try

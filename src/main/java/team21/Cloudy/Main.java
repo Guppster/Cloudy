@@ -25,8 +25,8 @@ public class Main
     private static JPanel locationsPanel;
     private static Dimension buttonSize;
     private static HashMap<String, JButton> dynamicButtons;
-    private static boolean  delete = false;
-    private static boolean  problem = false;
+    private static boolean delete = false;
+    private static boolean problem = false;
     private static boolean displayable = false;
 
     private static JFrame frameLocations;
@@ -238,6 +238,24 @@ public class Main
         btnDelete.setSelected(false);
     }
 
+
+    private static void unitsStateChanged(ItemEvent evt)
+    {
+        int state = evt.getStateChange();
+        if (state == ItemEvent.SELECTED)
+        {
+            config.setDegrees(tempUnits.METRIC);
+            config.save();
+            System.out.println("Metric");
+        } else
+        {
+            config.setDegrees(tempUnits.IMPERIAL);
+            config.save();
+            System.out.println("Imperial");
+        }
+        update();
+    }
+
     private static void initializeLocations()
     {
         frameLocations = new JFrame();
@@ -291,6 +309,16 @@ public class Main
 
         UnitsButton unitsToggle = new UnitsButton();
         unitsToggle.setBounds(491, 20, 89, 23);
+
+        unitsToggle.addItemListener(new ItemListener()
+        {
+            @Override
+            public void itemStateChanged(ItemEvent e)
+            {
+                unitsStateChanged(e);
+            }
+        });
+
         panel.add(unitsToggle);
 
         locationsPanel = new JPanel();
