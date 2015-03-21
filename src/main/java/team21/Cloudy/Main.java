@@ -9,6 +9,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -86,8 +87,10 @@ public class Main
         locations = new LocationList();
 
         config = new Configuration(locations);
-
         config.save();
+
+        locations = config.getLocations();
+
         netController = new NetworkController();
 
         EventQueue.invokeLater(new Runnable()
@@ -115,6 +118,17 @@ public class Main
                 {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        Runtime.getRuntime().addShutdownHook(new Thread()
+        {
+            @Override
+            public void run()
+            {
+                config.setLocations(locations);
+                System.out.println("Saving");
+                config.save();
             }
         });
 
@@ -156,6 +170,9 @@ public class Main
         tempRegion = new Location(tempName);
         locations.addRegion(tempRegion);
         currentLocation = tempRegion;
+
+        config.setLocations(locations);
+        config.save();
 
         layerUI.start();
 
@@ -202,19 +219,64 @@ public class Main
             displayable = false;
         }
 
-        /*
-        Test implementation to remove errors with slow connections
+        config.setLocations(locations);
+        config.save();
+    }//End of addButton method
 
-        System.out.println("Waiting for Data Sync:");
-        while(tempRegion.getCurrentTerm() == null || tempRegion.getShortTerm() == null || tempRegion.getLongTerm() == null)
+    /**
+     * Load in the saved locations and create buttons for each one
+     */
+    public static void loadButtons()
+    {
+        ArrayList<Location> tempList = locations.getLocationList();
+
+        update();
+
+        for (int i = 0; i < tempList.size(); i++)
         {
-            System.out.print(" ... ");
+            final String tempName = tempList.get(i).getName();
+
+            if(tempName.equals("mars"))
+            {
+                continue;
+            }
+
+            tempRegion = new Location(tempName);
+            currentLocation = tempRegion;
+
+            JButton buttonTemp = new JButton(locations.searchList(tempName).getOfficialName());
+            buttonTemp.addActionListener(new ActionListener()
+            {
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    if (btnDelete.isSelected())
+                    {
+                        removeButton(tempName);
+                        locations.deleteRegion(locations.searchList(tempName));
+                        System.out.println("Removing " + tempName);
+                        reinitializeDelete();
+                    }
+                    else
+                    {
+                        System.out.println("Opening " + tempName);
+                        currentLocation = locations.searchList(tempName);
+                        frameLocations.setVisible(false);
+                        initializeForecast();
+                        frameForecast.setVisible(true);
+                    }
+                }
+            });
+            buttonTemp.setMaximumSize(buttonSize);
+            buttonTemp.setFont(new Font("Century Gothic", Font.PLAIN, 25));
+            locationsPanel.add(buttonTemp);
+            dynamicButtons.put(tempName, buttonTemp);
+            reinitializeDelete();
         }
-        buttonTemp.setEnabled(true);
 
-        Box.createVerticalStrut(10);
-
-        **/
+        layerUI.start();
+        update();
+        layerUI.stop();
     }
 
     private static void reinitializeDelete()
@@ -358,7 +420,14 @@ public class Main
 
         frameLocations.getContentPane().add(panel);
 
-        addButton();
+        if(config.exists())
+        {
+            loadButtons();
+        }
+        else
+        {
+            addButton();
+        }
 
         if(displayable)
         {
@@ -370,41 +439,6 @@ public class Main
         {
             frameLocations.setVisible(true);
         }
-
-        /* For static button (unremovable)
-        final String initialname = JOptionPane.showInputDialog(frameLocations, "Please enter an initial Location");
-
-        final Location tempRegion = new Location(initialname);
-        locations.addRegion(tempRegion);
-
-        update();
-
-        final JButton buttonInitial = new JButton(tempRegion.getName());
-        buttonInitial.setMaximumSize(buttonSize);
-        buttonInitial.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                if(delete)
-                {
-                    removeButton(tempRegion.getName());
-                    System.out.println("Removing " + tempRegion.getName());
-                }
-                else
-                {
-                    System.out.println("Clicked " + tempRegion.getName());
-                    currentLocation = locations.searchList(tempRegion.getName());
-                    frameLocations.setVisible(false);
-                    initializeForecast();
-                    frameForecast.setVisible(true);
-                }
-            }
-        });
-
-        locationsPanel.add(buttonInitial);
-        */
-
     }
 
     private static void initializeForecast()

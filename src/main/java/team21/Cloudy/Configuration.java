@@ -4,6 +4,7 @@ import sun.security.util.BitArray;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 /**
@@ -51,8 +52,6 @@ public class Configuration
             pressureUnit = " ksi";
         }
         humidUnit = " %";
-
-
     }
 
     /**
@@ -71,15 +70,36 @@ public class Configuration
     public Configuration(LocationList locations)
     {
         prefs = Preferences.userRoot().node(this.getClass().getName());
-        this.locations = locations;
-        viewObject = new boolean[10]; //Assuming there are 10 viewable objects
-        degrees = tempUnits.METRIC;
-        tempUnit = " °C";
-        windUnit = " m/s";
-        pressureUnit = " kPa";
-        humidUnit = " %";
 
+        if(exists())
+        {
+            load();
+        }
+        else
+        {
+            this.locations = locations;
+            viewObject = new boolean[10]; //Assuming there are 10 viewable objects
+            degrees = tempUnits.METRIC;
+            tempUnit = " °C";
+            windUnit = " m/s";
+            pressureUnit = " kPa";
+            humidUnit = " %";
+        }
     }
+
+    public boolean exists()
+    {
+        try
+        {
+            System.out.println("Checking if node exists:");
+            System.out.println(Preferences.userRoot().nodeExists(this.getClass().getName()));
+            return Preferences.userRoot().nodeExists(this.getClass().getName());
+        } catch (BackingStoreException e)
+        {
+            e.printStackTrace();
+        }
+        return false;
+    }//End of exists method
 
     /**
      * convert data into binary to save preferences
@@ -88,6 +108,7 @@ public class Configuration
      */
     public boolean save()
     {
+        System.out.println("Saving!");
         try
         {
             prefs.putByteArray("locations", locationsToByteArray());
@@ -111,20 +132,22 @@ public class Configuration
      */
     public boolean load()
     {
-        byte[] locationBytes = new byte[10];
+        byte[] locationBytes = new byte[50];
         byte[] viewableBytes = new byte[10];
         String units;
 
-        /*
         try
         {
-            locations.setLocationList(byteArrayToLocations(prefs.getByteArray("locations", locationBytes)));
+            locationBytes = prefs.getByteArray("locations", locationBytes);
+
+            LocationList tempList = new LocationList(byteArrayToLocations(locationBytes));
+
+            locations = tempList;
         } catch (IOException e)
         {
             e.printStackTrace();
             return false;
         }
-        */
 
         units = prefs.get("tempUnits", "IMPERIAL");
 
@@ -173,13 +196,18 @@ public class Configuration
     private ArrayList<Location> byteArrayToLocations(byte[] bytes) throws IOException
     {
         ArrayList<Location> arr = new ArrayList<Location>();
+        String read;
 
         ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
         DataInputStream in = new DataInputStream(bais);
 
         while (in.available() > 0)
         {
-            arr.add(new Location(in.readUTF()));
+            read = in.readUTF();
+            if(!read.equals("mars"))
+            {
+                arr.add(new Location(read));
+            }
         }
 
         return arr;
