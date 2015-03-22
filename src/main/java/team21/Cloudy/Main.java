@@ -11,7 +11,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author: Gurpreet
@@ -26,7 +25,6 @@ public class Main
     private static JPanel locationsPanel;
     private static Dimension buttonSize;
     private static HashMap<String, JButton> dynamicButtons;
-    private static boolean delete = false;
     private static boolean problem = false;
     private static boolean displayable = false;
 
@@ -127,7 +125,6 @@ public class Main
             public void run()
             {
                 config.setLocations(locations);
-                System.out.println("Saving");
                 config.save();
             }
         });
@@ -214,6 +211,7 @@ public class Main
         }
         else
         {
+            JOptionPane.showMessageDialog(frameLocations, "Oops! That city does not exist!\n Try using the Auto-Completion feature!");
             locations.deleteRegion(tempRegion);
             problem = false;
             displayable = false;
@@ -396,9 +394,10 @@ public class Main
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if(delete)
+                if(btnDelete.isSelected())
                 {
-                    System.out.println("Access Denied: Removing Mars is Not Allowed ");
+                    JOptionPane.showMessageDialog(frameLocations, "Sorry, Mars is not allowed to be deleted.");
+                    btnDelete.setSelected(false);
                 }
                 else
                 {
@@ -740,11 +739,6 @@ public class Main
                 public void actionPerformed(ActionEvent arg0)
                 {
                     update();
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        System.out.println("Tried updating GUI before data was received");
-                    }
                     updateGUI();
                 }
             });
@@ -752,7 +746,7 @@ public class Main
             frameForecast.getContentPane().add(btnRefresh);
         }catch(NullPointerException e)
         {
-            System.out.println("Not all elements displays properly!");
+            System.out.println("Not all elements displayed properly!");
         }
 
         JLabel lblLastUpdated = new JLabel("Last Updated:");

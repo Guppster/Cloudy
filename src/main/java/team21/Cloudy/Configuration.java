@@ -91,12 +91,10 @@ public class Configuration
     {
         try
         {
-            System.out.println("Checking if node exists:");
-            System.out.println(Preferences.userRoot().nodeExists(this.getClass().getName()));
             return Preferences.userRoot().nodeExists(this.getClass().getName());
         } catch (BackingStoreException e)
         {
-            e.printStackTrace();
+            System.out.println("Error: Unable to find Preferences Node");
         }
         return false;
     }//End of exists method
