@@ -424,7 +424,8 @@ public class Main
         {
             loadButtons();
         }
-        else
+
+        if(locations.getLocationList().size() == 1)
         {
             addButton();
         }
