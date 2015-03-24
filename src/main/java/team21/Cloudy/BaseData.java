@@ -1,5 +1,10 @@
 package team21.Cloudy;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 /**
  * Abstract Class for the storage of all common data related to weather regardless of specific time
  *
@@ -16,6 +21,7 @@ public abstract class BaseData
     private String iconID; //address to icon
     private String description; //short description of current weather
     private String countryCode;
+    private int dt;
 
     /**
      * Class Constructor initialize all of attributes to the class
@@ -29,7 +35,7 @@ public abstract class BaseData
      * @param iconID        the string representing the icon that will be used to visually display the current weather
      * @param description   a short description of the weather
      */
-    protected BaseData(double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description)
+    protected BaseData(double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, int dt)
     {
         this.temp = temp;
         this.tempMin = tempMin;
@@ -39,6 +45,7 @@ public abstract class BaseData
         this.pressure = pressure;
         this.iconID = iconID;
         this.description = description;
+        this.dt = dt;
     }
 
     /**
@@ -209,5 +216,16 @@ public abstract class BaseData
     public void setCountryCode(String countryCode)
     {
         this.countryCode = countryCode;
+    }
+
+    public String getName()
+    {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("EEE MMM d");
+
+        Date date = new Date(dt*1000L);
+        ZonedDateTime ZDT = ZonedDateTime.ofInstant(date.toInstant(),
+                ZoneId.systemDefault());
+
+        return ZDT.format(format);
     }
 }//End of BaseData class

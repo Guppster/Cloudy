@@ -1,5 +1,10 @@
 package team21.Cloudy;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 /**
  * Class storing the long-term weather data. Extends BaseData and have additional attributes, tempNight, tempEve, and tempMorn
  *
@@ -10,6 +15,7 @@ public class LongTermData extends BaseData
     private double tempNight; //temperature through the night
     private double tempEve; //temperature through the evening
     private double tempMorn; //temperature in the morning
+    private int dt;
 
     /**
      * Constructor initialize the attributes with the first three parameters and sends the rest to the super class
@@ -26,9 +32,9 @@ public class LongTermData extends BaseData
      * @param iconID        the string representing the icon that will be used to visually display the current weather
      * @param description   a short description of the weather
      */
-    public LongTermData(double tempNight, double tempEve, double tempMorn, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description)
+    public LongTermData(double tempNight, double tempEve, double tempMorn, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, int dt)
     {
-        super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description);
+        super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description, dt);
         this.tempNight = tempNight;
         this.tempEve = tempEve;
         this.tempMorn = tempMorn;

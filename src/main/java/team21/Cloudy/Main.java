@@ -771,7 +771,8 @@ public class Main
         lblFridayHigh.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[4].getTempMax())+config.getTempUnit());
         lblFridayTemp.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[4].getTemp())+config.getTempUnit());
         lblFridayLow.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[4].getTempMin())+config.getTempUnit());
-        lblFridaySummery.setText(currentLocation.getLongTerm().getData()[4].getDescription());
+        //lblFridaySummery.setText(currentLocation.getLongTerm().getData()[4].getDescription());
+        lblFridaySummery.setText(currentLocation.getLongTerm().getData()[4].getName());
         imgFriday.setText("");
 
         lblMondayHigh.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[0].getTempMax())+config.getTempUnit());

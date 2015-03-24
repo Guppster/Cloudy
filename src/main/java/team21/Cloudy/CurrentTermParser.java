@@ -130,7 +130,8 @@ public class CurrentTermParser extends Parser
                 main.getDouble("pressure"),
                 weather.getString("icon"),
                 weather.getString("description"),
-                sys.getString("country")
+                sys.getString("country"),
+                forecast.getInt("dt")
         );
     }//End of getDetails method
 }//End of CurrentTermParser class

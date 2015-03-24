@@ -28,7 +28,11 @@ public class MarsTermParser extends Parser
     {
         this.locationName = locationName;
         data = new MarsData[1];
-        //config.load();
+
+        //Create a configuration object
+        config = new Configuration();
+
+        config.load();
     }//End of constructor
 
     /**
@@ -79,10 +83,7 @@ public class MarsTermParser extends Parser
         String tagMin = "";
         String tagMax = "";
 
-        //tempUnits units = config.getDegrees();
-        tempUnits units = tempUnits.METRIC;
-
-        switch (units)
+        switch (config.getDegrees())
         {
             case IMPERIAL:
                 tagMin = "min_temp_fahrenheit";
@@ -104,7 +105,8 @@ public class MarsTermParser extends Parser
                 5,
                 report.getDouble("pressure"),
                 report.getString("season"),
-                report.getString("atmo_opacity")
+                report.getString("atmo_opacity"),
+                Integer.parseInt(report.getString("terrestrial_date").split("-")[0])
         );
     }//End of getDetails method
 

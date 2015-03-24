@@ -22,9 +22,9 @@ public class ShortTermData extends BaseData
      * @param iconID        the string representing the icon that will be used to visually display the current weather
      * @param description   a short description of the weather
      */
-    public ShortTermData(String time, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description)
+    public ShortTermData(String time, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, int dt)
     {
-        super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description);
+        super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description, dt);
         this.time = time;
     }//End of constructor
 

@@ -140,7 +140,8 @@ public class ShortTermParser extends Parser
                 wind.getInt("deg"),
                 main.getDouble("pressure"),
                 weather.getString("icon"),
-                weather.getString("description")
+                weather.getString("description"),
+                forecast.getInt("dt")
         );
     }//End of getDetails method
 

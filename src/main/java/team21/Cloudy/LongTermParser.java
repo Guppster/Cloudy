@@ -140,7 +140,8 @@ public class LongTermParser extends Parser
                 forecast.getInt("deg"),
                 forecast.getDouble("pressure"),
                 weather.getString("icon"),
-                weather.getString("description")
+                weather.getString("description"),
+                forecast.getInt("dt")
         );
     }//End of getDetails method
 }
