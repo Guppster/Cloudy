@@ -367,7 +367,7 @@ public class Main
         btnMultiview.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         panel.add(btnMultiview);
 
-        UnitsButton unitsToggle = new UnitsButton();
+        UnitsButton unitsToggle = new UnitsButton(config.getDegrees().equals(tempUnits.METRIC));
         unitsToggle.setBounds(491, 20, 89, 23);
 
         unitsToggle.addItemListener(new ItemListener()

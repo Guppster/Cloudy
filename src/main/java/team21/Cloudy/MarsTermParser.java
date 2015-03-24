@@ -1,7 +1,6 @@
 package team21.Cloudy;
 
 import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import org.json.JSONObject;

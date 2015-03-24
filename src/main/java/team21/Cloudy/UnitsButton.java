@@ -21,6 +21,8 @@ public class UnitsButton extends JToggleButton implements ActionListener,
     Image bgImage = new ImageIcon(UnitsButton.class.getResource("/images/bg.png"))
             .getImage();
 
+    boolean isMetric;
+
     int buttonX;
     int deltaX = -1;
     // boolean threadStop;
@@ -39,8 +41,9 @@ public class UnitsButton extends JToggleButton implements ActionListener,
         new Thread(this).start();
     }
 
-    public UnitsButton()
+    public UnitsButton(boolean isMetric)
     {
+        this.isMetric = isMetric;
         this.addActionListener(this);
         this.addMouseMotionListener(this);
         this.addMouseListener(this);
@@ -50,6 +53,11 @@ public class UnitsButton extends JToggleButton implements ActionListener,
     public void paint(Graphics g)
     {
         g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), null, null);
+
+        if(isMetric)
+        {
+           buttonX = this.getWidth()/2;
+        }
         g.drawImage(buttonImage, buttonX, 0, getWidth() / 2, this.getHeight(),
                 null, null);
     }

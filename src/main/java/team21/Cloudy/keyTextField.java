@@ -57,7 +57,7 @@ public class keyTextField extends KeyAdapter
 
         for (a = 0; a < regions.size(); a++)
         {
-            if (regions.get(a).startsWith(str))
+            if (regions.get(a).toLowerCase().startsWith(str.toLowerCase()))
             {
                 complete = regions.get(a);
                 last = complete.length();
