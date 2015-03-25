@@ -220,12 +220,6 @@ public abstract class BaseData
 
     public String getName()
     {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("EEE MMM d");
-
-        Date date = new Date(dt*1000L);
-        ZonedDateTime ZDT = ZonedDateTime.ofInstant(date.toInstant(),
-                ZoneId.systemDefault());
-
-        return ZDT.format(format);
+        return dt + "";
     }
 }//End of BaseData class

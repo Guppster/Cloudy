@@ -2,15 +2,20 @@ package team21.Cloudy;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Hashtable;
 
 /**
  * @author: Gurpreet
@@ -79,7 +84,8 @@ public class Main
     private static Location tempRegion;
 
     private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy  hh:mm a");
-
+    private static DateTimeFormatter STformat = DateTimeFormatter.ofPattern("hh:mm a");
+    private static DateTimeFormatter LTformat = DateTimeFormatter.ofPattern("EEE MMM d");
     /**
      * *
      *
@@ -450,6 +456,7 @@ public class Main
         try
         {
             frameForecast = new JFrame();
+            frameForecast.setResizable(false);
             frameForecast.setBounds(100, 100, 642, 475);
             frameForecast.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frameForecast.getContentPane().setLayout(null);
@@ -473,8 +480,37 @@ public class Main
             frameForecast.getContentPane().add(lblLocation);
 
             JSlider sliderShortTerm = new JSlider();
+            sliderShortTerm.setBounds(0, 211, 626, 50);
+
+            sliderShortTerm.addChangeListener(new ChangeListener()
+            {
+                @Override
+                public void stateChanged(ChangeEvent e)
+                {
+                    System.out.println("Slider at: " + e);
+                }
+            });
+            //sliderShortTerm.setMajorTickSpacing(1);
+            //sliderShortTerm.setPaintTicks(true);
+            sliderShortTerm.setMaximum(7);
+            sliderShortTerm.setValue(0);
+
+            Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
+
+            ZonedDateTime tempZDT;
+            Date tempDate;
+
+            labelTable.put(0, new JLabel("Current"));
+            for (int i = 0; i < currentLocation.getShortTerm().data.length; i++)
+            {
+                tempDate = new Date(Integer.parseInt(currentLocation.getShortTerm().data[i].getName())*1000L);
+                tempZDT = tempDate.toInstant().atZone(ZoneId.systemDefault());
+                labelTable.put(i+1, new JLabel(tempZDT.format(STformat)));
+            }
+            sliderShortTerm.setLabelTable(labelTable);
+
             sliderShortTerm.setPaintLabels(true);
-            sliderShortTerm.setBounds(0, 211, 626, 26);
+
             frameForecast.getContentPane().add(sliderShortTerm);
 
             lblTemp = new JLabel(String.valueOf((int)currentLocation.getCurrentTerm().getData()[0].getTemp())+ config.getTempUnit());
@@ -526,7 +562,7 @@ public class Main
             panel2.add(panel_10);
             panel_10.setLayout(null);
 
-            lblFriday = new JLabel(currentLocation.getLongTerm().getData()[4].getName());
+            lblFriday = new JLabel(getLTName(currentLocation.getLongTerm().getData()[4].getName()));
             lblFriday.setHorizontalAlignment(SwingConstants.CENTER);
             lblFriday.setBounds(0, 11, 111, 14);
             panel_10.add(lblFriday);
@@ -567,7 +603,7 @@ public class Main
             lblMondayHigh.setBounds(0, 106, 59, 30);
             panel_6.add(lblMondayHigh);
 
-            lblMonday = new JLabel(currentLocation.getLongTerm().getData()[0].getName());
+            lblMonday = new JLabel(getLTName(currentLocation.getLongTerm().getData()[0].getName()));
             lblMonday.setHorizontalAlignment(SwingConstants.CENTER);
             lblMonday.setBounds(0, 11, 113, 14);
             lblMonday.setAlignmentY(Component.BOTTOM_ALIGNMENT);
@@ -601,7 +637,7 @@ public class Main
             panel2.add(panel_7);
             panel_7.setLayout(null);
 
-            lblTuesday = new JLabel(currentLocation.getLongTerm().getData()[1].getName());
+            lblTuesday = new JLabel(getLTName(currentLocation.getLongTerm().getData()[1].getName()));
             lblTuesday.setHorizontalAlignment(SwingConstants.CENTER);
             lblTuesday.setBounds(0, 11, 113, 14);
             panel_7.add(lblTuesday);
@@ -637,7 +673,7 @@ public class Main
             panel2.add(panel_8);
             panel_8.setLayout(null);
 
-            lblWednesday = new JLabel(currentLocation.getLongTerm().getData()[2].getName());
+            lblWednesday = new JLabel(getLTName(currentLocation.getLongTerm().getData()[2].getName()));
             lblWednesday.setHorizontalAlignment(SwingConstants.CENTER);
             lblWednesday.setBounds(0, 11, 113, 14);
             panel_8.add(lblWednesday);
@@ -673,7 +709,7 @@ public class Main
             panel2.add(panel_9);
             panel_9.setLayout(null);
 
-            lblThursday = new JLabel(currentLocation.getLongTerm().getData()[3].getName());
+            lblThursday = new JLabel(getLTName(currentLocation.getLongTerm().getData()[3].getName()));
             lblThursday.setHorizontalAlignment(SwingConstants.CENTER);
             lblThursday.setBounds(0, 11, 113, 14);
             panel_9.add(lblThursday);
@@ -808,5 +844,16 @@ public class Main
 
         lblWeathercondition.setText(currentLocation.getCurrentTerm().getData()[0].getDescription());
         lblTime.setText(ZonedDateTime.now().format(format));
+    }
+
+    private static String getLTName(String num)
+    {
+        int dt = Integer.parseInt(num);
+
+        Date date = new Date(dt*1000L);
+        ZonedDateTime ZDT = ZonedDateTime.ofInstant(date.toInstant(),
+                ZoneId.systemDefault());
+
+        return ZDT.format(LTformat);
     }
 }//End of main class
