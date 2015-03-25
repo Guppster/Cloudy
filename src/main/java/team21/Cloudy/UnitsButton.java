@@ -22,6 +22,7 @@ public class UnitsButton extends JToggleButton implements ActionListener,
             .getImage();
 
     boolean isMetric;
+    boolean initial = true;
 
     int buttonX;
     int deltaX = -1;
@@ -54,9 +55,10 @@ public class UnitsButton extends JToggleButton implements ActionListener,
     {
         g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), null, null);
 
-        if(isMetric)
+        if(isMetric && initial)
         {
-           buttonX = this.getWidth()/2;
+           buttonX = this.getWidth() / 2;
+            initial = false;
         }
         g.drawImage(buttonImage, buttonX, 0, getWidth() / 2, this.getHeight(),
                 null, null);
