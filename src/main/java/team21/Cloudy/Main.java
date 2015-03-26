@@ -458,26 +458,6 @@ public class Main
         }
     }
 
-    private static void updateSTGUI(int hours)
-    {
-        if(hours == 0)
-        {
-            lblTemp.setText(String.valueOf((int)currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
-            lblHigh.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMax()) + config.getTempUnit());
-            lblLow.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMin()) + config.getTempUnit());
-            lblWindSpeedValue.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getWindSpeed()) + config.getWindUnit());
-            lblPressureValue.setText(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getPressure()) + config.getPressureUnit());
-            return;
-        }
-
-        lblTemp.setText(String.valueOf((int)currentLocation.getShortTerm().getData()[hours-1].getTemp()) + config.getTempUnit());
-        lblHigh.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getTempMax())+ config.getTempUnit());
-        lblLow.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getTempMin()) + config.getTempUnit());
-        lblWindSpeedValue.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getWindSpeed()) + config.getWindUnit());
-        lblPressureValue.setText(String.valueOf( currentLocation.getShortTerm().getData()[hours-1].getPressure()) + config.getPressureUnit());
-
-    }//End of updateSTGUI
-
     private static void initializeForecast()
     {
         try
@@ -489,7 +469,13 @@ public class Main
             frameForecast.getContentPane().setLayout(null);
             frameForecast.setTitle("Cloudy : Forecast for " + currentLocation.getName());
 
-            JButton btnGoToLocations = new JButton("=");
+            JButton btnGoToLocations = new JButton();
+            btnGoToLocations.setBorderPainted(false);
+            btnGoToLocations.setBorder(null);
+            btnGoToLocations.setMargin(new Insets(0, 0, 0, 0));
+            btnGoToLocations.setFocusable(false);
+            btnGoToLocations.setIcon(new ImageIcon(UnitsButton.class.getResource("/images/lines.png")));
+            btnGoToLocations.setHorizontalAlignment(SwingConstants.CENTER);
             btnGoToLocations.addActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent arg0)
@@ -498,7 +484,7 @@ public class Main
                     frameLocations.setVisible(true);
                 }
             });
-            btnGoToLocations.setBounds(10, 11, 41, 23);
+            btnGoToLocations.setBounds(10, 11, 40, 25);
             frameForecast.getContentPane().add(btnGoToLocations);
 
             lblLocation = new JLabel(currentLocation.getOfficialName());
@@ -528,7 +514,7 @@ public class Main
             frameForecast.getContentPane().add(lblWindSpeedValue);
 
             lblPressureValue = new JLabel(String.valueOf( currentLocation.getCurrentTerm().getData()[0].getPressure())+config.getPressureUnit());
-            lblPressureValue.setBounds(80, 166, 46, 14);
+            lblPressureValue.setBounds(80, 166, 70, 14);
             frameForecast.getContentPane().add(lblPressureValue);
 /*
             JLabel lblSunriseValue = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getWindSpeed()));
@@ -580,9 +566,10 @@ public class Main
             lblFridaySummery.setBounds(-1, 78, 112, 14);
             panel_10.add(lblFridaySummery);
 
-            imgFriday = new JLabel("");
+            imgFriday = new JLabel();
             imgFriday.setHorizontalAlignment(SwingConstants.CENTER);
-            imgFriday.setBounds(0, 46, 111, 14);
+            imgFriday.setIcon(getCorrectImage(currentLocation.getLongTerm().getData()[4]));
+            imgFriday.setBounds(0, 30, 111, 46);
             panel_10.add(imgFriday);
 
             JPanel panel_6 = new JPanel();
@@ -620,8 +607,8 @@ public class Main
 
             imgMonday = new JLabel("");
             imgMonday.setHorizontalAlignment(SwingConstants.CENTER);
-            //imgMonday.setIcon(new ImageIcon(MainWindow.class.getResource("/sun/print/resources/oneside.png")));
-            imgMonday.setBounds(1, 46, 111, 14);
+            imgMonday.setIcon(getCorrectImage(currentLocation.getLongTerm().getData()[0]));
+            imgMonday.setBounds(0, 30, 111, 46);
             panel_6.add(imgMonday);
 
             JPanel panel_7 = new JPanel();
@@ -657,7 +644,8 @@ public class Main
 
             imgTuesday = new JLabel("");
             imgTuesday.setHorizontalAlignment(SwingConstants.CENTER);
-            imgTuesday.setBounds(1, 46, 111, 14);
+            imgTuesday.setIcon(getCorrectImage(currentLocation.getLongTerm().getData()[1]));
+            imgTuesday.setBounds(0, 30, 111, 46);
             panel_7.add(imgTuesday);
 
             JPanel panel_8 = new JPanel();
@@ -693,7 +681,8 @@ public class Main
 
             imgWednesday = new JLabel("");
             imgWednesday.setHorizontalAlignment(SwingConstants.CENTER);
-            imgWednesday.setBounds(1, 46, 109, 14);
+            imgWednesday.setIcon(getCorrectImage(currentLocation.getLongTerm().getData()[2]));
+            imgWednesday.setBounds(0, 30, 111, 46);
             panel_8.add(imgWednesday);
 
             JPanel panel_9 = new JPanel();
@@ -729,7 +718,8 @@ public class Main
 
             imgThursday = new JLabel("");
             imgThursday.setHorizontalAlignment(SwingConstants.CENTER);
-            imgThursday.setBounds(3, 46, 109, 14);
+            imgThursday.setIcon(getCorrectImage(currentLocation.getLongTerm().getData()[3]));
+            imgThursday.setBounds(0, 30, 111, 46);
             panel_9.add(imgThursday);
 
             JSeparator separator = new JSeparator();
@@ -827,6 +817,33 @@ public class Main
         lblTime.setBounds(480, 125, 130, 14);
         frameForecast.getContentPane().add(lblTime);
     }
+
+    private static Icon getCorrectImage(BaseData data)
+    {
+        return new ImageIcon(UnitsButton.class.getResource("/images/" + data.getIconID() + ".png"));
+    }
+
+    private static void updateSTGUI(int hours)
+    {
+        if(hours == 0)
+        {
+            lblTemp.setText(String.valueOf((int)currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
+            lblHigh.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMax()) + config.getTempUnit());
+            lblLow.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMin()) + config.getTempUnit());
+            lblWindSpeedValue.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getWindSpeed()) + config.getWindUnit());
+            lblPressureValue.setText(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getPressure()) + config.getPressureUnit());
+            lblWeathercondition.setText(currentLocation.getCurrentTerm().getData()[0].getDescription());
+            return;
+        }
+
+        lblTemp.setText(String.valueOf((int)currentLocation.getShortTerm().getData()[hours-1].getTemp()) + config.getTempUnit());
+        lblHigh.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getTempMax())+ config.getTempUnit());
+        lblLow.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getTempMin()) + config.getTempUnit());
+        lblWindSpeedValue.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getWindSpeed()) + config.getWindUnit());
+        lblPressureValue.setText(String.valueOf( currentLocation.getShortTerm().getData()[hours-1].getPressure()) + config.getPressureUnit());
+        lblWeathercondition.setText(currentLocation.getShortTerm().getData()[hours-1].getDescription());
+
+    }//End of updateSTGUI
 
     /*
 
