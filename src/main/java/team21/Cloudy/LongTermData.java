@@ -32,9 +32,9 @@ public class LongTermData extends BaseData
      * @param iconID        the string representing the icon that will be used to visually display the current weather
      * @param description   a short description of the weather
      */
-    public LongTermData(double tempNight, double tempEve, double tempMorn, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, int dt)
+    public LongTermData(double tempNight, double tempEve, double tempMorn, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, int dt, double humidity)
     {
-        super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description, dt);
+        super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description, dt, humidity);
         this.tempNight = tempNight;
         this.tempEve = tempEve;
         this.tempMorn = tempMorn;

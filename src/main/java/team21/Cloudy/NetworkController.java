@@ -58,9 +58,13 @@ public class NetworkController
         }
         catch(IOException | JSONException j)
         {
-            System.out.println("A Problem as occured while fetching data for: " + location.getName() + "\n");
-            System.out.println(j);
-            return false;
+            if(!location.getName().equals("mars"))
+            {
+                System.out.println("A Problem as occured while fetching data for: " + location.getName() + "\n");
+                System.out.println(j);
+                return false;
+            }
+            return true;
         }
 
         //Formats debugging console output

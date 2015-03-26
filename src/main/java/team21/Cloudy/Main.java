@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author: Gurpreet
@@ -80,16 +82,18 @@ public class Main
 
     private static JLabel lblWindSpeedValue;
     private static JLabel lblPressureValue;
+    private static JLabel lblHumidityValue;
     private static JSlider sliderShortTerm;
     private static JFrame frameForecast;
     private static WaitLayerUI layerUI;
     private static JLayer<JPanel> jlayer;
     private static Location tempRegion;
 
-    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy  hh:mm a");
+    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d hh:mm a");
     private static DateTimeFormatter STformat = DateTimeFormatter.ofPattern("hh:mm a");
     private static DateTimeFormatter LTformat = DateTimeFormatter.ofPattern("EEE MMM d");
-
+    private static Matcher m;
+    private static StringBuffer stringbf;
 
 
     /**
@@ -505,16 +509,16 @@ public class Main
             lblLow.setBounds(501, 104, 46, 14);
             frameForecast.getContentPane().add(lblLow);
 
-          /*  JLabel lblHumidityValue = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTemp())+ config.getTempUnit());
-            lblHumidityValue.setBounds(80, 129, 46, 14);
+            lblHumidityValue = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getHumidity())+ config.getTempUnit());
+            lblHumidityValue.setBounds(93, 147, 46, 14);
             frameForecast.getContentPane().add(lblHumidityValue);
-*/
+
             lblWindSpeedValue = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getWindSpeed())+config.getWindUnit());
-            lblWindSpeedValue.setBounds(80, 146, 46, 14);
+            lblWindSpeedValue.setBounds(93, 126, 55, 14);
             frameForecast.getContentPane().add(lblWindSpeedValue);
 
             lblPressureValue = new JLabel(String.valueOf( currentLocation.getCurrentTerm().getData()[0].getPressure())+config.getPressureUnit());
-            lblPressureValue.setBounds(80, 166, 70, 14);
+            lblPressureValue.setBounds(93, 168, 70, 14);
             frameForecast.getContentPane().add(lblPressureValue);
 /*
             JLabel lblSunriseValue = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getWindSpeed()));
@@ -730,29 +734,39 @@ public class Main
             lblNewLabel_1.setBounds(247, 90, 46, 14);
             frameForecast.getContentPane().add(lblNewLabel_1);
 
-            lblWeathercondition = new JLabel(currentLocation.getCurrentTerm().getData()[0].getDescription());
+            String condition = currentLocation.getCurrentTerm().getData()[0].getDescription();
+
+            stringbf = new StringBuffer();
+            m = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(condition);
+
+            while (m.find())
+            {
+                m.appendReplacement(stringbf, m.group(1).toUpperCase() + m.group(2).toLowerCase());
+            }
+
+            lblWeathercondition = new JLabel(m.appendTail(stringbf).toString());
             lblWeathercondition.setFont(new Font("Century Gothic", Font.PLAIN, 23));
-            lblWeathercondition.setBounds(8, 90, 194, 28);
+            lblWeathercondition.setBounds(8, 90, 220, 28);
             frameForecast.getContentPane().add(lblWeathercondition);
 
-            JLabel lblHumidity = new JLabel("Humidity:");
-            lblHumidity.setBounds(8, 129, 61, 14);
-            frameForecast.getContentPane().add(lblHumidity);
-
             JLabel lblWindSpeed = new JLabel("Wind Speed:");
-            lblWindSpeed.setBounds(8, 146, 81, 14);
+            lblWindSpeed.setBounds(8, 126, 81, 14);
             frameForecast.getContentPane().add(lblWindSpeed);
 
+            JLabel lblHumidity = new JLabel("Humidity:");
+            lblHumidity.setBounds(8, 147, 61, 14);
+            frameForecast.getContentPane().add(lblHumidity);
+
             JLabel lblPressure = new JLabel("Pressure:");
-            lblPressure.setBounds(8, 165, 66, 14);
+            lblPressure.setBounds(8, 168, 66, 14);
             frameForecast.getContentPane().add(lblPressure);
 
             JLabel lblSunrise = new JLabel("Sunrise:");
-            lblSunrise.setBounds(150, 146, 46, 14);
+            lblSunrise.setBounds(175, 147, 80, 14);
             frameForecast.getContentPane().add(lblSunrise);
 
             JLabel lblSunset = new JLabel("Sunset:");
-            lblSunset.setBounds(150, 165, 46, 14);
+            lblSunset.setBounds(175, 168, 80, 14);
             frameForecast.getContentPane().add(lblSunset);
 
             JButton btnRefresh = new JButton("Refresh");
@@ -810,11 +824,11 @@ public class Main
         frameForecast.getContentPane().add(sliderShortTerm);
 
         JLabel lblLastUpdated = new JLabel("Last Updated:");
-        lblLastUpdated.setBounds(400, 125, 76, 14);
+        lblLastUpdated.setBounds(400, 125, 100, 14);
         frameForecast.getContentPane().add(lblLastUpdated);
 
         lblTime = new JLabel(ZonedDateTime.now().format(format));
-        lblTime.setBounds(480, 125, 130, 14);
+        lblTime.setBounds(499, 125, 130, 14);
         frameForecast.getContentPane().add(lblTime);
     }
 
@@ -825,23 +839,46 @@ public class Main
 
     private static void updateSTGUI(int hours)
     {
+        String condition;
         if(hours == 0)
         {
+            condition = currentLocation.getCurrentTerm().getData()[0].getDescription();
+
+            stringbf = new StringBuffer();
+            m = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(condition);
+
+            while (m.find())
+            {
+                m.appendReplacement(stringbf, m.group(1).toUpperCase() + m.group(2).toLowerCase());
+            }
+
             lblTemp.setText(String.valueOf((int)currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
             lblHigh.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMax()) + config.getTempUnit());
             lblLow.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMin()) + config.getTempUnit());
+            lblHumidityValue.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getHumidity()) + config.getHumidUnit());
             lblWindSpeedValue.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getWindSpeed()) + config.getWindUnit());
             lblPressureValue.setText(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getPressure()) + config.getPressureUnit());
-            lblWeathercondition.setText(currentLocation.getCurrentTerm().getData()[0].getDescription());
+            lblWeathercondition.setText(m.appendTail(stringbf).toString());
             return;
+        }
+
+        condition = currentLocation.getShortTerm().getData()[hours-1].getDescription();
+
+        stringbf = new StringBuffer();
+        m = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(condition);
+
+        while (m.find())
+        {
+            m.appendReplacement(stringbf, m.group(1).toUpperCase() + m.group(2).toLowerCase());
         }
 
         lblTemp.setText(String.valueOf((int)currentLocation.getShortTerm().getData()[hours-1].getTemp()) + config.getTempUnit());
         lblHigh.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getTempMax())+ config.getTempUnit());
         lblLow.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getTempMin()) + config.getTempUnit());
+        lblHumidityValue.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getHumidity()) + config.getHumidUnit());
         lblWindSpeedValue.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getWindSpeed()) + config.getWindUnit());
         lblPressureValue.setText(String.valueOf( currentLocation.getShortTerm().getData()[hours-1].getPressure()) + config.getPressureUnit());
-        lblWeathercondition.setText(currentLocation.getShortTerm().getData()[hours-1].getDescription());
+        lblWeathercondition.setText(m.appendTail(stringbf).toString());
 
     }//End of updateSTGUI
 

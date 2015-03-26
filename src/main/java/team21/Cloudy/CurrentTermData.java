@@ -29,9 +29,9 @@ public class CurrentTermData extends BaseData
      * @param iconID        the string representing the icon that will be used to visually display the current weather
      * @param description   a short description of the weather
      */
-    public CurrentTermData(int precipitation, int sunrise, int sunset, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, String countryCode, int dt)
+    public CurrentTermData(int precipitation, int sunrise, int sunset, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, String countryCode, int dt, double humidity)
     {
-        super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description, dt);
+        super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description, dt, humidity);
         super.setCountryCode(countryCode);
         this.precipitation = precipitation;
         this.sunrise = sunrise;

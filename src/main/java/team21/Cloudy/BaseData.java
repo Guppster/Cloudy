@@ -18,6 +18,7 @@ public abstract class BaseData
     private double windSpeed; //wind speed
     private int windDirection; //wind Direction
     private double pressure; //pressure
+    private double humidity;
     private String iconID; //address to icon
     private String description; //short description of current weather
     private String countryCode;
@@ -35,7 +36,7 @@ public abstract class BaseData
      * @param iconID        the string representing the icon that will be used to visually display the current weather
      * @param description   a short description of the weather
      */
-    protected BaseData(double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, int dt)
+    protected BaseData(double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, int dt, double humidity)
     {
         this.temp = temp;
         this.tempMin = tempMin;
@@ -46,6 +47,7 @@ public abstract class BaseData
         this.iconID = iconID;
         this.description = description;
         this.dt = dt;
+        this.humidity = humidity;
     }
 
     /**
@@ -221,5 +223,15 @@ public abstract class BaseData
     public String getName()
     {
         return dt + "";
+    }
+
+    public double getHumidity()
+    {
+        return humidity;
+    }
+
+    public void setHumidity(double humidity)
+    {
+        this.humidity = humidity;
     }
 }//End of BaseData class
