@@ -80,11 +80,21 @@ public class Configuration
             this.locations = locations;
             viewObject = new boolean[10]; //Assuming there are 10 viewable objects
             degrees = tempUnits.METRIC;
+        }
+
+        //set the units
+        if (degrees.equals(tempUnits.METRIC))
+        {
             tempUnit = " °C";
             windUnit = " m/s";
             pressureUnit = " kPa";
-            humidUnit = " %";
+        } else
+        {
+            tempUnit = " °F";
+            windUnit = " mph";
+            pressureUnit = " ksi";
         }
+        humidUnit = " %";
     }
 
     public boolean exists()
@@ -284,7 +294,14 @@ public class Configuration
 
     public String getTempUnit()
     {
-        return tempUnit;
+        //set the units
+        if (degrees.equals(tempUnits.METRIC))
+        {
+            return " °C";
+        } else
+        {
+            return " °F";
+        }
     }
 
     public String getWindUnit()

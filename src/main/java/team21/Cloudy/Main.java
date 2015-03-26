@@ -78,6 +78,9 @@ public class Main
     private static JLabel lblLow;
     private static JToggleButton btnDelete;
 
+    private static JLabel lblWindSpeedValue;
+    private static JLabel lblPressureValue;
+    private static JSlider sliderShortTerm;
     private static JFrame frameForecast;
     private static WaitLayerUI layerUI;
     private static JLayer<JPanel> jlayer;
@@ -86,6 +89,9 @@ public class Main
     private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy  hh:mm a");
     private static DateTimeFormatter STformat = DateTimeFormatter.ofPattern("hh:mm a");
     private static DateTimeFormatter LTformat = DateTimeFormatter.ofPattern("EEE MMM d");
+
+
+
     /**
      * *
      *
@@ -363,7 +369,7 @@ public class Main
         });
 
         btnDelete = new JToggleButton("Delete");
-        btnDelete.setBounds(346, 20, 89, 23);
+        btnDelete.setBounds(201, 20, 89, 23);
         btnDelete.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -372,10 +378,11 @@ public class Main
         panel.add(btnDelete);
         btnDelete.setVisible(false);
 
-        JButton btnMultiview = new JButton("MultiView");
-        btnMultiview.setBounds(201, 20, 89, 23);
-        btnMultiview.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-        panel.add(btnMultiview);
+        //Multiview removed until later
+        //JButton btnMultiview = new JButton("MultiView");
+        //btnMultiview.setBounds(201, 20, 89, 23);
+        //btnMultiview.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+        //panel.add(btnMultiview);
 
         UnitsButton unitsToggle = new UnitsButton(config.getDegrees().equals(tempUnits.METRIC));
         unitsToggle.setBounds(491, 20, 89, 23);
@@ -451,6 +458,26 @@ public class Main
         }
     }
 
+    private static void updateSTGUI(int hours)
+    {
+        if(hours == 0)
+        {
+            lblTemp.setText(String.valueOf((int)currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
+            lblHigh.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMax()) + config.getTempUnit());
+            lblLow.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMin()) + config.getTempUnit());
+            lblWindSpeedValue.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getWindSpeed()) + config.getWindUnit());
+            lblPressureValue.setText(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getPressure()) + config.getPressureUnit());
+            return;
+        }
+
+        lblTemp.setText(String.valueOf((int)currentLocation.getShortTerm().getData()[hours-1].getTemp()) + config.getTempUnit());
+        lblHigh.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getTempMax())+ config.getTempUnit());
+        lblLow.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getTempMin()) + config.getTempUnit());
+        lblWindSpeedValue.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getWindSpeed()) + config.getWindUnit());
+        lblPressureValue.setText(String.valueOf( currentLocation.getShortTerm().getData()[hours-1].getPressure()) + config.getPressureUnit());
+
+    }//End of updateSTGUI
+
     private static void initializeForecast()
     {
         try
@@ -476,42 +503,8 @@ public class Main
 
             lblLocation = new JLabel(currentLocation.getOfficialName());
             lblLocation.setFont(new Font("Century Gothic", Font.PLAIN, 36));
-            lblLocation.setBounds(62, 5, 231, 50);
+            lblLocation.setBounds(62, 5, 300, 50);
             frameForecast.getContentPane().add(lblLocation);
-
-            JSlider sliderShortTerm = new JSlider();
-            sliderShortTerm.setBounds(0, 211, 626, 50);
-
-            sliderShortTerm.addChangeListener(new ChangeListener()
-            {
-                @Override
-                public void stateChanged(ChangeEvent e)
-                {
-                    System.out.println("Slider at: " + e);
-                }
-            });
-            //sliderShortTerm.setMajorTickSpacing(1);
-            //sliderShortTerm.setPaintTicks(true);
-            sliderShortTerm.setMaximum(7);
-            sliderShortTerm.setValue(0);
-
-            Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
-
-            ZonedDateTime tempZDT;
-            Date tempDate;
-
-            labelTable.put(0, new JLabel("Current"));
-            for (int i = 0; i < currentLocation.getShortTerm().data.length; i++)
-            {
-                tempDate = new Date(Integer.parseInt(currentLocation.getShortTerm().data[i].getName())*1000L);
-                tempZDT = tempDate.toInstant().atZone(ZoneId.systemDefault());
-                labelTable.put(i+1, new JLabel(tempZDT.format(STformat)));
-            }
-            sliderShortTerm.setLabelTable(labelTable);
-
-            sliderShortTerm.setPaintLabels(true);
-
-            frameForecast.getContentPane().add(sliderShortTerm);
 
             lblTemp = new JLabel(String.valueOf((int)currentLocation.getCurrentTerm().getData()[0].getTemp())+ config.getTempUnit());
             lblTemp.setFont(new Font("Century Gothic", Font.PLAIN, 50));
@@ -530,11 +523,11 @@ public class Main
             lblHumidityValue.setBounds(80, 129, 46, 14);
             frameForecast.getContentPane().add(lblHumidityValue);
 */
-            JLabel lblWindSpeedValue = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getWindSpeed())+config.getWindUnit());
+            lblWindSpeedValue = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getWindSpeed())+config.getWindUnit());
             lblWindSpeedValue.setBounds(80, 146, 46, 14);
             frameForecast.getContentPane().add(lblWindSpeedValue);
 
-            JLabel lblPressureValue = new JLabel(String.valueOf( currentLocation.getCurrentTerm().getData()[0].getPressure())+config.getPressureUnit());
+            lblPressureValue = new JLabel(String.valueOf( currentLocation.getCurrentTerm().getData()[0].getPressure())+config.getPressureUnit());
             lblPressureValue.setBounds(80, 166, 46, 14);
             frameForecast.getContentPane().add(lblPressureValue);
 /*
@@ -788,6 +781,44 @@ public class Main
             System.out.println("Not all elements displayed properly!");
         }
 
+        sliderShortTerm = new JSlider();
+        sliderShortTerm.setBounds(0, 211, 626, 50);
+
+        sliderShortTerm.addChangeListener(new ChangeListener()
+        {
+            @Override
+            public void stateChanged(ChangeEvent e)
+            {
+                JSlider source = (JSlider)e.getSource();
+                if (!source.getValueIsAdjusting())
+                {
+                    updateSTGUI(source.getValue());
+                }
+            }
+        });
+        sliderShortTerm.setMajorTickSpacing(1);
+        sliderShortTerm.setPaintTicks(true);
+        sliderShortTerm.setMaximum(8);
+        sliderShortTerm.setValue(0);
+
+        Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
+
+        ZonedDateTime tempZDT;
+        Date tempDate;
+
+        labelTable.put(0, new JLabel("Current"));
+        for (int i = 0; i < currentLocation.getShortTerm().data.length; i++)
+        {
+            tempDate = new Date(Integer.parseInt(currentLocation.getShortTerm().data[i].getName())*1000L);
+            tempZDT = tempDate.toInstant().atZone(ZoneId.systemDefault());
+            labelTable.put(i+1, new JLabel(tempZDT.format(STformat)));
+        }
+        sliderShortTerm.setLabelTable(labelTable);
+
+        sliderShortTerm.setPaintLabels(true);
+
+        frameForecast.getContentPane().add(sliderShortTerm);
+
         JLabel lblLastUpdated = new JLabel("Last Updated:");
         lblLastUpdated.setBounds(400, 125, 76, 14);
         frameForecast.getContentPane().add(lblLastUpdated);
@@ -811,39 +842,41 @@ public class Main
         lblFridayTemp.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[4].getTemp())+config.getTempUnit());
         lblFridayLow.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[4].getTempMin())+config.getTempUnit());
         lblFridaySummery.setText(currentLocation.getLongTerm().getData()[4].getDescription());
-        lblFriday.setText(currentLocation.getLongTerm().getData()[4].getName());
+        lblFriday.setText(getLTName(currentLocation.getLongTerm().getData()[4].getName()));
         imgFriday.setText("");
 
         lblMondayHigh.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[0].getTempMax())+config.getTempUnit());
         lblMondayLow.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[0].getTempMin())+config.getTempUnit());
         lblMondayTemp.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[0].getTemp())+config.getTempUnit());
         lblMondaySummery.setText(currentLocation.getLongTerm().getData()[0].getDescription());
-        lblMonday.setText(currentLocation.getLongTerm().getData()[0].getName());
+        lblMonday.setText(getLTName(currentLocation.getLongTerm().getData()[0].getName()));
         imgMonday.setText("");
 
         lblTuesdayHigh.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[1].getTempMax())+config.getTempUnit());
         lblTuesdayTemp.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[1].getTemp())+config.getTempUnit());
         lblTuesdayLow.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[1].getTempMin())+config.getTempUnit());
         lblTuesdaySummery.setText(currentLocation.getLongTerm().getData()[1].getDescription());
-        lblTuesday.setText(currentLocation.getLongTerm().getData()[1].getName());
+        lblTuesday.setText(getLTName(currentLocation.getLongTerm().getData()[1].getName()));
         imgTuesday.setText("");
 
         lblWednesdayHigh.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[2].getTempMax())+config.getTempUnit());
         lblWednesdayTemp.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[2].getTemp())+config.getTempUnit());
         lblWednesdayLow.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[2].getTempMin())+config.getTempUnit());
         lblWednessdaySummery.setText(currentLocation.getLongTerm().getData()[2].getDescription());
-        lblWednesday.setText(currentLocation.getLongTerm().getData()[2].getName());
+        lblWednesday.setText(getLTName(currentLocation.getLongTerm().getData()[2].getName()));
         imgWednesday.setText("");
 
         lblThursdayHigh.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[3].getTempMax())+config.getTempUnit());
         lblThursdayTemp.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[3].getTemp())+config.getTempUnit());
         lblThursdayLow.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[3].getTempMin())+config.getTempUnit());
         lblThursdaySummery.setText(currentLocation.getLongTerm().getData()[3].getDescription());
-        lblThursday.setText(currentLocation.getLongTerm().getData()[3].getName());
+        lblThursday.setText(getLTName(currentLocation.getLongTerm().getData()[3].getName()));
         imgThursday.setText("");
 
         lblWeathercondition.setText(currentLocation.getCurrentTerm().getData()[0].getDescription());
         lblTime.setText(ZonedDateTime.now().format(format));
+
+        sliderShortTerm.setValue(0);
     }
 
     private static String getLTName(String num)

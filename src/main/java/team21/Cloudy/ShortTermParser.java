@@ -32,7 +32,7 @@ public class ShortTermParser extends Parser
         this.locationName = locationName.replace(" ", "%20");
         config = new Configuration();
         config.load();
-        data = new ShortTermData[7];
+        data = new ShortTermData[8];
     }//End of constructor
 
     /**
@@ -98,7 +98,7 @@ public class ShortTermParser extends Parser
         JSONArray arr = forecast.getJSONArray("list");
 
         //Use each element of the forecast array and get it's details, then store it in a new array.
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 8; i++)
         {
             data[i] = getDetails(arr.getJSONObject(i).toString());
         }
