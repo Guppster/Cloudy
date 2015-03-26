@@ -24,92 +24,100 @@ import java.util.regex.Pattern;
  */
 public class Main
 {
-    private static LocationList locations;
-    private static Configuration config;
-    private static NetworkController netController;
-    private static Location currentLocation;
+    //Fields
+    private static LocationList locations;                      //Maintains a list of locations
+    private static Configuration config;                        //Maintains a constant configuration
+    private static NetworkController netController;             //Controls all network interfacing
+    private static Location currentLocation;                    //Stores the current location on forcast view
 
-    private static JPanel locationsPanel;
-    private static Dimension buttonSize;
-    private static HashMap<String, JButton> dynamicButtons;
-    private static boolean problem = false;
-    private static boolean displayable = false;
+    private static JPanel locationsPanel;                       //The panel that shows location list
+    private static Dimension buttonSize;                        //A constant button size for location elements
+    private static HashMap<String, JButton> dynamicButtons;     //Map stores all buttons on screen
+    private static boolean problem = false;                     //Boolean value indicating if there is a network error with recent fetch
+    private static boolean displayable = false;                 //Boolean value controling if currentLocation is viewable or not (!problem)
 
-    private static JFrame frameLocations;
+    private static JFrame frameLocations;                       //The main frame that displays everything
 
-    private static JLabel lblFridayHigh;
-    private static JLabel lblFridayTemp;
-    private static JLabel lblFridayLow;
-    private static JLabel lblFridaySummery;
-    private static JLabel imgFriday;
-    private static JLabel lblFriday;
+    private static JLabel lblFridayHigh;                        //Stores the high value of the last long term box
+    private static JLabel lblFridayTemp;                        //Stores the temp value of the last long term box
+    private static JLabel lblFridayLow;                         //Stores the low value of the last long term box
+    private static JLabel lblFridaySummery;                     //Stores the summery value of the last long term box
+    private static JLabel imgFriday;                            //Stores the image value of the last long term box
+    private static JLabel lblFriday;                            //Stores the name value of the last long term box
 
-    private static JLabel lblMondayHigh;
-    private static JLabel lblMondayLow;
-    private static JLabel lblMondayTemp;
-    private static JLabel lblMondaySummery;
-    private static JLabel imgMonday;
-    private static JLabel lblMonday;
+    private static JLabel lblMondayHigh;                        //Stores the high value of the first long term box
+    private static JLabel lblMondayLow;                         //Stores the temp value of the first long term box
+    private static JLabel lblMondayTemp;                        //Stores the low value of the first long term box
+    private static JLabel lblMondaySummery;                     //Stores the summery value of the first long term box
+    private static JLabel imgMonday;                            //Stores the image value of the first long term box
+    private static JLabel lblMonday;                            //Stores the name value of the first long term box
 
-    private static JLabel lblTuesdayHigh;
-    private static JLabel lblTuesdayTemp;
-    private static JLabel lblTuesdayLow;
-    private static JLabel lblTuesdaySummery;
-    private static JLabel imgTuesday;
-    private static JLabel lblTuesday;
+    private static JLabel lblTuesdayHigh;                       //Stores the high value of the second long term box
+    private static JLabel lblTuesdayTemp;                       //Stores the temp value of the second long term box
+    private static JLabel lblTuesdayLow;                        //Stores the low value of the second long term box
+    private static JLabel lblTuesdaySummery;                    //Stores the summery value of the second long term box
+    private static JLabel imgTuesday;                           //Stores the image value of the second long term box
+    private static JLabel lblTuesday;                           //Stores the name value of the second long term box
 
-    private static JLabel lblWednesdayHigh;
-    private static JLabel lblWednesdayTemp;
-    private static JLabel lblWednesdayLow;
-    private static JLabel lblWednessdaySummery;
-    private static JLabel imgWednesday;
-    private static JLabel lblWednesday;
+    private static JLabel lblWednesdayHigh;                     //Stores the high value of the third long term box
+    private static JLabel lblWednesdayTemp;                     //Stores the temp value of the third long term box
+    private static JLabel lblWednesdayLow;                      //Stores the low value of the third long term box
+    private static JLabel lblWednessdaySummery;                 //Stores the summery value of the third long term box
+    private static JLabel imgWednesday;                         //Stores the image value of the third long term box
+    private static JLabel lblWednesday;                         //Stores the name value of the third long term box
 
-    private static JLabel lblThursdayHigh;
-    private static JLabel lblThursdayTemp;
-    private static JLabel lblThursdayLow;
-    private static JLabel lblThursdaySummery;
-    private static JLabel imgThursday;
-    private static JLabel lblThursday;
+    private static JLabel lblThursdayHigh;                      //Stores the high value of the forth long term box
+    private static JLabel lblThursdayTemp;                      //Stores the temp value of the forth long term box
+    private static JLabel lblThursdayLow;                       //Stores the low value of the forth long term box
+    private static JLabel lblThursdaySummery;                   //Stores the summery value of the forth long term box
+    private static JLabel imgThursday;                          //Stores the image value of the forth long term box
+    private static JLabel lblThursday;                          //Stores the name value of the forth long term box
 
-    private static JLabel lblWeathercondition;
-    private static JLabel lblLocation;
-    private static JLabel lblTime;
-    private static JLabel lblTemp;
-    private static JLabel lblHigh;
-    private static JLabel lblLow;
-    private static JToggleButton btnDelete;
+    private static JLabel lblWeathercondition;                  //Stores the current/shortterm weather's condition
+    private static JLabel lblLocation;                          //Stores the current weather's location name
+    private static JLabel lblTime;                              //Stores the last updated time
+    private static JLabel lblTemp;                              //Stores the current weather's temperature
+    private static JLabel lblHigh;                              //Stores the current weather's high temperature
+    private static JLabel lblLow;                               //Stores the current weather's low temperature
+    private static JLabel lblWindSpeedValue;                    //Stores the current weather's wind speed value
+    private static JLabel lblPressureValue;                     //Stores the current weather's pressure value
+    private static JLabel lblHumidityValue;                     //Stores the current weather's humidity value
 
-    private static JLabel lblWindSpeedValue;
-    private static JLabel lblPressureValue;
-    private static JLabel lblHumidityValue;
-    private static JSlider sliderShortTerm;
-    private static JFrame frameForecast;
-    private static WaitLayerUI layerUI;
-    private static JLayer<JPanel> jlayer;
-    private static Location tempRegion;
+    private static JToggleButton btnDelete;                     //Contains the delete button on locations view
 
-    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d hh:mm a");
-    private static DateTimeFormatter STformat = DateTimeFormatter.ofPattern("hh:mm a");
-    private static DateTimeFormatter LTformat = DateTimeFormatter.ofPattern("EEE MMM d");
-    private static Matcher m;
-    private static StringBuffer stringbf;
+    private static JSlider sliderShortTerm;                     //Stores the short term slider
+    private static JFrame frameForecast;                        //Stores the forecast frame, which shows individual locations
+    private static WaitLayerUI layerUI;                         //Stores a layer on top of gui to do loading fadeout/fadein animiation
+    private static JLayer<JPanel> jlayer;                       //Stores the layer used by layerUI
+    private static Location tempRegion;                         //Stores the location temporarily when the user first enters it
+
+    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d hh:mm a");         //A format used for displaying last update time
+    private static DateTimeFormatter STformat = DateTimeFormatter.ofPattern("hh:mm a");             //A format used for short term name times
+    private static DateTimeFormatter LTformat = DateTimeFormatter.ofPattern("EEE MMM d");           //A format used for long term name times
+    private static Matcher m;                                   //Stores a constant matcher object used for capitilizing description's first letter
+    private static StringBuffer stringbf;                       //Stores a constant StringBuffer object used for capitilizing description's first letter
 
 
     /**
      * *
-     *
+     *The main method executes the entire program
      * @param args
      */
     public static void main(String[] args)
     {
+        //Initialze a locationlist object
         locations = new LocationList();
 
+        //Initialize the configuration
         config = new Configuration(locations);
+
+        //Save the configuration to registry
         config.save();
 
+        //Populate the locations list from the stored configuration
         locations = config.getLocations();
 
+        //Initialize the network controller
         netController = new NetworkController();
 
         EventQueue.invokeLater(new Runnable()
@@ -118,34 +126,43 @@ public class Main
             {
                 try
                 {
+                    //Try to set the look and feel of the program to default
                     JFrame.setDefaultLookAndFeelDecorated(true);//Allows the Look and Feel to change the window frame GUI
 
                     try
                     {
-                        //Set the Look and Feel to Magellan
+                        //Try to Set the Look and Feel to Magellan
                         UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceMagellanLookAndFeel");
                     } catch (Exception e)
                     {
+                        //If it doesn't work correctly indicate that it failed to initialize
                         System.out.println("Substance-Magellan failed to initialize");
                     }
 
+                    //Initialize the buttons hashmap to store buttons
                     dynamicButtons = new HashMap<String, JButton>();
 
+                    //Call method to initialize the locations panel
                     initializeLocations();
 
                 } catch (Exception e)
                 {
+                    //If there is a problem print the stack trace
                     e.printStackTrace();
                 }
             }
         });
 
+        //When the program closes run this
         Runtime.getRuntime().addShutdownHook(new Thread()
         {
             @Override
             public void run()
             {
+                //Set the locations stored in configuration to the current locations on screen
                 config.setLocations(locations);
+
+                //Save the configuration with the new locations
                 config.save();
             }
         });
@@ -158,12 +175,19 @@ public class Main
      */
     private static void update()
     {
+        //Iterate through each location in locations list
         for (Location region : locations.getLocationList())
         {
+            //Set the current iteration as the location in netController
             netController.setLocation(region);
-            if(!netController.fetch())
+
+            //Call the fetch method in netcontroller, if it returns false that means there was a problem
+            if (!netController.fetch())
             {
+                //Set the problem flag if netController did not succeed
                 problem = true;
+
+                //Break out of the loop
                 break;
             }
         }
@@ -174,71 +198,122 @@ public class Main
      */
     public static void addButton()
     {
+        //Prompts the user for input using a CustomInputDialog to use AutoCorrection feature
         final String tempName = CustomInputDialog.showInputDialog("Input a Location", "Which region's weather would you like to see today?", "Enter a location here");
-        System.out.println("Requesting Location: " + tempName);
 
         //If input is empty, do nothing and exit method but update the mars location
-        if(tempName == null || tempName.equals(""))
+        if (tempName == null || tempName.equals(""))
         {
+            //Update the mars location
             update();
+
+            //Set flag indicating that current location is not instantly viewable
             displayable = false;
+
+            //Break out of method using return
             return;
         }
 
+        //Initialize tempRegion using name entered by user
         tempRegion = new Location(tempName);
+
+        //Add the temp region to the locations list for tracking
         locations.addRegion(tempRegion);
+
+        //Initialize the currentLocation using user entered information
         currentLocation = tempRegion;
 
+        //Save the new locations list
         config.setLocations(locations);
         config.save();
 
+        //Start loading animation
         layerUI.start();
 
+        //Fetch new updates
         update();
 
+        //Stop loading animation
         layerUI.stop();
 
-        if(!problem && !dynamicButtons.containsKey(tempName))
+        //If there was no problem with the fetch and the button doesnt already exist
+        if (!problem && !dynamicButtons.containsKey(tempName))
         {
+            //Declare and initialize a new button with the offical name of the temp location
             JButton buttonTemp = new JButton(locations.searchList(tempName).getOfficialName());
+
+            //Add an action listener to the tempButton
             buttonTemp.addActionListener(new ActionListener()
             {
                 @Override
                 public void actionPerformed(ActionEvent e)
                 {
-                    if(btnDelete.isSelected())
+                    //If the delete button is toggled
+                    if (btnDelete.isSelected())
                     {
+                        //Remove the button
                         removeButton(tempName);
+
+                        //Delete location from the location list
                         locations.deleteRegion(locations.searchList(tempName));
-                        System.out.println("Removing " + tempName);
+
+                        //Call function to Re-initialize the state of the delete button
                         reinitializeDelete();
                     }
                     else
                     {
-                        System.out.println("Opening " + tempName);
+                        //Set the current location object using button clicked
                         currentLocation = locations.searchList(tempName);
+
+                        //Make location list frame invisible
                         frameLocations.setVisible(false);
+
+                        //Initialize the forecast view
                         initializeForecast();
+
+                        //Set the forecast frame to be visible
                         frameForecast.setVisible(true);
                     }
                 }
             });
+
+            //Sets the correct button size for new location button
             buttonTemp.setMaximumSize(buttonSize);
+
+            //Sets the correct botton font for new location button
             buttonTemp.setFont(new Font("Century Gothic", Font.PLAIN, 25));
+
+            //Add the new button to the locationsPanel panel (the list of buttons)
             locationsPanel.add(buttonTemp);
+
+            //Add new button to the dynamicButtons hashmap for tracking
             dynamicButtons.put(tempName, buttonTemp);
+
+            //Call a method to Re-initialize the delete button's state
             reinitializeDelete();
+
+            //Set flag to indicate the current location is displayable
             displayable = true;
         }
         else
         {
+            //Inform the user that there has been a problem
             JOptionPane.showMessageDialog(frameLocations, "Oops! That city does not exist!\n Try using the Auto-Completion feature!");
+
+            //Delete the location from the locations list
             locations.deleteRegion(tempRegion);
+
+            //Reset the problem flag
             problem = false;
+
+            //Reset the displayable flag
             displayable = false;
         }
 
+        //Set the config's location list to the current location list
         config.setLocations(locations);
+
+        //Save the configuration with the new location list
         config.save();
     }//End of addButton method
 
@@ -247,15 +322,40 @@ public class Main
      */
     public static void loadButtons()
     {
+        int timeout = 0;
+        //Declare and initialize new arraylist to store all locations
         ArrayList<Location> tempList = locations.getLocationList();
 
-        update();
+        //Call method to Update all locations until there are no problems
+        do{
+            //Reset problem variable
+            problem = false;
 
-        for (int i = 0; i < tempList.size(); i++)
+            //Increment timeout so it doesnt run forever with back output
+            timeout++;
+            update();
+        }while(problem && timeout < 10);
+
+        if(timeout == 10)
         {
-            final String tempName = tempList.get(i).getName();
+            //Create a new Locationlist
+            locations = new LocationList();
 
-            if(tempName.equals("mars"))
+            //ReInitialize the configuration
+            config = new Configuration(locations);
+
+            //Inform the user that there has been a problem
+            JOptionPane.showMessageDialog(frameLocations, "Oops! We are unable to retrieve your recent locations\n Sorry for the inconvenience!");
+
+            //Exit the loading method
+            return;
+        }
+
+        for (Location aTempList : tempList)
+        {
+            final String tempName = aTempList.getName();
+
+            if (tempName.equals("mars"))
             {
                 continue;
             }
@@ -300,7 +400,7 @@ public class Main
 
     private static void reinitializeDelete()
     {
-        if(dynamicButtons.isEmpty())
+        if (dynamicButtons.isEmpty())
         {
             btnDelete.setVisible(false);
         }
@@ -327,7 +427,8 @@ public class Main
             config.setDegrees(tempUnits.METRIC);
             config.save();
             System.out.println("Metric");
-        } else
+        }
+        else
         {
             config.setDegrees(tempUnits.IMPERIAL);
             config.save();
@@ -356,14 +457,16 @@ public class Main
         btnAdd.setBounds(56, 20, 89, 23);
         panel.add(btnAdd);
 
-        btnAdd.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
+        btnAdd.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
 
                 addButton();
                 locationsPanel.revalidate();
                 locationsPanel.validate();
 
-                if(displayable)
+                if (displayable)
                 {
                     frameLocations.setVisible(false);
                     initializeForecast();
@@ -375,8 +478,10 @@ public class Main
         btnDelete = new JToggleButton("Delete");
         btnDelete.setBounds(201, 20, 89, 23);
         btnDelete.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-        btnDelete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        btnDelete.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
             }
         });
         panel.add(btnDelete);
@@ -415,7 +520,7 @@ public class Main
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if(btnDelete.isSelected())
+                if (btnDelete.isSelected())
                 {
                     JOptionPane.showMessageDialog(frameLocations, "Sorry, Mars is not allowed to be deleted.");
                     btnDelete.setSelected(false);
@@ -440,17 +545,17 @@ public class Main
 
         frameLocations.getContentPane().add(panel);
 
-        if(config.exists())
+        if (config.exists())
         {
             loadButtons();
         }
 
-        if(locations.getLocationList().size() == 1)
+        if (locations.getLocationList().size() == 1)
         {
             addButton();
         }
 
-        if(displayable)
+        if (displayable)
         {
             frameLocations.setVisible(false);
             initializeForecast();
@@ -496,28 +601,28 @@ public class Main
             lblLocation.setBounds(62, 5, 300, 50);
             frameForecast.getContentPane().add(lblLocation);
 
-            lblTemp = new JLabel(String.valueOf((int)currentLocation.getCurrentTerm().getData()[0].getTemp())+ config.getTempUnit());
+            lblTemp = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
             lblTemp.setFont(new Font("Century Gothic", Font.PLAIN, 50));
-            lblTemp.setBounds(447, 33, 136, 81);
+            lblTemp.setBounds(447, 33, 140, 81);
             frameForecast.getContentPane().add(lblTemp);
 
-            lblHigh = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMax())+ config.getTempUnit());
+            lblHigh = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMax()) + config.getTempUnit());
             lblHigh.setBounds(443, 104, 46, 14);
             frameForecast.getContentPane().add(lblHigh);
 
-            lblLow = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMin())+ config.getTempUnit());
+            lblLow = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMin()) + config.getTempUnit());
             lblLow.setBounds(501, 104, 46, 14);
             frameForecast.getContentPane().add(lblLow);
 
-            lblHumidityValue = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getHumidity())+ config.getTempUnit());
+            lblHumidityValue = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getHumidity()) + config.getTempUnit());
             lblHumidityValue.setBounds(93, 147, 46, 14);
             frameForecast.getContentPane().add(lblHumidityValue);
 
-            lblWindSpeedValue = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getWindSpeed())+config.getWindUnit());
+            lblWindSpeedValue = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getWindSpeed()) + config.getWindUnit());
             lblWindSpeedValue.setBounds(93, 126, 55, 14);
             frameForecast.getContentPane().add(lblWindSpeedValue);
 
-            lblPressureValue = new JLabel(String.valueOf( currentLocation.getCurrentTerm().getData()[0].getPressure())+config.getPressureUnit());
+            lblPressureValue = new JLabel(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getPressure()) + config.getPressureUnit());
             lblPressureValue.setBounds(93, 168, 70, 14);
             frameForecast.getContentPane().add(lblPressureValue);
 /*
@@ -550,17 +655,17 @@ public class Main
             lblFriday.setBounds(0, 11, 111, 14);
             panel_10.add(lblFriday);
 
-            lblFridayHigh = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[4].getTempMax())+config.getTempUnit());
+            lblFridayHigh = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[4].getTempMax()) + config.getTempUnit());
             lblFridayHigh.setHorizontalAlignment(SwingConstants.CENTER);
             lblFridayHigh.setBounds(0, 108, 52, 28);
             panel_10.add(lblFridayHigh);
 
-            lblFridayTemp = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[4].getTemp())+config.getTempUnit());
+            lblFridayTemp = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[4].getTemp()) + config.getTempUnit());
             lblFridayTemp.setHorizontalAlignment(SwingConstants.CENTER);
             lblFridayTemp.setBounds(0, 95, 111, 14);
             panel_10.add(lblFridayTemp);
 
-            lblFridayLow = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[4].getTempMin())+config.getTempUnit());
+            lblFridayLow = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[4].getTempMin()) + config.getTempUnit());
             lblFridayLow.setHorizontalAlignment(SwingConstants.CENTER);
             lblFridayLow.setBounds(62, 108, 49, 28);
             panel_10.add(lblFridayLow);
@@ -582,7 +687,7 @@ public class Main
             panel2.add(panel_6);
             panel_6.setLayout(null);
 
-            lblMondayHigh = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[0].getTempMax())+config.getTempUnit());
+            lblMondayHigh = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[0].getTempMax()) + config.getTempUnit());
             lblMondayHigh.setHorizontalAlignment(SwingConstants.CENTER);
             lblMondayHigh.setBounds(0, 106, 59, 30);
             panel_6.add(lblMondayHigh);
@@ -593,13 +698,13 @@ public class Main
             lblMonday.setAlignmentY(Component.BOTTOM_ALIGNMENT);
             panel_6.add(lblMonday);
 
-            lblMondayLow = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[0].getTempMin())+config.getTempUnit());
+            lblMondayLow = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[0].getTempMin()) + config.getTempUnit());
             lblMondayLow.setHorizontalAlignment(SwingConstants.CENTER);
             lblMondayLow.setFont(new Font("Tahoma", Font.PLAIN, 11));
             lblMondayLow.setBounds(56, 106, 57, 30);
             panel_6.add(lblMondayLow);
 
-            lblMondayTemp = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[0].getTemp())+config.getTempUnit());
+            lblMondayTemp = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[0].getTemp()) + config.getTempUnit());
             lblMondayTemp.setHorizontalAlignment(SwingConstants.CENTER);
             lblMondayTemp.setBounds(0, 95, 113, 14);
             panel_6.add(lblMondayTemp);
@@ -626,17 +731,17 @@ public class Main
             lblTuesday.setBounds(0, 11, 113, 14);
             panel_7.add(lblTuesday);
 
-            lblTuesdayHigh = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[1].getTempMax())+config.getTempUnit());
+            lblTuesdayHigh = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[1].getTempMax()) + config.getTempUnit());
             lblTuesdayHigh.setHorizontalAlignment(SwingConstants.CENTER);
             lblTuesdayHigh.setBounds(0, 107, 52, 29);
             panel_7.add(lblTuesdayHigh);
 
-            lblTuesdayTemp = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[1].getTemp())+config.getTempUnit());
+            lblTuesdayTemp = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[1].getTemp()) + config.getTempUnit());
             lblTuesdayTemp.setHorizontalAlignment(SwingConstants.CENTER);
             lblTuesdayTemp.setBounds(0, 95, 113, 14);
             panel_7.add(lblTuesdayTemp);
 
-            lblTuesdayLow = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[1].getTempMin())+config.getTempUnit());
+            lblTuesdayLow = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[1].getTempMin()) + config.getTempUnit());
             lblTuesdayLow.setHorizontalAlignment(SwingConstants.CENTER);
             lblTuesdayLow.setBounds(62, 107, 51, 29);
             panel_7.add(lblTuesdayLow);
@@ -663,17 +768,17 @@ public class Main
             lblWednesday.setBounds(0, 11, 113, 14);
             panel_8.add(lblWednesday);
 
-            lblWednesdayHigh = new JLabel(String.valueOf((int)currentLocation.getLongTerm().getData()[2].getTempMax())+config.getTempUnit());
+            lblWednesdayHigh = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[2].getTempMax()) + config.getTempUnit());
             lblWednesdayHigh.setHorizontalAlignment(SwingConstants.CENTER);
             lblWednesdayHigh.setBounds(0, 105, 46, 31);
             panel_8.add(lblWednesdayHigh);
 
-            lblWednesdayTemp = new JLabel(String.valueOf((int)currentLocation.getLongTerm().getData()[2].getTemp())+config.getTempUnit());
+            lblWednesdayTemp = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[2].getTemp()) + config.getTempUnit());
             lblWednesdayTemp.setHorizontalAlignment(SwingConstants.CENTER);
             lblWednesdayTemp.setBounds(0, 95, 113, 14);
             panel_8.add(lblWednesdayTemp);
 
-            lblWednesdayLow = new JLabel(String.valueOf((int)currentLocation.getLongTerm().getData()[2].getTempMin())+config.getTempUnit());
+            lblWednesdayLow = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[2].getTempMin()) + config.getTempUnit());
             lblWednesdayLow.setHorizontalAlignment(SwingConstants.CENTER);
             lblWednesdayLow.setBounds(62, 105, 51, 31);
             panel_8.add(lblWednesdayLow);
@@ -700,17 +805,17 @@ public class Main
             lblThursday.setBounds(0, 11, 113, 14);
             panel_9.add(lblThursday);
 
-            lblThursdayHigh = new JLabel(String.valueOf((int)currentLocation.getLongTerm().getData()[3].getTempMax())+config.getTempUnit());
+            lblThursdayHigh = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[3].getTempMax()) + config.getTempUnit());
             lblThursdayHigh.setHorizontalAlignment(SwingConstants.CENTER);
             lblThursdayHigh.setBounds(0, 107, 52, 29);
             panel_9.add(lblThursdayHigh);
 
-            lblThursdayTemp = new JLabel(String.valueOf((int)currentLocation.getLongTerm().getData()[3].getTemp())+config.getTempUnit());
+            lblThursdayTemp = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[3].getTemp()) + config.getTempUnit());
             lblThursdayTemp.setHorizontalAlignment(SwingConstants.CENTER);
             lblThursdayTemp.setBounds(0, 95, 113, 14);
             panel_9.add(lblThursdayTemp);
 
-            lblThursdayLow = new JLabel(String.valueOf((int)currentLocation.getLongTerm().getData()[3].getTempMin())+config.getTempUnit());
+            lblThursdayLow = new JLabel(String.valueOf((int) currentLocation.getLongTerm().getData()[3].getTempMin()) + config.getTempUnit());
             lblThursdayLow.setHorizontalAlignment(SwingConstants.CENTER);
             lblThursdayLow.setBounds(62, 107, 51, 29);
             panel_9.add(lblThursdayLow);
@@ -780,7 +885,7 @@ public class Main
             });
             btnRefresh.setBounds(531, 11, 89, 23);
             frameForecast.getContentPane().add(btnRefresh);
-        }catch(NullPointerException e)
+        } catch (NullPointerException e)
         {
             System.out.println("Not all elements displayed properly!");
         }
@@ -793,7 +898,7 @@ public class Main
             @Override
             public void stateChanged(ChangeEvent e)
             {
-                JSlider source = (JSlider)e.getSource();
+                JSlider source = (JSlider) e.getSource();
                 if (!source.getValueIsAdjusting())
                 {
                     updateSTGUI(source.getValue());
@@ -813,9 +918,9 @@ public class Main
         labelTable.put(0, new JLabel("Current"));
         for (int i = 0; i < currentLocation.getShortTerm().data.length; i++)
         {
-            tempDate = new Date(Integer.parseInt(currentLocation.getShortTerm().data[i].getName())*1000L);
+            tempDate = new Date(Integer.parseInt(currentLocation.getShortTerm().data[i].getName()) * 1000L);
             tempZDT = tempDate.toInstant().atZone(ZoneId.systemDefault());
-            labelTable.put(i+1, new JLabel(tempZDT.format(STformat)));
+            labelTable.put(i + 1, new JLabel(tempZDT.format(STformat)));
         }
         sliderShortTerm.setLabelTable(labelTable);
 
@@ -840,7 +945,7 @@ public class Main
     private static void updateSTGUI(int hours)
     {
         String condition;
-        if(hours == 0)
+        if (hours == 0)
         {
             condition = currentLocation.getCurrentTerm().getData()[0].getDescription();
 
@@ -852,7 +957,7 @@ public class Main
                 m.appendReplacement(stringbf, m.group(1).toUpperCase() + m.group(2).toLowerCase());
             }
 
-            lblTemp.setText(String.valueOf((int)currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
+            lblTemp.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
             lblHigh.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMax()) + config.getTempUnit());
             lblLow.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMin()) + config.getTempUnit());
             lblHumidityValue.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getHumidity()) + config.getHumidUnit());
@@ -862,7 +967,7 @@ public class Main
             return;
         }
 
-        condition = currentLocation.getShortTerm().getData()[hours-1].getDescription();
+        condition = currentLocation.getShortTerm().getData()[hours - 1].getDescription();
 
         stringbf = new StringBuffer();
         m = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(condition);
@@ -872,75 +977,94 @@ public class Main
             m.appendReplacement(stringbf, m.group(1).toUpperCase() + m.group(2).toLowerCase());
         }
 
-        lblTemp.setText(String.valueOf((int)currentLocation.getShortTerm().getData()[hours-1].getTemp()) + config.getTempUnit());
-        lblHigh.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getTempMax())+ config.getTempUnit());
-        lblLow.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getTempMin()) + config.getTempUnit());
-        lblHumidityValue.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getHumidity()) + config.getHumidUnit());
-        lblWindSpeedValue.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours-1].getWindSpeed()) + config.getWindUnit());
-        lblPressureValue.setText(String.valueOf( currentLocation.getShortTerm().getData()[hours-1].getPressure()) + config.getPressureUnit());
+        lblTemp.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours - 1].getTemp()) + config.getTempUnit());
+        lblHigh.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours - 1].getTempMax()) + config.getTempUnit());
+        lblLow.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours - 1].getTempMin()) + config.getTempUnit());
+        lblHumidityValue.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours - 1].getHumidity()) + config.getHumidUnit());
+        lblWindSpeedValue.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours - 1].getWindSpeed()) + config.getWindUnit());
+        lblPressureValue.setText(String.valueOf(currentLocation.getShortTerm().getData()[hours - 1].getPressure()) + config.getPressureUnit());
         lblWeathercondition.setText(m.appendTail(stringbf).toString());
 
     }//End of updateSTGUI
 
-    /*
-
+    /**
+     * Updates all GUI elements on the forecast screen
      */
     private static void updateGUI()
     {
+        //Update the location name
         lblLocation = new JLabel(currentLocation.getName());
-        lblHigh.setText(String.valueOf((int)currentLocation.getCurrentTerm().getData()[0].getTempMax())+config.getTempUnit());
-        lblTemp.setText(String.valueOf((int)currentLocation.getCurrentTerm().getData()[0].getTemp())+config.getTempUnit());
-        lblLow.setText(String.valueOf((int)currentLocation.getCurrentTerm().getData()[0].getTempMin())+config.getTempUnit());
 
-        lblFridayHigh.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[4].getTempMax())+config.getTempUnit());
-        lblFridayTemp.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[4].getTemp())+config.getTempUnit());
-        lblFridayLow.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[4].getTempMin())+config.getTempUnit());
-        lblFridaySummery.setText(currentLocation.getLongTerm().getData()[4].getDescription());
-        lblFriday.setText(getLTName(currentLocation.getLongTerm().getData()[4].getName()));
-        imgFriday.setText("");
+        //Update the Temp/High/Low values
+        lblHigh.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMax()) + config.getTempUnit());
+        lblTemp.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
+        lblLow.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMin()) + config.getTempUnit());
 
-        lblMondayHigh.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[0].getTempMax())+config.getTempUnit());
-        lblMondayLow.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[0].getTempMin())+config.getTempUnit());
-        lblMondayTemp.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[0].getTemp())+config.getTempUnit());
+        //Updates the long term element for Monday
+        lblMondayHigh.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[0].getTempMax()) + config.getTempUnit());
+        lblMondayLow.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[0].getTempMin()) + config.getTempUnit());
+        lblMondayTemp.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[0].getTemp()) + config.getTempUnit());
         lblMondaySummery.setText(currentLocation.getLongTerm().getData()[0].getDescription());
         lblMonday.setText(getLTName(currentLocation.getLongTerm().getData()[0].getName()));
         imgMonday.setText("");
 
-        lblTuesdayHigh.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[1].getTempMax())+config.getTempUnit());
-        lblTuesdayTemp.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[1].getTemp())+config.getTempUnit());
-        lblTuesdayLow.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[1].getTempMin())+config.getTempUnit());
+        //Updates the long term element for Tuesday
+        lblTuesdayHigh.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[1].getTempMax()) + config.getTempUnit());
+        lblTuesdayTemp.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[1].getTemp()) + config.getTempUnit());
+        lblTuesdayLow.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[1].getTempMin()) + config.getTempUnit());
         lblTuesdaySummery.setText(currentLocation.getLongTerm().getData()[1].getDescription());
         lblTuesday.setText(getLTName(currentLocation.getLongTerm().getData()[1].getName()));
         imgTuesday.setText("");
 
-        lblWednesdayHigh.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[2].getTempMax())+config.getTempUnit());
-        lblWednesdayTemp.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[2].getTemp())+config.getTempUnit());
-        lblWednesdayLow.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[2].getTempMin())+config.getTempUnit());
+        //Updates the long term element for Wednesday
+        lblWednesdayHigh.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[2].getTempMax()) + config.getTempUnit());
+        lblWednesdayTemp.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[2].getTemp()) + config.getTempUnit());
+        lblWednesdayLow.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[2].getTempMin()) + config.getTempUnit());
         lblWednessdaySummery.setText(currentLocation.getLongTerm().getData()[2].getDescription());
         lblWednesday.setText(getLTName(currentLocation.getLongTerm().getData()[2].getName()));
         imgWednesday.setText("");
 
-        lblThursdayHigh.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[3].getTempMax())+config.getTempUnit());
-        lblThursdayTemp.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[3].getTemp())+config.getTempUnit());
-        lblThursdayLow.setText(String.valueOf((int)currentLocation.getLongTerm().getData()[3].getTempMin())+config.getTempUnit());
+        //Updates the long term element for Thursday
+        lblThursdayHigh.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[3].getTempMax()) + config.getTempUnit());
+        lblThursdayTemp.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[3].getTemp()) + config.getTempUnit());
+        lblThursdayLow.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[3].getTempMin()) + config.getTempUnit());
         lblThursdaySummery.setText(currentLocation.getLongTerm().getData()[3].getDescription());
         lblThursday.setText(getLTName(currentLocation.getLongTerm().getData()[3].getName()));
         imgThursday.setText("");
 
+        //Updates the long term element for Friday
+        lblFridayHigh.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[4].getTempMax()) + config.getTempUnit());
+        lblFridayTemp.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[4].getTemp()) + config.getTempUnit());
+        lblFridayLow.setText(String.valueOf((int) currentLocation.getLongTerm().getData()[4].getTempMin()) + config.getTempUnit());
+        lblFridaySummery.setText(currentLocation.getLongTerm().getData()[4].getDescription());
+        lblFriday.setText(getLTName(currentLocation.getLongTerm().getData()[4].getName()));
+        imgFriday.setText("");
+
+        //Updates the weather condition label and time label
         lblWeathercondition.setText(currentLocation.getCurrentTerm().getData()[0].getDescription());
         lblTime.setText(ZonedDateTime.now().format(format));
 
         sliderShortTerm.setValue(0);
-    }
+    }//End of UpdateGUI method
 
+    /**
+     * This method gets in a string unix time object and returns a long term formatted date string
+     *
+     * @param num unix time
+     * @return Long term formatted date string
+     */
     private static String getLTName(String num)
     {
+        //Convert the string into an integer value and store it
         int dt = Integer.parseInt(num);
 
+        //Convert the dt object into java date object
         Date date = new Date(dt*1000L);
-        ZonedDateTime ZDT = ZonedDateTime.ofInstant(date.toInstant(),
-                ZoneId.systemDefault());
 
+        //Use the date object to retrieve a ZonedDateTime
+        ZonedDateTime ZDT = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+
+        //return a string output of ZDT in the format of long term time stated above
         return ZDT.format(LTformat);
-    }
+    }//End of getLTName method
 }//End of main class
