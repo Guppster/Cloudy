@@ -36,6 +36,8 @@ public class CurrentTermData extends BaseData
         this.precipitation = precipitation;
         this.sunrise = sunrise;
         this.sunset = sunset;
+        super.setSunrise(sunrise);
+        super.setSunset(sunset);
     }
 
     /**

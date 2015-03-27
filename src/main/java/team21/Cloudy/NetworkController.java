@@ -61,6 +61,7 @@ public class NetworkController
             if(!location.getName().equals("mars"))
             {
                 System.out.println("Could Not Find: " + location.getName() + "\n");
+                System.out.println(j);
                 return false;
             }
             return true;

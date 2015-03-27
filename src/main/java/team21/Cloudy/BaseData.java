@@ -23,6 +23,8 @@ public abstract class BaseData
     private String description; //short description of current weather
     private String countryCode;
     private int dt;
+    private int sunset;
+    private int sunrise;
 
     /**
      * Class Constructor initialize all of attributes to the class
@@ -233,5 +235,25 @@ public abstract class BaseData
     public void setHumidity(double humidity)
     {
         this.humidity = humidity;
+    }
+
+    public int getSunset()
+    {
+        return sunset;
+    }
+
+    public void setSunset(int sunset)
+    {
+        this.sunset = sunset;
+    }
+
+    public int getSunrise()
+    {
+        return sunrise;
+    }
+
+    public void setSunrise(int sunrise)
+    {
+        this.sunrise = sunrise;
     }
 }//End of BaseData class
