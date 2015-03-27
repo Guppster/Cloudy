@@ -42,16 +42,16 @@ public class Configuration
         //set the units
         if (degrees.equals(tempUnits.METRIC))
         {
-            tempUnit = " °C";
-            windUnit = " m/s";
-            pressureUnit = " kPa";
+            tempUnit = "°C";
+            windUnit = "m/s";
+            pressureUnit = "kPa";
         } else
         {
-            tempUnit = " °F";
-            windUnit = " mph";
-            pressureUnit = " ksi";
+            tempUnit = "°F";
+            windUnit = "mph";
+            pressureUnit = "ksi";
         }
-        humidUnit = " %";
+        humidUnit = "%";
     }
 
     /**
@@ -85,16 +85,16 @@ public class Configuration
         //set the units
         if (degrees.equals(tempUnits.METRIC))
         {
-            tempUnit = " °C";
-            windUnit = " m/s";
-            pressureUnit = " kPa";
+            tempUnit = "°C";
+            windUnit = "m/s";
+            pressureUnit = "kPa";
         } else
         {
-            tempUnit = " °F";
-            windUnit = " mph";
-            pressureUnit = " ksi";
+            tempUnit = "°F";
+            windUnit = "mph";
+            pressureUnit = "ksi";
         }
-        humidUnit = " %";
+        humidUnit = "%";
     }
 
     public boolean exists()

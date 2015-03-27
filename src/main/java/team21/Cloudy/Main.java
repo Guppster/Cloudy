@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -94,9 +95,9 @@ public class Main
     private static JLayer<JPanel> jlayer;                       //Stores the layer used by layerUI
     private static Location tempRegion;                         //Stores the location temporarily when the user first enters it
 
-    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d hh:mm a");         //A format used for displaying last update time
-    private static DateTimeFormatter STformat = DateTimeFormatter.ofPattern("hh:mm a");             //A format used for short term name times
-    private static DateTimeFormatter LTformat = DateTimeFormatter.ofPattern("EEE MMM d");           //A format used for long term name times
+    private static SimpleDateFormat format = new SimpleDateFormat("MMM d hh:mm a");         //A format used for displaying last update time
+    private static SimpleDateFormat STformat = new SimpleDateFormat("hh:mm a");             //A format used for short term name times
+    private static SimpleDateFormat LTformat = new SimpleDateFormat("EEE MMM d");           //A format used for long term name times
 
 
     /**
@@ -713,7 +714,7 @@ public class Main
 
             lblTemp = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
             lblTemp.setFont(new Font("Century Gothic", Font.PLAIN, 50));
-            lblTemp.setBounds(447, 33, 140, 81);
+            lblTemp.setBounds(447, 33, 160, 81);
             frameForecast.getContentPane().add(lblTemp);
 
             lblHigh = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMax()) + config.getTempUnit());
@@ -736,20 +737,17 @@ public class Main
             lblPressureValue.setBounds(93, 168, 70, 14);
             frameForecast.getContentPane().add(lblPressureValue);
 
-            ZonedDateTime tempZDT;
             Date tempDate;
 
             tempDate = new Date(currentLocation.getCurrentTerm().getData()[0].getSunrise() * 1000L);
-            tempZDT = tempDate.toInstant().atZone(ZoneId.systemDefault());
 
-            JLabel lblSunriseValue = new JLabel(tempZDT.format(STformat));
+            JLabel lblSunriseValue = new JLabel(STformat.format(tempDate));
             lblSunriseValue.setBounds(235, 147, 80, 14);
             frameForecast.getContentPane().add(lblSunriseValue);
 
             tempDate = new Date(currentLocation.getCurrentTerm().getData()[0].getSunset() * 1000L);
-            tempZDT = tempDate.toInstant().atZone(ZoneId.systemDefault());
 
-            JLabel lblSunsetValue = new JLabel(tempZDT.format(STformat));
+            JLabel lblSunsetValue = new JLabel(STformat.format(tempDate));
             lblSunsetValue.setBounds(235, 168, 80, 14);
             frameForecast.getContentPane().add(lblSunsetValue);
 
@@ -1026,8 +1024,8 @@ public class Main
             for (int i = 0; i < currentLocation.getShortTerm().data.length; i++)
             {
                 tempDate = new Date(Integer.parseInt(currentLocation.getShortTerm().data[i].getName()) * 1000L);
-                tempZDT = tempDate.toInstant().atZone(ZoneId.systemDefault());
-                labelTable.put(i + 1, new JLabel(tempZDT.format(STformat)));
+
+                labelTable.put(i + 1, new JLabel(STformat.format(tempDate)));
             }
             sliderShortTerm.setLabelTable(labelTable);
 
@@ -1039,7 +1037,8 @@ public class Main
             lblLastUpdated.setBounds(400, 125, 100, 14);
             frameForecast.getContentPane().add(lblLastUpdated);
 
-            lblTime = new JLabel(ZonedDateTime.now().format(format));
+            Date now = new Date();
+            lblTime = new JLabel(format.format(now));
             lblTime.setBounds(499, 125, 130, 14);
             frameForecast.getContentPane().add(lblTime);
         } catch (NullPointerException e)
@@ -1207,7 +1206,8 @@ public class Main
 
         //Updates the weather condition label and time label
         lblWeathercondition.setText(GetUpperCaseDescription(0, currentLocation.getCurrentTerm()));
-        lblTime.setText(ZonedDateTime.now().format(format));
+        Date now = new Date();
+        lblTime.setText(format.format(now));
 
         sliderShortTerm.setValue(0);
     }//End of UpdateGUI method
@@ -1226,10 +1226,7 @@ public class Main
         //Convert the dt object into java date object
         Date date = new Date(dt*1000L);
 
-        //Use the date object to retrieve a ZonedDateTime
-        ZonedDateTime ZDT = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-
         //return a string output of ZDT in the format of long term time stated above
-        return ZDT.format(LTformat);
+        return LTformat.format(date);
     }//End of getLTName method
 }//End of main class
