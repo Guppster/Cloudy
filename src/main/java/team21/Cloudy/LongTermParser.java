@@ -80,9 +80,6 @@ public class LongTermParser extends Parser
         //Take the raw data
         String JSONData = response.body().string();
 
-        //Debug println
-        System.out.println(locationName + " long-term data received!");
-
         //Populate the data array from the JSONArray
         getArray(JSONData);
 

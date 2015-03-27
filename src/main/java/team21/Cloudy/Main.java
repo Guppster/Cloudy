@@ -94,8 +94,6 @@ public class Main
     private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d hh:mm a");         //A format used for displaying last update time
     private static DateTimeFormatter STformat = DateTimeFormatter.ofPattern("hh:mm a");             //A format used for short term name times
     private static DateTimeFormatter LTformat = DateTimeFormatter.ofPattern("EEE MMM d");           //A format used for long term name times
-    private static Matcher m;                                   //Stores a constant matcher object used for capitilizing description's first letter
-    private static StringBuffer stringbf;                       //Stores a constant StringBuffer object used for capitilizing description's first letter
 
 
     /**
@@ -297,8 +295,16 @@ public class Main
         }
         else
         {
-            //Inform the user that there has been a problem
-            JOptionPane.showMessageDialog(frameLocations, "Oops! That city does not exist!\n Try using the Auto-Completion feature!");
+            if(dynamicButtons.containsKey(tempName))
+            {
+                //Inform the user that there has been a problem
+                JOptionPane.showMessageDialog(frameLocations, "Oops! That city is already in your location list!\n Find someplace unique using the Auto-Completion feature!");
+            }
+            else
+            {
+                //Inform the user that there has been a problem
+                JOptionPane.showMessageDialog(frameLocations, "Oops! That city does not exist!\n Try using the Auto-Completion feature!");
+            }
 
             //Delete the location from the locations list
             locations.deleteRegion(tempRegion);
@@ -345,7 +351,7 @@ public class Main
             config = new Configuration(locations);
 
             //Inform the user that there has been a problem
-            JOptionPane.showMessageDialog(frameLocations, "Oops! We are unable to retrieve your recent locations\n Sorry for the inconvenience!");
+            JOptionPane.showMessageDialog(frameLocations, "Oops! We are unable to retrieve your recent locations due to server problems\n Sorry for the inconvenience!");
 
             //Exit the loading method
             return;
@@ -378,7 +384,6 @@ public class Main
                     }
                     else
                     {
-                        System.out.println("Opening " + tempName);
                         currentLocation = locations.searchList(tempName);
                         frameLocations.setVisible(false);
                         initializeForecast();
@@ -839,17 +844,7 @@ public class Main
             lblNewLabel_1.setBounds(247, 90, 46, 14);
             frameForecast.getContentPane().add(lblNewLabel_1);
 
-            String condition = currentLocation.getCurrentTerm().getData()[0].getDescription();
-
-            stringbf = new StringBuffer();
-            m = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(condition);
-
-            while (m.find())
-            {
-                m.appendReplacement(stringbf, m.group(1).toUpperCase() + m.group(2).toLowerCase());
-            }
-
-            lblWeathercondition = new JLabel(m.appendTail(stringbf).toString());
+            lblWeathercondition = new JLabel(GetUpperCaseDescription(0, currentLocation.getCurrentTerm()));
             lblWeathercondition.setFont(new Font("Century Gothic", Font.PLAIN, 23));
             lblWeathercondition.setBounds(8, 90, 220, 28);
             frameForecast.getContentPane().add(lblWeathercondition);
@@ -944,37 +939,16 @@ public class Main
 
     private static void updateSTGUI(int hours)
     {
-        String condition;
         if (hours == 0)
         {
-            condition = currentLocation.getCurrentTerm().getData()[0].getDescription();
-
-            stringbf = new StringBuffer();
-            m = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(condition);
-
-            while (m.find())
-            {
-                m.appendReplacement(stringbf, m.group(1).toUpperCase() + m.group(2).toLowerCase());
-            }
-
             lblTemp.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
             lblHigh.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMax()) + config.getTempUnit());
             lblLow.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTempMin()) + config.getTempUnit());
             lblHumidityValue.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getHumidity()) + config.getHumidUnit());
             lblWindSpeedValue.setText(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getWindSpeed()) + config.getWindUnit());
             lblPressureValue.setText(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getPressure()) + config.getPressureUnit());
-            lblWeathercondition.setText(m.appendTail(stringbf).toString());
+            lblWeathercondition.setText(GetUpperCaseDescription(0, currentLocation.getCurrentTerm()));
             return;
-        }
-
-        condition = currentLocation.getShortTerm().getData()[hours - 1].getDescription();
-
-        stringbf = new StringBuffer();
-        m = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(condition);
-
-        while (m.find())
-        {
-            m.appendReplacement(stringbf, m.group(1).toUpperCase() + m.group(2).toLowerCase());
         }
 
         lblTemp.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours - 1].getTemp()) + config.getTempUnit());
@@ -983,9 +957,26 @@ public class Main
         lblHumidityValue.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours - 1].getHumidity()) + config.getHumidUnit());
         lblWindSpeedValue.setText(String.valueOf((int) currentLocation.getShortTerm().getData()[hours - 1].getWindSpeed()) + config.getWindUnit());
         lblPressureValue.setText(String.valueOf(currentLocation.getShortTerm().getData()[hours - 1].getPressure()) + config.getPressureUnit());
-        lblWeathercondition.setText(m.appendTail(stringbf).toString());
+        lblWeathercondition.setText(GetUpperCaseDescription(hours-1, currentLocation.getShortTerm()));
 
     }//End of updateSTGUI
+
+    private static String GetUpperCaseDescription(int hours, TermObject term)
+    {
+        String condition = term.getData()[hours].getDescription();
+
+        //Stores a constant StringBuffer object used for capitilizing description's first letter
+        StringBuffer stringbf = new StringBuffer();
+        //Stores a constant matcher object used for capitilizing description's first letter
+        Matcher m = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(condition);
+
+        while (m.find())
+        {
+            m.appendReplacement(stringbf, m.group(1).toUpperCase() + m.group(2).toLowerCase());
+        }
+
+        return m.appendTail(stringbf).toString();
+    }//End of GetUpperCaseDescription method
 
     /**
      * Updates all GUI elements on the forecast screen
@@ -1041,7 +1032,7 @@ public class Main
         imgFriday.setText("");
 
         //Updates the weather condition label and time label
-        lblWeathercondition.setText(currentLocation.getCurrentTerm().getData()[0].getDescription());
+        lblWeathercondition.setText(GetUpperCaseDescription(0, currentLocation.getCurrentTerm()));
         lblTime.setText(ZonedDateTime.now().format(format));
 
         sliderShortTerm.setValue(0);

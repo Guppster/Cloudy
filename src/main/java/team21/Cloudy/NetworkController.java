@@ -60,8 +60,7 @@ public class NetworkController
         {
             if(!location.getName().equals("mars"))
             {
-                System.out.println("A Problem as occured while fetching data for: " + location.getName() + "\n");
-                System.out.println(j);
+                System.out.println("Could Not Find: " + location.getName() + "\n");
                 return false;
             }
             return true;

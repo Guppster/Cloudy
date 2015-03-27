@@ -81,9 +81,6 @@ public class CurrentTermParser extends Parser
         //Populate the data array with JSONElements
         data[0] = getDetails(JSONData);
 
-        //Debug println
-        System.out.println(locationName + " current-term data received!");
-
         //Create a new longTerm object using the data array and return it
         return new CurrentTerm(data);
     }//End of parse method

@@ -116,7 +116,6 @@ public class Configuration
      */
     public boolean save()
     {
-        System.out.println("Saving!");
         try
         {
             prefs.putByteArray("locations", locationsToByteArray());
