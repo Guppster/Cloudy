@@ -1,10 +1,5 @@
 package team21.Cloudy;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
 /**
  * Abstract Class for the storage of all common data related to weather regardless of specific time
  *

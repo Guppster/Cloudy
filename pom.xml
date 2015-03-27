@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
     	<groupId>team21.Cloudy</groupId>
-    	<artifactId>Cloudy-App</artifactId>
+    	<artifactId>21Cloudy-App</artifactId>
 	    <packaging>jar</packaging>
     	<version>1.0-SNAPSHOT</version>
 
@@ -21,7 +21,7 @@
         	<dependency>
             		<groupId>org.json</groupId>
             		<artifactId>json</artifactId>
-            		<version>20141113</version>
+            		<version>20140107</version>
         	</dependency>
 
             <dependency>
@@ -91,15 +91,15 @@
 					</archive>
 				</configuration>
 			</plugin>
-            		<plugin>
-                		<groupId>org.apache.maven.plugins</groupId>
-                		<artifactId>maven-compiler-plugin</artifactId>
-                		<version>3.2</version>
-                		<configuration>
-                    			<source>7</source>
-                    			<target>1.7</target>
-                		</configuration>
-            		</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<source>7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>

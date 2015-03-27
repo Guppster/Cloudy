@@ -1,9 +1,5 @@
 package team21.Cloudy;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * Class storing the long-term weather data. Extends BaseData and have additional attributes, tempNight, tempEve, and tempMorn
