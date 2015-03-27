@@ -28,15 +28,17 @@ public class Main
     private static LocationList locations;                      //Maintains a list of locations
     private static Configuration config;                        //Maintains a constant configuration
     private static NetworkController netController;             //Controls all network interfacing
-    private static Location currentLocation;                    //Stores the current location on forcast view
+    private static Location currentLocation;                    //Stores the current location on forecast view
 
     private static JPanel locationsPanel;                       //The panel that shows location list
     private static Dimension buttonSize;                        //A constant button size for location elements
     private static HashMap<String, JButton> dynamicButtons;     //Map stores all buttons on screen
     private static boolean problem = false;                     //Boolean value indicating if there is a network error with recent fetch
-    private static boolean displayable = false;                 //Boolean value controling if currentLocation is viewable or not (!problem)
+    private static boolean displayable = false;                 //Boolean value controlling if currentLocation is viewable or not (!problem)
 
     private static JFrame frameLocations;                       //The main frame that displays everything
+    private static JFrame frameForecast;                        //Stores the forecast frame, which shows individual locations
+    private static JFrame frameMars;                            //Stores the Mars frame, which shows the Mars weather
 
     private static JLabel lblMondayHigh;                        //Stores the high value of the first long term box
     private static JLabel lblMondayLow;                         //Stores the temp value of the first long term box
@@ -83,14 +85,11 @@ public class Main
     private static JLabel lblPressureValue;                     //Stores the current weather's pressure value
     private static JLabel lblHumidityValue;                     //Stores the current weather's humidity value
     private static JLabel imgMainImage;                         //Stores the current weather's image file
-    private static JLabel lblSunsetValue;
-    private static JLabel lblSunriseValue;
     private static JLabel lblWindDirValue;
 
     private static JToggleButton btnDelete;                     //Contains the delete button on locations view
 
     private static JSlider sliderShortTerm;                     //Stores the short term slider
-    private static JFrame frameForecast;                        //Stores the forecast frame, which shows individual locations
     private static WaitLayerUI layerUI;                         //Stores a layer on top of gui to do loading fadeout/fadein animiation
     private static JLayer<JPanel> jlayer;                       //Stores the layer used by layerUI
     private static Location tempRegion;                         //Stores the location temporarily when the user first enters it
@@ -534,14 +533,14 @@ public class Main
                 }
                 else
                 {
-                    System.out.println("Clicked: Mars");
                     currentLocation = locations.searchList("mars");
                     frameLocations.setVisible(false);
-                    initializeForecast();
-                    frameForecast.setVisible(true);
+                    initializeMars();
+                    frameMars.setVisible(true);
                 }
             }
         });
+
         buttonMars.setFont(new Font("Century Gothic", Font.PLAIN, 25));
         locations.addRegion(tempRegion);
         locationsPanel.add(buttonMars);
@@ -573,6 +572,104 @@ public class Main
             frameLocations.setVisible(true);
         }
     }
+
+    private static void initializeMars()
+    {
+        frameMars = new JFrame();
+        frameMars.setResizable(false);
+        frameMars.setBounds(100, 100, 642, 475);
+        frameMars.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameMars.getContentPane().setLayout(null);
+
+        JButton btnGoToLocations = new JButton();
+        btnGoToLocations.setBorderPainted(false);
+        btnGoToLocations.setBorder(null);
+        btnGoToLocations.setMargin(new Insets(0, 0, 0, 0));
+        btnGoToLocations.setFocusable(false);
+        btnGoToLocations.setIcon(new ImageIcon(UnitsButton.class.getResource("/images/lines.png")));
+        btnGoToLocations.setHorizontalAlignment(SwingConstants.CENTER);
+        btnGoToLocations.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
+                frameMars.setVisible(false);
+                frameLocations.setVisible(true);
+            }
+        });
+
+        btnGoToLocations.setBounds(10, 11, 40, 25);
+        frameMars.getContentPane().add(btnGoToLocations);
+
+        JLabel imgPlanet = new JLabel("");
+        imgPlanet.setBounds(416, 102, 210, 220);
+        imgPlanet.setIcon(new ImageIcon(UnitsButton.class.getResource("/images/MARSBAR.png")));
+        frameMars.getContentPane().add(imgPlanet);
+
+        JLabel lblMarsTitle = new JLabel("Mars, Universe");
+        lblMarsTitle.setFont(new Font("Century Gothic", Font.PLAIN, 36));
+        lblMarsTitle.setBounds(62, 5, 350, 50);
+        frameMars.getContentPane().add(lblMarsTitle);
+
+        JLabel lblMarsTemp = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
+        lblMarsTemp.setFont(new Font("Century Gothic", Font.PLAIN, 33));
+        lblMarsTemp.setHorizontalAlignment(SwingConstants.CENTER);
+        lblMarsTemp.setBounds(76, 162, 200, 39);
+        frameMars.getContentPane().add(lblMarsTemp);
+
+        JLabel lblMarsTempMin = new JLabel(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getTempMin()));     // + config.getTempUnit() Taken out because it looks better this way
+        lblMarsTempMin.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+        lblMarsTempMin.setHorizontalAlignment(SwingConstants.CENTER);
+        lblMarsTempMin.setBounds(76, 207, 200, 50);
+        frameMars.getContentPane().add(lblMarsTempMin);
+
+        JLabel lblMarsTempHigh = new JLabel(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getTempMax()));    // + config.getTempUnit() Taken out because it looks better this way
+        lblMarsTempHigh.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+        lblMarsTempHigh.setHorizontalAlignment(SwingConstants.CENTER);
+        lblMarsTempHigh.setBounds(76, 115, 200, 50);
+        frameMars.getContentPane().add(lblMarsTempHigh);
+
+        JLabel lblEarthTime = new JLabel("Earth Time:");
+        lblEarthTime.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblEarthTime.setBounds(34, 290, 82, 23);
+        frameMars.getContentPane().add(lblEarthTime);
+
+        String earthDate = currentLocation.getCurrentTerm().getData()[0].getName();
+
+        JLabel lblEarthTimeValue = new JLabel( earthDate.substring(6, 8) + "-" + earthDate.substring(4, 6)+ "-" + earthDate.substring(0, 4));
+        lblEarthTimeValue.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblEarthTimeValue.setBounds(113, 290, 67, 23);
+        frameMars.getContentPane().add(lblEarthTimeValue);
+
+        JLabel lblMarsPressure = new JLabel("Pressure:");
+        lblMarsPressure.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblMarsPressure.setBounds(34, 319, 67, 23);
+        frameMars.getContentPane().add(lblMarsPressure);
+
+        JLabel lblMarsPressureValue = new JLabel(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getPressure()) + config.getPressureUnit());
+        lblMarsPressureValue.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblMarsPressureValue.setBounds(113, 319, 67, 23);
+        frameMars.getContentPane().add(lblMarsPressureValue);
+
+        JLabel lblAtmosphere = new JLabel("Atmosphere:");
+        lblAtmosphere.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblAtmosphere.setBounds(195, 319, 93, 23);
+        frameMars.getContentPane().add(lblAtmosphere);
+
+        JLabel lblAtmosphereValue = new JLabel(String.valueOf(currentLocation.getCurrentTerm().getData()[0].getDescription()));
+        lblAtmosphereValue.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblAtmosphereValue.setBounds(295, 319, 67, 23);
+        frameMars.getContentPane().add(lblAtmosphereValue);
+
+        JLabel lblSeason = new JLabel("Season:");
+        lblSeason.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblSeason.setBounds(195, 290, 82, 23);
+        frameMars.getContentPane().add(lblSeason);
+
+        JLabel lblSeasonValue = new JLabel(currentLocation.getCurrentTerm().getData()[0].getIconID());
+        lblSeasonValue.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblSeasonValue.setBounds(295, 290, 67, 23);
+        frameMars.getContentPane().add(lblSeasonValue);
+    }//End of initializeMars method
 
     private static void initializeForecast()
     {
@@ -645,14 +742,14 @@ public class Main
             tempDate = new Date(currentLocation.getCurrentTerm().getData()[0].getSunrise() * 1000L);
             tempZDT = tempDate.toInstant().atZone(ZoneId.systemDefault());
 
-            lblSunriseValue = new JLabel(tempZDT.format(STformat));
+            JLabel lblSunriseValue = new JLabel(tempZDT.format(STformat));
             lblSunriseValue.setBounds(235, 147, 80, 14);
             frameForecast.getContentPane().add(lblSunriseValue);
 
             tempDate = new Date(currentLocation.getCurrentTerm().getData()[0].getSunset() * 1000L);
             tempZDT = tempDate.toInstant().atZone(ZoneId.systemDefault());
 
-            lblSunsetValue = new JLabel(tempZDT.format(STformat));
+            JLabel lblSunsetValue = new JLabel(tempZDT.format(STformat));
             lblSunsetValue.setBounds(235, 168, 80, 14);
             frameForecast.getContentPane().add(lblSunsetValue);
 

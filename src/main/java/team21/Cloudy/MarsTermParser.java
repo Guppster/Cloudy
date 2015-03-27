@@ -103,8 +103,9 @@ public class MarsTermParser extends Parser
                 report.getDouble("pressure"),
                 report.getString("season"),
                 report.getString("atmo_opacity"),
-                Integer.parseInt(report.getString("terrestrial_date").split("-")[0]),
-                report.getDouble("abs_humidity")
+                Integer.parseInt(report.getString("terrestrial_date").split("-")[0] + report.getString("terrestrial_date").split("-")[1] + report.getString("terrestrial_date").split("-")[2]),
+                //report.getDouble("abs_humidity")
+                0
         );
     }//End of getDetails method
 
