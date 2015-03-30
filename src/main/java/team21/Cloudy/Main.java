@@ -198,7 +198,7 @@ public class Main
     public static void addButton()
     {
         //Prompts the user for input using a CustomInputDialog to use AutoCorrection feature
-        final String tempName = CustomInputDialog.showInputDialog("Input a Location", "Which region's weather would you like to see today?", "Enter a location here");
+        final String tempName = firstLetterToUpperCase(CustomInputDialog.showInputDialog("Input a Location", "Which region's weather would you like to see today?", "Enter a location here"));
 
         //If input is empty, do nothing and exit method but update the mars location
         if (tempName == null || tempName.equals(""))
@@ -1134,11 +1134,16 @@ public class Main
     private static String GetUpperCaseDescription(int hours, TermObject term)
     {
         String condition = term.getData()[hours].getDescription();
+        return firstLetterToUpperCase(condition);
 
+    }//End of GetUpperCaseDescription method
+
+    private static String firstLetterToUpperCase(String input)
+    {
         //Stores a constant StringBuffer object used for capitilizing description's first letter
         StringBuffer stringbf = new StringBuffer();
         //Stores a constant matcher object used for capitilizing description's first letter
-        Matcher m = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(condition);
+        Matcher m = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(input);
 
         while (m.find())
         {
@@ -1146,7 +1151,9 @@ public class Main
         }
 
         return m.appendTail(stringbf).toString();
-    }//End of GetUpperCaseDescription method
+    }//End of firstLetterToUpperCase method
+
+
 
     /**
      * Updates all GUI elements on the forecast screen
