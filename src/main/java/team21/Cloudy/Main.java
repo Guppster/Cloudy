@@ -388,7 +388,6 @@ public class Main
                     if (btnDelete.isSelected())
                     {
                         removeButton(tempName);
-                        locations.deleteRegion(locations.searchList(tempName));
                         reinitializeDelete();
                     }
                     else
@@ -662,24 +661,6 @@ public class Main
         lblMarsTitle.setBounds(62, 5, 350, 50);
         frameMars.getContentPane().add(lblMarsTitle);
 
-        //Parse the picture id for the weather from atmospheric condition json return
-        switch(currentLocation.getCurrentTerm().getData()[0].getDescription())
-        {
-            case "Sunny":
-                currentLocation.getCurrentTerm().getData()[0].setIconID("01d");
-                break;
-            default:
-                currentLocation.getCurrentTerm().getData()[0].setIconID("01d");
-                break;
-        }
-
-        //Add picture of weather sky conditon
-        JLabel lblMarsWeatherPic = new JLabel("");
-        lblMarsWeatherPic.setHorizontalAlignment(SwingConstants.CENTER);
-        lblMarsWeatherPic.setIcon(getCorrectImage(currentLocation.getCurrentTerm().getData()[0], "Big"));
-        lblMarsWeatherPic.setBounds(235, 105, 150, 150);
-        frameMars.getContentPane().add(lblMarsWeatherPic);
-
         /////CREATING GUI ELEMENTS//////
 
         JLabel lblMarsTemp = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
@@ -771,6 +752,24 @@ public class Main
         lblSeasonValue.setFont(new Font("Century Gothic", Font.PLAIN, 13));
         lblSeasonValue.setBounds(295, 290, 67, 23);
         frameMars.getContentPane().add(lblSeasonValue);
+
+        //Parse the picture id for the weather from atmospheric condition json return
+        switch(currentLocation.getCurrentTerm().getData()[0].getDescription())
+        {
+            case "Sunny":
+                currentLocation.getCurrentTerm().getData()[0].setIconID("01d");
+                break;
+            default:
+                currentLocation.getCurrentTerm().getData()[0].setIconID("01d");
+                break;
+        }
+
+        //Add picture of weather sky conditon
+        JLabel lblMarsWeatherPic = new JLabel("");
+        lblMarsWeatherPic.setHorizontalAlignment(SwingConstants.CENTER);
+        lblMarsWeatherPic.setIcon(getCorrectImage(currentLocation.getCurrentTerm().getData()[0], "Big"));
+        lblMarsWeatherPic.setBounds(235, 105, 150, 150);
+        frameMars.getContentPane().add(lblMarsWeatherPic);
     }//End of initializeMars method
 
     /**
