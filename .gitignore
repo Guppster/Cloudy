@@ -1,3 +1,15 @@
-.idea
-target
-*.iml
+# IntelliJ IDEA project files
+.idea/
+out/
+Project.iml
+
+# Maven
+target/
+
+# Compiled Sources
+*.class
+bin/
+
+# OS Specific Junk
+.DS_Store
+Desktop.ini
