@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 /**
  * Class storing a list of locations.
- *
- * @author: Gurpreet
  */
 public class LocationList
 {

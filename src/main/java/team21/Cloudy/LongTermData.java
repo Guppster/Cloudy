@@ -8,10 +8,9 @@ package team21.Cloudy;
  */
 public class LongTermData extends BaseData
 {
-    private double tempNight; //temperature through the night
-    private double tempEve; //temperature through the evening
-    private double tempMorn; //temperature in the morning
-    private int dt;
+    private double tempNight;       //temperature through the night
+    private double tempEve;         //temperature through the evening
+    private double tempMorn;        //temperature in the morning
 
     /**
      * Constructor initialize the attributes with the first three parameters and sends the rest to the super class

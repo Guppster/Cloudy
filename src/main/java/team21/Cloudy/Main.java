@@ -364,15 +364,18 @@ public class Main
             return;
         }
 
+        //For every location in the list load in data
         for (Location aTempList : tempList)
         {
             final String tempName = aTempList.getName();
 
+            //Skip if mars
             if (tempName.equals("mars"))
             {
                 continue;
             }
 
+            //Follow same process as AddButton() to create buttons
             tempRegion = new Location(tempName);
             currentLocation = tempRegion;
 
@@ -386,7 +389,6 @@ public class Main
                     {
                         removeButton(tempName);
                         locations.deleteRegion(locations.searchList(tempName));
-                        System.out.println("Removing " + tempName);
                         reinitializeDelete();
                     }
                     else
@@ -405,11 +407,16 @@ public class Main
             reinitializeDelete();
         }
 
+        //Update all locations
         layerUI.start();
         update();
         layerUI.stop();
     }
 
+
+    /**
+     * Checks if the delete button should be enabled or disabled
+     */
     private static void reinitializeDelete()
     {
         if (dynamicButtons.isEmpty())
@@ -422,15 +429,32 @@ public class Main
         }
     }
 
+    /**
+     * Removes a button
+     * @param name the name of the button to remove
+     */
     public static void removeButton(String name)
     {
+        //gets the button from list
         JButton b = dynamicButtons.remove(name);
+
+        //Removes from panel
         locationsPanel.remove(b);
+
+        //Refreshes panel
         locationsPanel.validate();
+
+        //Update graphics
         locationsPanel.update(locationsPanel.getGraphics());
+
+        //Set selected to be false
         btnDelete.setSelected(false);
     }
 
+    /**
+     * Sets units from metric to imperial or vice-versa
+     * @param evt the direct the slider was moved
+     */
     private static void unitsStateChanged(ItemEvent evt)
     {
         int state = evt.getStateChange();
@@ -447,8 +471,12 @@ public class Main
         update();
     }
 
+    /**
+     * Initializes the locations frame with the locations list
+     */
     private static void initializeLocations()
     {
+        //Create the frame
         frameLocations = new JFrame();
         frameLocations.setResizable(false);
         frameLocations.setBounds(100, 100, 642, 473);
@@ -457,25 +485,29 @@ public class Main
 
         layerUI = new WaitLayerUI();
 
+        //Create new panel
         final JPanel panel = new JPanel();
         panel.setBounds(10, 32, 603, 390);
 
         panel.setLayout(null);
 
+        //Create add button
         JButton btnAdd = new JButton("Add");
         btnAdd.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         btnAdd.setBounds(56, 20, 89, 23);
         panel.add(btnAdd);
 
+        //Add action listener
         btnAdd.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent arg0)
             {
-
+                //Add a button whenever this button is pressed
                 addButton();
                 locationsPanel.revalidate();
                 locationsPanel.validate();
 
+                //If the location entered was valid, display location
                 if (displayable)
                 {
                     frameLocations.setVisible(false);
@@ -485,6 +517,7 @@ public class Main
             }
         });
 
+        //Create delete button
         btnDelete = new JToggleButton("Delete");
         btnDelete.setBounds(201, 20, 89, 23);
         btnDelete.setFont(new Font("Century Gothic", Font.PLAIN, 12));
@@ -503,6 +536,7 @@ public class Main
         //btnMultiview.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         //panel.add(btnMultiview);
 
+        //Create units toggle button
         UnitsButton unitsToggle = new UnitsButton(config.getDegrees().equals(tempUnits.METRIC));
         unitsToggle.setBounds(491, 20, 89, 23);
 
@@ -517,11 +551,13 @@ public class Main
 
         panel.add(unitsToggle);
 
+        //Create locations panel, the main list
         locationsPanel = new JPanel();
         locationsPanel.setBounds(0, 54, 636, 382);
         panel.add(locationsPanel);
         locationsPanel.setLayout(new BoxLayout(locationsPanel, BoxLayout.Y_AXIS));
 
+        //Make the mars button permenent
         JButton buttonMars = new JButton("Mars");
         tempRegion = new Location("mars");
         buttonMars.setMaximumSize(new Dimension(frameLocations.getWidth(), 100));
@@ -532,11 +568,13 @@ public class Main
             {
                 if (btnDelete.isSelected())
                 {
+                    //Cannot be deleted
                     JOptionPane.showMessageDialog(frameLocations, "Sorry, Mars is not allowed to be deleted.");
                     btnDelete.setSelected(false);
                 }
                 else
                 {
+                    //Open mars if clicked
                     currentLocation = locations.searchList("mars");
                     frameLocations.setVisible(false);
                     initializeMars();
@@ -555,16 +593,19 @@ public class Main
 
         frameLocations.getContentPane().add(panel);
 
+        //If a config alreadt exists, load in its previous locations
         if (config.exists())
         {
             loadButtons();
         }
 
+        //If there are no locations in the list prompt user for initial location
         if (locations.getLocationList().size() == 1)
         {
             addButton();
         }
 
+        //If this location is valid display its weather
         if (displayable)
         {
             frameLocations.setVisible(false);
@@ -577,14 +618,19 @@ public class Main
         }
     }
 
+    /**
+     * Initialize the mars weather display
+     */
     private static void initializeMars()
     {
+        //Make the weather frame
         frameMars = new JFrame();
         frameMars.setResizable(false);
         frameMars.setBounds(100, 100, 642, 475);
         frameMars.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameMars.getContentPane().setLayout(null);
 
+        //Create the button to go back
         JButton btnGoToLocations = new JButton();
         btnGoToLocations.setBorderPainted(false);
         btnGoToLocations.setBorder(null);
@@ -604,16 +650,19 @@ public class Main
         btnGoToLocations.setBounds(10, 11, 40, 25);
         frameMars.getContentPane().add(btnGoToLocations);
 
+        //Add image of the planet
         JLabel imgPlanet = new JLabel("");
         imgPlanet.setBounds(416, 102, 210, 220);
         imgPlanet.setIcon(new ImageIcon(UnitsButton.class.getResource("/images/MARSBAR.png")));
         frameMars.getContentPane().add(imgPlanet);
 
+        //Add main location name
         JLabel lblMarsTitle = new JLabel("Mars, Universe");
         lblMarsTitle.setFont(new Font("Century Gothic", Font.PLAIN, 36));
         lblMarsTitle.setBounds(62, 5, 350, 50);
         frameMars.getContentPane().add(lblMarsTitle);
 
+        //Parse the picture id for the weather from atmospheric condition json return
         switch(currentLocation.getCurrentTerm().getData()[0].getDescription())
         {
             case "Sunny":
@@ -624,11 +673,14 @@ public class Main
                 break;
         }
 
+        //Add picture of weather sky conditon
         JLabel lblMarsWeatherPic = new JLabel("");
         lblMarsWeatherPic.setHorizontalAlignment(SwingConstants.CENTER);
         lblMarsWeatherPic.setIcon(getCorrectImage(currentLocation.getCurrentTerm().getData()[0], "Big"));
         lblMarsWeatherPic.setBounds(235, 105, 150, 150);
         frameMars.getContentPane().add(lblMarsWeatherPic);
+
+        /////CREATING GUI ELEMENTS//////
 
         JLabel lblMarsTemp = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
         lblMarsTemp.setFont(new Font("Century Gothic", Font.PLAIN, 33));
@@ -721,10 +773,14 @@ public class Main
         frameMars.getContentPane().add(lblSeasonValue);
     }//End of initializeMars method
 
+    /**
+     * Initializes the forecast frame (The local weather view for all locations (Except mars))
+     */
     private static void initializeForecast()
     {
         try
         {
+            //Create the frame
             frameForecast = new JFrame();
             frameForecast.setResizable(false);
             frameForecast.setBounds(100, 100, 642, 475);
@@ -732,6 +788,7 @@ public class Main
             frameForecast.getContentPane().setLayout(null);
             frameForecast.setTitle("Cloudy : Forecast for " + currentLocation.getName());
 
+            //Create the button to go back
             JButton btnGoToLocations = new JButton();
             btnGoToLocations.setBorderPainted(false);
             btnGoToLocations.setBorder(null);
@@ -749,6 +806,8 @@ public class Main
             });
             btnGoToLocations.setBounds(10, 11, 40, 25);
             frameForecast.getContentPane().add(btnGoToLocations);
+
+            /////CREATING GUI ELEMENTS//////
 
             lblLocation = new JLabel(currentLocation.getOfficialName());
             lblLocation.setFont(new Font("Century Gothic", Font.PLAIN, 36));
@@ -788,6 +847,7 @@ public class Main
 
             Date tempDate;
 
+            //Create new date object from sunrise and sunset
             tempDate = new Date(currentLocation.getCurrentTerm().getData()[0].getSunrise() * 1000L);
 
             JLabel lblSunriseValue = new JLabel(STformat.format(tempDate));
@@ -1070,6 +1130,8 @@ public class Main
             Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
 
             labelTable.put(0, new JLabel("Current"));
+
+            //Retrieve times from all short term elements and put them on the slider
             for (int i = 0; i < currentLocation.getShortTerm().data.length; i++)
             {
                 tempDate = new Date(Integer.parseInt(currentLocation.getShortTerm().data[i].getName()) * 1000L);
@@ -1092,14 +1154,14 @@ public class Main
             frameForecast.getContentPane().add(lblTime);
         } catch (NullPointerException e)
         {
-            System.out.println("Not all elements displayed properly!");
+            //If there was a problem, do nothing
         }
     }//End of initializeForecast method
 
     /**
-     *
-     * @param windDirection
-     * @return
+     * Determines real wind direction string
+     * @param windDirection a value between 0 and 360 indictating wind direction
+     * @return the direction the wind is travelling
      */
     private static String getDirection(int windDirection)
     {
@@ -1136,13 +1198,14 @@ public class Main
             return "NW";
         }
 
+        //Base Case
         return "N";
     }//End of getDirection method
 
     /**
-     *
-     * @param data
-     * @param size
+     * gets the correct image for GUI
+     * @param data location data that will be used to get weather condition
+     * @param size size of the image you wish to retrieve
      * @return
      */
     private static Icon getCorrectImage(BaseData data, String size)
@@ -1151,8 +1214,8 @@ public class Main
     }
 
     /**
-     *
-     * @param hours
+     * Updaets short term gui
+     * @param hours at which hour do you want to update
      */
     private static void updateSTGUI(int hours)
     {
@@ -1183,6 +1246,12 @@ public class Main
 
     }//End of updateSTGUI
 
+    /**
+     * Returns descripotion with uppercase first letter
+     * @param hours number of hours
+     * @param term the term object data is taken from
+     * @return
+     */
     private static String GetUpperCaseDescription(int hours, TermObject term)
     {
         String condition = term.getData()[hours].getDescription();
@@ -1190,6 +1259,11 @@ public class Main
 
     }//End of GetUpperCaseDescription method
 
+    /**
+     * Returns input with first letter captialized
+     * @param input any string
+     * @return input with first letter capitialized
+     */
     private static String firstLetterToUpperCase(String input)
     {
         try
@@ -1210,7 +1284,6 @@ public class Main
             return "";
         }
     }//End of firstLetterToUpperCase method
-
 
 
     /**

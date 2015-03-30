@@ -5,5 +5,6 @@ package team21.Cloudy;
  */
 public enum tempUnits
 {
+    //ENUMS that can be used by configuration
     METRIC, IMPERIAL
 }

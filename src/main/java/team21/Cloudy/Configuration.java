@@ -34,6 +34,7 @@ public class Configuration
      */
     public Configuration(LocationList locations, tempUnits degrees, boolean[] viewObject)
     {
+        //Initalize the objects in this class
         prefs = Preferences.userRoot().node(this.getClass().getName());
         this.locations = locations;
         this.degrees = degrees;
@@ -48,6 +49,7 @@ public class Configuration
      */
     public Configuration()
     {
+        //Initalize the objects in this class
         prefs = Preferences.userRoot().node(this.getClass().getName());
     }
 
@@ -58,8 +60,10 @@ public class Configuration
      */
     public Configuration(LocationList locations)
     {
+        //Initalize the objects in this class if only a location is given
         prefs = Preferences.userRoot().node(this.getClass().getName());
 
+        //If there is a save present load it, else create new config
         if(exists())
         {
             load();
@@ -76,6 +80,9 @@ public class Configuration
         humidUnit = "%";
     }
 
+    /**
+     * Updates all the unit strings based on the degrees variable
+     */
     private void updateUnits()
     {
         //set the units
@@ -92,6 +99,10 @@ public class Configuration
         }
     }
 
+    /**
+     * Checks if preferences exist
+     * @return boolean stating if config exists
+     */
     public boolean exists()
     {
         try
@@ -134,12 +145,14 @@ public class Configuration
      */
     public boolean load()
     {
+        //Declare and initialize temp variables
         byte[] locationBytes = new byte[50];
         byte[] viewableBytes = new byte[10];
         String units;
 
         try
         {
+            //Get locations from config
             locationBytes = prefs.getByteArray("locations", locationBytes);
 
             LocationList tempList = new LocationList(byteArrayToLocations(locationBytes));
@@ -151,8 +164,10 @@ public class Configuration
             return false;
         }
 
+        //Get units from config
         units = prefs.get("tempUnits", "IMPERIAL");
 
+        //Parse the units
         switch (units)
         {
             case "IMPERIAL":
@@ -162,6 +177,7 @@ public class Configuration
                 degrees = degrees.METRIC;
         }
 
+        //Get view object
         viewObject = byteArrayToBoolean(prefs.getByteArray("viewableObjects", viewableBytes));
 
         return true;
@@ -219,7 +235,7 @@ public class Configuration
      * *
      * create new BitArray for viewable objects
      *
-     * @return
+     * @return byte array extracted from viewableObjects
      */
     private byte[] viewableObjectsToByteArray()
     {
@@ -229,9 +245,9 @@ public class Configuration
 
     /**
      * *
-     *
+     * Parses the byte array and sets 1s to true and 0s to false and returns boolean array
      * @param bytes
-     * @return
+     * @return boolean array parsing byte array
      */
     private boolean[] byteArrayToBoolean(byte[] bytes)
     {

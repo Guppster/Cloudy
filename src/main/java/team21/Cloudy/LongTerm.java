@@ -11,7 +11,8 @@ public class LongTerm extends TermObject
     private LongTermData[] Ldata;
 
     /**
-     * @param Ldata
+     * Constructor
+     * @param Ldata initializes class with LongTermData object
      */
     public LongTerm(LongTermData[] Ldata)
     {
@@ -23,8 +24,8 @@ public class LongTerm extends TermObject
 
 
     /**
-     *
-     * @return
+     * Getter for data
+     * @return returns the basedata object
      */
     public BaseData[] getData()
     {
@@ -41,7 +42,4 @@ public class LongTerm extends TermObject
             data[i] = Ldata[i];
         }
     }
-    /**
-     * save all data information in an array
-     */
-}
+}//End of LongTerm class

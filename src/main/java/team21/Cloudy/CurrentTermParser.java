@@ -1,7 +1,6 @@
 package team21.Cloudy;
 
 import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import org.json.JSONObject;
@@ -10,8 +9,6 @@ import java.io.IOException;
 
 /**
  * Class obtains the JSONObjects from the website and store it into CurrentTermData
- *
- * @author: Gurpreet
  */
 public class CurrentTermParser extends Parser
 {
@@ -27,6 +24,7 @@ public class CurrentTermParser extends Parser
      */
     public CurrentTermParser(String locationName)
     {
+        //Make URL space friendly
         this.locationName = locationName.replace(" ", "%20");
 
         //Create a configuration object

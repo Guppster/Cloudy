@@ -7,11 +7,11 @@ package team21.Cloudy;
  */
 public class Location
 {
-    private String name; //the specific location
+    private String name;            //the specific location
     private String officialName;
     private String countryCode;
-    private TermObject shortTerm; //collection of data for short term forecast at the location specified by name
-    private TermObject longTerm; //collection of data for long term forecast at the location specified by name
+    private TermObject shortTerm;   //collection of data for short term forecast at the location specified by name
+    private TermObject longTerm;    //collection of data for long term forecast at the location specified by name
     private TermObject currentTerm; //collection of data for current forecast at the location specified by name
 
     /**

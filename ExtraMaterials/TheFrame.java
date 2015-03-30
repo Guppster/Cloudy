@@ -1,11 +1,6 @@
 package team21.Cloudy;
 
 
-import team21.Cloudy.slidinglayout.*;
-
-import javax.swing.*;
-import java.awt.*;
-
 public class TheFrame extends JFrame {
 	private final SLPanel panel = new SLPanel();
 	private final ThePanel p1 = new ThePanel("Locations", "data/img1.jpg");

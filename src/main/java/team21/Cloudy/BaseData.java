@@ -7,15 +7,15 @@ package team21.Cloudy;
  */
 public abstract class BaseData
 {
-    private double temp; //current temperature
-    private double tempMin; //minimum temperature
-    private double tempMax; //maximum temperature
-    private double windSpeed; //wind speed
-    private int windDirection; //wind Direction
-    private double pressure; //pressure
+    private double temp;                //current temperature
+    private double tempMin;             //minimum temperature
+    private double tempMax;             //maximum temperature
+    private double windSpeed;           //wind speed
+    private int windDirection;          //wind Direction
+    private double pressure;            //pressure
     private double humidity;
-    private String iconID; //address to icon
-    private String description; //short description of current weather
+    private String iconID;              //address to icon
+    private String description;         //short description of current weather
     private String countryCode;
     private int dt;
     private int sunset;

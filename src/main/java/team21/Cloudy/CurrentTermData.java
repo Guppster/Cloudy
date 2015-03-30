@@ -9,10 +9,9 @@ package team21.Cloudy;
 public class CurrentTermData extends BaseData
 {
 
-    private int precipitation; //level or precipitation
-    private int sunrise;//time of expected sunrise
-    private int sunset;//time of expected sunset
-    private String countryCode;
+    private int precipitation;      //level or precipitation
+    private int sunrise;            //time of expected sunrise
+    private int sunset;             //time of expected sunset
 
     /**
      * Constructor initialize the attributes with the first three parameters and sends the rest to the super class
@@ -31,6 +30,7 @@ public class CurrentTermData extends BaseData
      */
     public CurrentTermData(int precipitation, int sunrise, int sunset, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, String countryCode, int dt, double humidity)
     {
+        //Initialize fields and super class fields from parameters
         super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description, dt, humidity);
         super.setCountryCode(countryCode);
         this.precipitation = precipitation;
@@ -99,4 +99,4 @@ public class CurrentTermData extends BaseData
     {
         this.sunset = sunset;
     }
-}
+}//End of CurrentTermData class

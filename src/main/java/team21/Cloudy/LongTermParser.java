@@ -90,7 +90,7 @@ public class LongTermParser extends Parser
     /**
      * Extracting groups of data from the JSONObject. (there are 5 sets of data -- forecasts for the next 5 days)
      *
-     * @param jsonData
+     * @param jsonData the json that the array will be extracted from
      */
     private void getArray(String jsonData) throws JSONException
     {
@@ -110,7 +110,7 @@ public class LongTermParser extends Parser
     /**
      * * Extract Specific data from each group and storing to LongTermData
      
-     * @param rawJSONData
+     * @param rawJSONData the jsondata that was extracted
      * @return LongTermData Object
      */
     @Override
@@ -142,4 +142,4 @@ public class LongTermParser extends Parser
                 forecast.getDouble("humidity")
         );
     }//End of getDetails method
-}
+}//End of LongTermParser class

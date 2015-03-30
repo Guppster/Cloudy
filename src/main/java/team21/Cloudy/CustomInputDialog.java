@@ -11,8 +11,12 @@ import java.awt.Container;
 import javax.swing.GroupLayout;
 import java.awt.Toolkit;
 
+/**
+ * This class is a custom input dialog used when user is entering data. Custom was needed to implement auto correction features
+ */
 public class CustomInputDialog
 {
+    //Declare fields
     public static JLabel lbl;
     public static JTextField txt;
     public static JButton ok_button, cancel_button;
@@ -20,18 +24,30 @@ public class CustomInputDialog
 
     public static String returnValue = null;
 
+    /**
+     * Main viewing method
+     * @param title title of the window
+     * @param message message to be displayed
+     * @param guess   guess the user input, put in textfield
+     * @return returns the user input
+     */
     public static String showInputDialog(String title, String message, String guess)
     {
+        //Add two buttons one for OK and one for Cancel
         CustomInputDialog.returnValue = null;
         Object[] options = {"OK", "Cancel"};
 
+        //Show the message passed into this method
         lbl = new JLabel(message); txt = new JTextField(guess, 40);
 
+        //Add the custom key listener that does AutoCorrection
         txt.addKeyListener(new keyTextField(txt));
 
+        //Set Buttons
         ok_button = new javax.swing.JButton((String)options[0]);
         cancel_button = new javax.swing.JButton((String)options[1]);
 
+        //Set each buttons actions when pressed
         ok_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CustomInputDialog.returnValue = txt.getText();
@@ -44,6 +60,7 @@ public class CustomInputDialog
             }
         });
 
+        //GUI PLACEMENT CODE
         Container text_container = new java.awt.Container();
 
         text_container.setLayout(new FlowLayout());
@@ -85,6 +102,7 @@ public class CustomInputDialog
         optionWindow.setContentPane(ct);
         txt.selectAll();
 
+        //Pack all elements into window and dont let it be resizable
         optionWindow.pack();
         optionWindow.setResizable(false);
 
@@ -94,4 +112,4 @@ public class CustomInputDialog
         optionWindow.setVisible(true);
         return CustomInputDialog.returnValue;
     }
-}
+}//End of CustomInputDialog class

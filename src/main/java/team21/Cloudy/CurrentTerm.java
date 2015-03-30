@@ -11,7 +11,8 @@ public class CurrentTerm extends TermObject
     protected CurrentTermData[] Cdata;
 
     /**
-     * @param Cdata
+     * Constructor
+     * @param Cdata Set of current term data
      */
     public CurrentTerm(CurrentTermData[] Cdata)
     {
@@ -21,14 +22,17 @@ public class CurrentTerm extends TermObject
     }//End of constructor
 
     /**
-     *
-     * @return
+     * Gets the current term data
+     * @return set of current term data
      */
     public BaseData[] getData()
     {
         return Cdata;
     }
 
+    /**
+     * Converts current term data into baseterm data
+     */
     protected void parseTermData()
     {
         for (int i = 0; i < data.length; i++)

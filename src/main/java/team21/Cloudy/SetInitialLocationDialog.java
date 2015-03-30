@@ -10,8 +10,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * This is the initial dialog box that will prompt the user at the start of the program
+ */
 public class SetInitialLocationDialog extends JDialog {
-	public SetInitialLocationDialog(JFrame parent) {
+	public SetInitialLocationDialog(JFrame parent)
+	{
 		super(parent, true);
 
 		setUndecorated(true);

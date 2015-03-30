@@ -13,9 +13,14 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
 
+/**
+ * The units slider
+ */
 public class UnitsButton extends JToggleButton implements ActionListener,
         Runnable, MouseMotionListener, MouseListener, HierarchyListener
 {
+
+    //Declare fields
     Image buttonImage = new ImageIcon(
             UnitsButton.class.getResource("/images/button.png")).getImage();
     Image bgImage = new ImageIcon(UnitsButton.class.getResource("/images/bg.png"))
@@ -30,11 +35,19 @@ public class UnitsButton extends JToggleButton implements ActionListener,
     boolean selected;
     boolean drag;
 
+    /**
+     * returns selected value
+     * @return is it selected?
+     */
     public boolean isSelected()
     {
         return selected;
     }
 
+    /**
+     * sets selected value
+     * @param selected is it selected?
+     */
     public void setSelected(boolean selected)
     {
         this.selected = selected;
@@ -42,6 +55,10 @@ public class UnitsButton extends JToggleButton implements ActionListener,
         new Thread(this).start();
     }
 
+    /**
+     * Constructor
+     * @param isMetric is the initial position metric?
+     */
     public UnitsButton(boolean isMetric)
     {
         this.isMetric = isMetric;
@@ -51,6 +68,10 @@ public class UnitsButton extends JToggleButton implements ActionListener,
         this.addHierarchyListener(this);
     }
 
+    /**
+     * Painting the elements to the screen
+     * @param g
+     */
     public void paint(Graphics g)
     {
         g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), null, null);
@@ -64,9 +85,14 @@ public class UnitsButton extends JToggleButton implements ActionListener,
                 null, null);
     }
 
+    /**
+     * Every time button is clicked
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        //If there is no dragging going on, call run
         if (!drag)
         {
             selected = !selected;
@@ -75,6 +101,9 @@ public class UnitsButton extends JToggleButton implements ActionListener,
         }
     }
 
+    /**
+     * Run this every time the button is clicked
+     */
     @Override
     public void run()
     {
@@ -115,6 +144,10 @@ public class UnitsButton extends JToggleButton implements ActionListener,
         // }
     }
 
+    /**
+     * This is for when the user is trying to drag the button instead of click it
+     * @param evt The event taking place
+     */
     @Override
     public void mouseDragged(MouseEvent evt)
     {
@@ -139,32 +172,56 @@ public class UnitsButton extends JToggleButton implements ActionListener,
         this.repaint();
     }
 
+    /**
+     *
+     * @param arg0 The event taking place
+     */
     @Override
     public void mouseMoved(MouseEvent arg0)
     {
     }
 
+    /**
+     *
+     * @param arg0 The event taking place
+     */
     @Override
     public void mouseClicked(MouseEvent arg0)
     {
     }
 
+    /**
+     *
+     * @param arg0 The event taking place
+     */
     @Override
     public void mouseEntered(MouseEvent arg0)
     {
     }
 
+    /**
+     *
+     * @param arg0 The event taking place
+     */
     @Override
     public void mouseExited(MouseEvent arg0)
     {
     }
 
+    /**
+     *
+     * @param arg0 The event taking place
+     */
     @Override
     public void mousePressed(MouseEvent arg0)
     {
         // threadStop = false;
     }
 
+    /**
+     *
+     * @param arg0 The event taking place
+     */
     @Override
     public void mouseReleased(MouseEvent arg0)
     {
@@ -183,6 +240,10 @@ public class UnitsButton extends JToggleButton implements ActionListener,
         drag = false;
     }
 
+    /**
+     *
+     * @param arg0 The event taking place
+     */
     @Override
     public void hierarchyChanged(HierarchyEvent arg0)
     {

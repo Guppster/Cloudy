@@ -4,26 +4,37 @@ import java.awt.EventQueue;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
 
+/**
+ * This is a custom keylistener for textfields that will autocomplete location names all around the world based on a text file.
+ */
 public class keyTextField extends KeyAdapter
 {
+    //Declare fields
     private JTextField txtField;
     private List<String> regions;
 
+    /**
+     * Constructor
+     * @param txtFieldParam the textfield which is attached to this listener
+     */
     public keyTextField(JTextField txtFieldParam)
     {
+        //Initialize Fields
         txtField = txtFieldParam;
         regions = new ArrayList<>();
         ReadInFile();
     }
 
-
+    /**
+     * Specifies what to do when a key is pressed
+     * @param key which key is pressed
+     */
     public void keyPressed(KeyEvent key)
     {
         switch (key.getKeyCode())
@@ -48,6 +59,10 @@ public class keyTextField extends KeyAdapter
 
     }
 
+    /**
+     * Auto completes the rest of the string based on textfile
+     * @param str the previously typed string
+     */
     public void autoComplete(String str)
     {
         String complete = "";
@@ -72,6 +87,9 @@ public class keyTextField extends KeyAdapter
         }
     }
 
+    /**
+     *
+     */
     public void ReadInFile()
     {
         try

@@ -25,7 +25,7 @@ public abstract class Parser
     protected final String APIKEY = "&APPID=f71bff5f1401ac6b892251d425cea917";
 
     /**
-     *
+     *Constructor
      */
     protected Parser()
     {
@@ -35,14 +35,14 @@ public abstract class Parser
 
     /**
      *
-     * @return
+     * @return term object
      */
     protected abstract TermObject parse() throws IOException;
 
     /**
      *
      * @param rawJSONData
-     * @return
+     * @return base data object
      */
     protected abstract BaseData getDetails(String rawJSONData);
 
