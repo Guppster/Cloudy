@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -197,11 +198,16 @@ public class Main
      */
     public static void addButton()
     {
+        if(dynamicButtons.size() == 8)
+        {
+            JOptionPane.showMessageDialog(null, "You cannot add more locations to the list.\n Try deleting a location first", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         //Prompts the user for input using a CustomInputDialog to use AutoCorrection feature
         final String tempName = firstLetterToUpperCase(CustomInputDialog.showInputDialog("Input a Location", "Which region's weather would you like to see today?", "Enter a location here"));
 
         //If input is empty, do nothing and exit method but update the mars location
-        if (tempName == null || tempName.equals(""))
+        if (tempName.equals(""))
         {
             //Update the mars location
             update();
@@ -608,6 +614,22 @@ public class Main
         lblMarsTitle.setBounds(62, 5, 350, 50);
         frameMars.getContentPane().add(lblMarsTitle);
 
+        switch(currentLocation.getCurrentTerm().getData()[0].getDescription())
+        {
+            case "Sunny":
+                currentLocation.getCurrentTerm().getData()[0].setIconID("01d");
+                break;
+            default:
+                currentLocation.getCurrentTerm().getData()[0].setIconID("01d");
+                break;
+        }
+
+        JLabel lblMarsWeatherPic = new JLabel("");
+        lblMarsWeatherPic.setHorizontalAlignment(SwingConstants.CENTER);
+        lblMarsWeatherPic.setIcon(getCorrectImage(currentLocation.getCurrentTerm().getData()[0], "Big"));
+        lblMarsWeatherPic.setBounds(235, 105, 150, 150);
+        frameMars.getContentPane().add(lblMarsWeatherPic);
+
         JLabel lblMarsTemp = new JLabel(String.valueOf((int) currentLocation.getCurrentTerm().getData()[0].getTemp()) + config.getTempUnit());
         lblMarsTemp.setFont(new Font("Century Gothic", Font.PLAIN, 33));
         lblMarsTemp.setHorizontalAlignment(SwingConstants.CENTER);
@@ -648,6 +670,16 @@ public class Main
         lblMarsPressureValue.setBounds(113, 319, 67, 23);
         frameMars.getContentPane().add(lblMarsPressureValue);
 
+        JLabel lblMarsWindSpeed = new JLabel("Wind Speed:");
+        lblMarsWindSpeed.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblMarsWindSpeed.setBounds(34, 348, 100, 23);
+        frameMars.getContentPane().add(lblMarsWindSpeed);
+
+        JLabel lblMarsSpeedValue = new JLabel("N/A");
+        lblMarsSpeedValue.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblMarsSpeedValue.setBounds(130, 348, 67, 23);
+        frameMars.getContentPane().add(lblMarsSpeedValue);
+
         JLabel lblAtmosphere = new JLabel("Atmosphere:");
         lblAtmosphere.setFont(new Font("Century Gothic", Font.PLAIN, 13));
         lblAtmosphere.setBounds(195, 319, 93, 23);
@@ -657,6 +689,26 @@ public class Main
         lblAtmosphereValue.setFont(new Font("Century Gothic", Font.PLAIN, 13));
         lblAtmosphereValue.setBounds(295, 319, 67, 23);
         frameMars.getContentPane().add(lblAtmosphereValue);
+
+        JLabel lblWindDirection = new JLabel("Direction:");
+        lblWindDirection.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblWindDirection.setBounds(195, 348, 93, 23);
+        frameMars.getContentPane().add(lblWindDirection);
+
+        JLabel lblWindDirectionValue = new JLabel(String.valueOf("N/A"));
+        lblWindDirectionValue.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblWindDirectionValue.setBounds(295, 348, 67, 23);
+        frameMars.getContentPane().add(lblWindDirectionValue);
+
+        JLabel lblMarsHumidity = new JLabel("Humidity:");
+        lblMarsHumidity.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblMarsHumidity.setBounds(34, 377, 100, 23);
+        frameMars.getContentPane().add(lblMarsHumidity);
+
+        JLabel lblMarsHumidityValue = new JLabel("N/A");
+        lblMarsHumidityValue.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        lblMarsHumidityValue.setBounds(130, 377, 67, 23);
+        frameMars.getContentPane().add(lblMarsHumidityValue);
 
         JLabel lblSeason = new JLabel("Season:");
         lblSeason.setFont(new Font("Century Gothic", Font.PLAIN, 13));
@@ -1140,17 +1192,23 @@ public class Main
 
     private static String firstLetterToUpperCase(String input)
     {
-        //Stores a constant StringBuffer object used for capitilizing description's first letter
-        StringBuffer stringbf = new StringBuffer();
-        //Stores a constant matcher object used for capitilizing description's first letter
-        Matcher m = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(input);
-
-        while (m.find())
+        try
         {
-            m.appendReplacement(stringbf, m.group(1).toUpperCase() + m.group(2).toLowerCase());
-        }
+            //Stores a constant StringBuffer object used for capitilizing description's first letter
+            StringBuffer stringbf = new StringBuffer();
+            //Stores a constant matcher object used for capitilizing description's first letter
+            Matcher m = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(input);
 
-        return m.appendTail(stringbf).toString();
+            while (m.find())
+            {
+                m.appendReplacement(stringbf, m.group(1).toUpperCase() + m.group(2).toLowerCase());
+            }
+
+            return m.appendTail(stringbf).toString();
+        }catch(NullPointerException e)
+        {
+            return "";
+        }
     }//End of firstLetterToUpperCase method
 
 
