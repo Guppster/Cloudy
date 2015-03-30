@@ -39,18 +39,7 @@ public class Configuration
         this.degrees = degrees;
         this.viewObject = viewObject;
 
-        //set the units
-        if (degrees.equals(tempUnits.METRIC))
-        {
-            tempUnit = "°C";
-            windUnit = "m/s";
-            pressureUnit = "kPa";
-        } else
-        {
-            tempUnit = "°F";
-            windUnit = "mph";
-            pressureUnit = "ksi";
-        }
+        updateUnits();
         humidUnit = "%";
     }
 
@@ -81,7 +70,14 @@ public class Configuration
             viewObject = new boolean[10]; //Assuming there are 10 viewable objects
             degrees = tempUnits.METRIC;
         }
+        updateUnits();
 
+
+        humidUnit = "%";
+    }
+
+    private void updateUnits()
+    {
         //set the units
         if (degrees.equals(tempUnits.METRIC))
         {
@@ -94,7 +90,6 @@ public class Configuration
             windUnit = "mph";
             pressureUnit = "ksi";
         }
-        humidUnit = "%";
     }
 
     public boolean exists()
@@ -305,6 +300,7 @@ public class Configuration
 
     public String getWindUnit()
     {
+        updateUnits();
         return windUnit;
     }
 
@@ -315,6 +311,7 @@ public class Configuration
 
     public String getPressureUnit()
     {
+        updateUnits();
         return pressureUnit;
     }
 

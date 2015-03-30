@@ -1,7 +1,7 @@
 # IntelliJ IDEA project files
 .idea/
 out/
-Project.iml
+21Cloudy-App.iml
 
 # Maven
 target/
