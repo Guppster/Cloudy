@@ -88,12 +88,12 @@ public class Configuration
         //set the units
         if (degrees.equals(tempUnits.METRIC))
         {
-            tempUnit = "°C";
+            tempUnit = " C";
             windUnit = "m/s";
             pressureUnit = "kPa";
         } else
         {
-            tempUnit = "°F";
+            tempUnit = " F";
             windUnit = "mph";
             pressureUnit = "ksi";
         }
@@ -307,10 +307,10 @@ public class Configuration
         //set the units
         if (degrees.equals(tempUnits.METRIC))
         {
-            return " °C";
+            return " C";
         } else
         {
-            return " °F";
+            return " F";
         }
     }
 
