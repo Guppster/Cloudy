@@ -26,7 +26,7 @@ direct developers to the JavaDoc you generated
 ##Website
 https://github.com/UWO-2212-W2015/team21
 
-Copyright 2014-2015 Cloudy21 Corporation. All rights reserved.
+Copyright 2014-2015 "21Cloudy“ Corporation. All rights reserved.
 If you want more detailed information, please refer to Wiki page at:
 https://github.com/UWO-2212-W2015/team21/wiki
 
