@@ -18,7 +18,7 @@ How would one go about building the software?
 List any dependencies/programs that are required
 
 ##Usage Example
-a link to the video which shows the project in action
+https://www.youtube.com/watch?v=TKYwAIMR588&feature=youtu.be
 
 ##Documentation
 direct developers to the JavaDoc you generated
