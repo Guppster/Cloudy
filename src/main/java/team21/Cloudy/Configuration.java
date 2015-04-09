@@ -8,6 +8,8 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 /**
+ * Class to manage the prefered user configurations
+ *
  * @author: Gurpreet
  */
 public class Configuration {

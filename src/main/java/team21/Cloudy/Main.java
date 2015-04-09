@@ -19,6 +19,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Class creates and manages the GUI aspects of the program
+ *
  * @author: Gurpreet
  */
 public class Main

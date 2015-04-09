@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
 
 /**
- * The units slider
+ * This class controls the units slider and animations the choice between metric and imperial
  */
 public class UnitsButton extends JToggleButton implements ActionListener, Runnable, MouseMotionListener, MouseListener, HierarchyListener
 {

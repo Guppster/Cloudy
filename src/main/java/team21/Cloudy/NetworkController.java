@@ -5,6 +5,8 @@ import org.json.JSONException;
 import java.io.IOException;
 
 /**
+ * Class used by the GUI to access the data
+ *
  * @author: Gurpreet
  */
 public class NetworkController
