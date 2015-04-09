@@ -5,10 +5,11 @@ Private repository for Team21
 Weather App, 21Cloudy,  Version 1.0   01/04/2015
 
 ##Synopsis
-  - This is a fully functional java program provides the short-term and long-term weather information of various  locations. You can use the auto-completion to help you search for locations in many cities around the world.
+  - This is a fully functional java program provides the short-term and long-term weather information of various locations. You can use the auto-completion to help you search for locations in many cities around the world.
   - There is a customizable list which can be used to save muliple locations.
   - The weather of the planet Mars is also a possible location.
-  - The weather information for Earth is gathered from http://openweathermap.org/api and the weather information on Mars is from http://marsweather.ingenology.com/
+  - The weather information for Earth is gathered from http://openweathermap.org/api and the weather information on Mars is from http://marsweather.ingenology.com/. 
+  - The program interacts with the webpages using [OKHTTP](http://square.github.io/okhttp/) 
 
 ##Installation
 This program does not require installation, see Build below to get directions on how to run the program.
