@@ -32,6 +32,7 @@ Step 5: Run the jar-with-dependencies using 'java -jar 21_Cloudy-App-1.0-SNAPSHO
 ##Usage Example
 View the following video to see a working usage example
 [![ScreenShot](http://img.youtube.com/vi/rgXJjTTybV8/0.jpg)](https://www.youtube.com/watch?v=rgXJjTTybV8)
+
 https://www.youtube.com/watch?v=rgXJjTTybV8
 
 ##Documentation
