@@ -12,15 +12,49 @@ import java.io.IOException;
  */
 public abstract class Parser
 {
-    /**** Fields ****/
+    /**
+     * The client used to connect
+     */
     protected OkHttpClient client;
+
+    /**
+     * Stores the data given by the API call
+     */
     protected JSONObject dataRaw;
+
+    /**
+     * Constant string to start the URL
+     */
     protected final String baseURL = "http://api.openweathermap.org/data/2.5/";
+
+    /**
+     * Modifier for current term
+     */
     protected final String currentModifier = "weather?q=";
+
+    /**
+     * Modifier for short term
+     */
     protected final String shortModifier = "forecast?q=";
+
+    /**
+     * Modifier for long term
+     */
     protected final String longModifier = "forecast/daily?q=";
+
+    /**
+     * Modifier for imperial units
+     */
     protected final String imperialModifier = "&units=imperial";
+
+    /**
+     * Modifier for metric units
+     */
     protected final String metricModifier = "&units=metric";
+
+    /**
+     * API Key modifier to make quicker calls to API
+     */
     protected final String APIKEY = "&APPID=f71bff5f1401ac6b892251d425cea917";
 
     /**

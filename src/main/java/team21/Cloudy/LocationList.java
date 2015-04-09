@@ -7,6 +7,9 @@ import java.util.ArrayList;
  */
 public class LocationList
 {
+    /**
+     * A list of all locations stored in this object
+     */
     private ArrayList<Location> regions; // a list of locations
 
     /**

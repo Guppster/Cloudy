@@ -7,7 +7,9 @@ package team21.Cloudy;
  */
 public class LongTerm extends TermObject
 {
-    /**** Fields ****/
+    /**
+     * An array of all data elements in this LongTerm
+     */
     private LongTermData[] Ldata;
 
     /**

@@ -7,7 +7,10 @@ package team21.Cloudy;
  */
 public class ShortTermData extends BaseData
 {
-    private String time;         // time of day in which these current weather value is valid for
+    /**
+     * time of day in which these current weather value is valid for
+     */
+    private String time;
 
     /**
      * Constructor initialize the attribute with the first parameter and sends the rest to the super class

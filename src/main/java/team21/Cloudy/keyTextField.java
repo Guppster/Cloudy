@@ -15,8 +15,14 @@ import javax.swing.JTextField;
  */
 public class keyTextField extends KeyAdapter
 {
-    //Declare fields
+   /**
+    * Textfield to type into
+    */
     private JTextField txtField;
+
+    /**
+     * List of strings containing every possible city
+     */
     private List<String> regions;
 
     /**
@@ -88,7 +94,7 @@ public class keyTextField extends KeyAdapter
     }
 
     /**
-     *
+     * Reads in the list of strings from a file
      */
     public void ReadInFile()
     {

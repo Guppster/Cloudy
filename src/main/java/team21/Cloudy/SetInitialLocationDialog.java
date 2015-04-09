@@ -13,7 +13,12 @@ import javax.swing.JPanel;
 /**
  * This is the initial dialog box that will prompt the user at the start of the program
  */
-public class SetInitialLocationDialog extends JDialog {
+public class SetInitialLocationDialog extends JDialog
+{
+	/**
+	 * Creates the Dialog Box
+	 * @param parent The frame that this dialog box is displayed on
+	 */
 	public SetInitialLocationDialog(JFrame parent)
 	{
 		super(parent, true);

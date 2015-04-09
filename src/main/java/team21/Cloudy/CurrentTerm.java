@@ -1,13 +1,15 @@
 package team21.Cloudy;
 
 /**
- + * Class extending TermObject to store 1 CurrentTermData (TermObject used for consistency)
+ * Class extending TermObject to store 1 CurrentTermData (TermObject used for consistency)
  *
  * @author: Gurpreet
  */
 public class CurrentTerm extends TermObject
 {
-    /****Fields****/
+    /**
+     * Array of data storing current term weather information
+     */
     protected CurrentTermData[] Cdata;
 
     /**

@@ -16,23 +16,46 @@ import javax.swing.JToggleButton;
 /**
  * The units slider
  */
-public class UnitsButton extends JToggleButton implements ActionListener,
-        Runnable, MouseMotionListener, MouseListener, HierarchyListener
+public class UnitsButton extends JToggleButton implements ActionListener, Runnable, MouseMotionListener, MouseListener, HierarchyListener
 {
+    /**
+     * The image for the sliding button
+     */
+    Image buttonImage = new ImageIcon(UnitsButton.class.getResource("/images/button.png")).getImage();
 
-    //Declare fields
-    Image buttonImage = new ImageIcon(
-            UnitsButton.class.getResource("/images/button.png")).getImage();
-    Image bgImage = new ImageIcon(UnitsButton.class.getResource("/images/bg.png"))
-            .getImage();
+    /**
+     * The image for the whole button itself (metric / imperial background)
+     */
+    Image bgImage = new ImageIcon(UnitsButton.class.getResource("/images/bg.png")).getImage();
 
+    /**
+     * Stores if it is metric or not
+     */
     boolean isMetric;
+
+    /**
+     * Stores if this is the first slide of the slider or not
+     */
     boolean initial = true;
 
+    /**
+     * Stores the x position of the slider
+     */
     int buttonX;
+
+    /**
+     * Stores the latest change in x position of the slider
+     */
     int deltaX = -1;
-    // boolean threadStop;
+
+    /**
+     * Stores if it selected or not
+     */
     boolean selected;
+
+    /**
+     * Stores if the slider is being dragged or not (false = being clicked)
+     */
     boolean drag;
 
     /**

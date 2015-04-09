@@ -23,78 +23,309 @@ import java.util.regex.Pattern;
  */
 public class Main
 {
-    //Fields
+    /**
+     * Maintains a list of locations
+     */
     private static LocationList locations;                      //Maintains a list of locations
+
+    /**
+     * Maintains a constant configuration
+     */
     private static Configuration config;                        //Maintains a constant configuration
+
+    /**
+     * Controls all network interfacing
+     */
     private static NetworkController netController;             //Controls all network interfacing
+
+    /**
+     * Stores the current location on forecast view
+     */
     private static Location currentLocation;                    //Stores the current location on forecast view
 
+    /**
+     * The panel that shows location list
+     */
     private static JPanel locationsPanel;                       //The panel that shows location list
+
+    /**
+     * A constant button size for location elements
+     */
     private static Dimension buttonSize;                        //A constant button size for location elements
+
+    /**
+     * Map stores all buttons on screen
+     */
     private static HashMap<String, JButton> dynamicButtons;     //Map stores all buttons on screen
+
+    /**
+     * Boolean value indicating if there is a network error with recent fetch
+     */
     private static boolean problem = false;                     //Boolean value indicating if there is a network error with recent fetch
+
+    /**
+     * Boolean value controlling if currentLocation is viewable or not (!problem)
+     */
     private static boolean displayable = false;                 //Boolean value controlling if currentLocation is viewable or not (!problem)
 
+    /**
+     * The main frame that displays everything
+     */
     private static JFrame frameLocations;                       //The main frame that displays everything
+
+    /**
+     * Stores the forecast frame, which shows individual locations
+     */
     private static JFrame frameForecast;                        //Stores the forecast frame, which shows individual locations
+
+    /**
+     * Stores the Mars frame, which shows the Mars weather
+     */
     private static JFrame frameMars;                            //Stores the Mars frame, which shows the Mars weather
 
+    /**
+     * Stores the high value of the first long term box
+     */
     private static JLabel lblMondayHigh;                        //Stores the high value of the first long term box
+
+    /**
+     * Stores the temp value of the first long term box
+     */
     private static JLabel lblMondayLow;                         //Stores the temp value of the first long term box
+
+    /**
+     * Stores the low value of the first long term box
+     */
     private static JLabel lblMondayTemp;                        //Stores the low value of the first long term box
+
+    /**
+     * Stores the summery value of the first long term box
+     */
     private static JLabel lblMondaySummery;                     //Stores the summery value of the first long term box
+
+    /**
+     * Stores the image value of the first long term box
+     */
     private static JLabel imgMonday;                            //Stores the image value of the first long term box
+
+    /**
+     * Stores the name value of the first long term box
+     */
     private static JLabel lblMonday;                            //Stores the name value of the first long term box
 
+    /**
+     * Stores the high value of the second long term box
+     */
     private static JLabel lblTuesdayHigh;                       //Stores the high value of the second long term box
-    private static JLabel lblTuesdayTemp;                       //Stores the temp value of the second long term box
+
+    /**
+     * Stores the temp value of the second long term box
+     */
+    private static JLabel lblTuesdayTemp;
+
+    /**
+     * Stores the low value of the second long term box
+     */
     private static JLabel lblTuesdayLow;                        //Stores the low value of the second long term box
+
+    /**
+     * Stores the summery value of the second long term box
+     */
     private static JLabel lblTuesdaySummery;                    //Stores the summery value of the second long term box
+
+    /**
+     * Stores the image value of the second long term box
+     */
     private static JLabel imgTuesday;                           //Stores the image value of the second long term box
+
+    /**
+     * Stores the name value of the second long term box
+     */
     private static JLabel lblTuesday;                           //Stores the name value of the second long term box
 
+    /**
+     * Stores the high value of the third long term box
+     */
     private static JLabel lblWednesdayHigh;                     //Stores the high value of the third long term box
+
+    /**
+     * Stores the temp value of the third long term box
+     */
     private static JLabel lblWednesdayTemp;                     //Stores the temp value of the third long term box
+
+    /**
+     * Stores the low value of the third long term box
+     */
     private static JLabel lblWednesdayLow;                      //Stores the low value of the third long term box
+
+    /**
+     * Stores the summery value of the third long term box
+     */
     private static JLabel lblWednessdaySummery;                 //Stores the summery value of the third long term box
+
+    /**
+     * Stores the image value of the third long term box
+     */
     private static JLabel imgWednesday;                         //Stores the image value of the third long term box
+
+    /**
+     * Stores the name value of the third long term box
+     */
     private static JLabel lblWednesday;                         //Stores the name value of the third long term box
 
+    /**
+     * Stores the high value of the forth long term box
+     */
     private static JLabel lblThursdayHigh;                      //Stores the high value of the forth long term box
+
+    /**
+     * Stores the temp value of the forth long term box
+     */
     private static JLabel lblThursdayTemp;                      //Stores the temp value of the forth long term box
+
+    /**
+     * Stores the low value of the forth long term box
+     */
     private static JLabel lblThursdayLow;                       //Stores the low value of the forth long term box
+
+    /**
+     * Stores the summery value of the forth long term box
+     */
     private static JLabel lblThursdaySummery;                   //Stores the summery value of the forth long term box
+
+    /**
+     * Stores the image value of the forth long term box
+     */
     private static JLabel imgThursday;                          //Stores the image value of the forth long term box
+
+    /**
+     * Stores the name value of the forth long term box
+     */
     private static JLabel lblThursday;                          //Stores the name value of the forth long term box
 
+    /**
+     * Stores the high value of the last long term box
+     */
     private static JLabel lblFridayHigh;                        //Stores the high value of the last long term box
+
+    /**
+     * Stores the temp value of the last long term box
+     */
     private static JLabel lblFridayTemp;                        //Stores the temp value of the last long term box
+
+    /**
+     * Stores the low value of the last long term box
+     */
     private static JLabel lblFridayLow;                         //Stores the low value of the last long term box
+
+    /**
+     * Stores the summery value of the last long term box
+     */
     private static JLabel lblFridaySummery;                     //Stores the summery value of the last long term box
+
+    /**
+     * Stores the image value of the last long term box
+     */
     private static JLabel imgFriday;                            //Stores the image value of the last long term box
+
+    /**
+     * Stores the name value of the last long term box
+     */
     private static JLabel lblFriday;                            //Stores the name value of the last long term box
 
+    /**
+     * Stores the current/shortterm weather's condition
+     */
     private static JLabel lblWeathercondition;                  //Stores the current/shortterm weather's condition
+
+    /**
+     * Stores the current weather's location name
+     */
     private static JLabel lblLocation;                          //Stores the current weather's location name
+
+    /**
+     * Stores the last updated time
+     */
     private static JLabel lblTime;                              //Stores the last updated time
+
+    /**
+     * Stores the current weather's temperature
+     */
     private static JLabel lblTemp;                              //Stores the current weather's temperature
+
+    /**
+     * Stores the current weather's high temperature
+     */
     private static JLabel lblHigh;                              //Stores the current weather's high temperature
+
+    /**
+     * Stores the current weather's low temperature
+     */
     private static JLabel lblLow;                               //Stores the current weather's low temperature
+
+    /**
+     * Stores the current weather's wind speed value
+     */
     private static JLabel lblWindSpeedValue;                    //Stores the current weather's wind speed value
+
+    /**
+     * Stores the current weather's pressure value
+     */
     private static JLabel lblPressureValue;                     //Stores the current weather's pressure value
+
+    /**
+     * Stores the current weather's humidity value
+     */
     private static JLabel lblHumidityValue;                     //Stores the current weather's humidity value
+
+    /**
+     * Stores the current weather's image file
+     */
     private static JLabel imgMainImage;                         //Stores the current weather's image file
+
+    /**
+     * Contains the delete button on locations view
+     */
     private static JLabel lblWindDirValue;
 
+    /**
+     * Contains the delete button on locations view
+     */
     private static JToggleButton btnDelete;                     //Contains the delete button on locations view
 
+    /**
+     * Stores the short term slider
+     */
     private static JSlider sliderShortTerm;                     //Stores the short term slider
+
+    /**
+     * Stores a layer on top of gui to do loading fadeout/fadein animiation
+     */
     private static WaitLayerUI layerUI;                         //Stores a layer on top of gui to do loading fadeout/fadein animiation
+
+    /**
+     * Stores the layer used by layerUI
+     */
     private static JLayer<JPanel> jlayer;                       //Stores the layer used by layerUI
+
+    /**
+     * Stores the location temporarily when the user first enters it
+     */
     private static Location tempRegion;                         //Stores the location temporarily when the user first enters it
 
+    /**
+     * A format used for displaying last update time
+     */
     private static SimpleDateFormat format = new SimpleDateFormat("MMM d hh:mm a");         //A format used for displaying last update time
+
+    /**
+     * A format used for short term name times
+     */
     private static SimpleDateFormat STformat = new SimpleDateFormat("hh:mm a");             //A format used for short term name times
+
+    /**
+     * A format used for long term name times
+     */
     private static SimpleDateFormat LTformat = new SimpleDateFormat("EEE MMM d");           //A format used for long term name times
 
 

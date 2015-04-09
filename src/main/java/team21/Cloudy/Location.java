@@ -7,12 +7,35 @@ package team21.Cloudy;
  */
 public class Location
 {
-    private String name;            //the specific location
+    /**
+     * Name of the  specific location
+     */
+    private String name;
+
+    /**
+     * Official name retrieved from the API
+     */
     private String officialName;
+
+    /**
+     * The two letter country code
+     */
     private String countryCode;
-    private TermObject shortTerm;   //collection of data for short term forecast at the location specified by name
-    private TermObject longTerm;    //collection of data for long term forecast at the location specified by name
-    private TermObject currentTerm; //collection of data for current forecast at the location specified by name
+
+    /**
+     * Collection of data for short term forecast at the location specified by name
+     */
+    private TermObject shortTerm;
+
+    /**
+     * Collection of data for long term forecast at the location specified by name
+     */
+    private TermObject longTerm;
+
+    /**
+     * Collection of data for current forecast at the location specified by name
+     */
+    private TermObject currentTerm;
 
     /**
      * Specific Constructor initialize all attributes
@@ -123,6 +146,10 @@ public class Location
         officialName = name.split(",")[0] + "," + countryCode;
     }
 
+    /**
+     * Gets the offical name that the api returned instead of the name the user typed in
+     * @return The name returned by the API call
+     */
     public String getOfficialName()
     {
         return officialName;

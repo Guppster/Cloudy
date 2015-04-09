@@ -9,9 +9,24 @@ import java.io.IOException;
  */
 public class NetworkController
 {
+    /**
+     * The location being accessed
+     */
     private Location location;
+
+    /**
+     * Name of the location, stored for updating with new value from API
+     */
     private String locationName;
+
+    /**
+     * Stores the specific parser being used
+     */
     private Parser parser;
+
+    /**
+     * Stores the term object to be populated with data
+     */
     private TermObject term;
 
     /**

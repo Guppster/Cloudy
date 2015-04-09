@@ -16,12 +16,29 @@ import java.awt.Toolkit;
  */
 public class CustomInputDialog
 {
-    //Declare fields
+    /**
+     * Label for title of input Dialong
+     */
     public static JLabel lbl;
+
+    /**
+     * Text field for entering location
+     */
     public static JTextField txt;
+
+    /**
+     * Button to navigate the interface
+     */
     public static JButton ok_button, cancel_button;
+
+    /**
+     * The dialog box itself
+     */
     public static JDialog optionWindow;
 
+    /**
+     * Stores the value to return at end
+     */
     public static String returnValue = null;
 
     /**

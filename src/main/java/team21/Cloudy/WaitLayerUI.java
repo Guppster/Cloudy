@@ -38,15 +38,46 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 
-class WaitLayerUI extends LayerUI<JPanel> implements ActionListener {
+/**
+ * This class is used to make a loading animation if the API is taking too long
+ */
+public class WaitLayerUI extends LayerUI<JPanel> implements ActionListener
+{
+  /**
+   * Stores if it is running or not
+   */
   private boolean mIsRunning;
+
+  /**
+   * Stores if it is fading out or not
+   */
   private boolean mIsFadingOut;
+
+  /**
+   * Keeps track of how long it will load for
+   */
   private Timer mTimer;
 
+  /**
+   * Stores the angle of the loading spinner
+   */
   private int mAngle;
+
+  /**
+   * Stores a count of the fade in
+   */
   private int mFadeCount;
+
+  /**
+   * Sets limit of how long it can fade in for
+   */
   private int mFadeLimit = 15;
 
+  /**
+   * Paints the loader on to the screen
+   * @param g The graphics that should be painted
+   * @param c The component that it should be painted on
+   */
   @Override
   public void paint (Graphics g, JComponent c) {
     int w = c.getWidth();
@@ -90,6 +121,10 @@ class WaitLayerUI extends LayerUI<JPanel> implements ActionListener {
     g2.dispose();
   }
 
+  /**
+   * Everytime the user does anything this method is run
+   * @param e The action that is being performed
+   */
   public void actionPerformed(ActionEvent e) {
     if (mIsRunning) {
       firePropertyChange("tick", 0, 1);
@@ -109,6 +144,9 @@ class WaitLayerUI extends LayerUI<JPanel> implements ActionListener {
     }
   }
 
+  /**
+   * Starts the animation
+   */
   public void start() {
     if (mIsRunning) {
       return;
@@ -124,10 +162,18 @@ class WaitLayerUI extends LayerUI<JPanel> implements ActionListener {
     mTimer.start();
   }
 
+  /**
+   * Stops the animation
+   */
   public void stop() {
     mIsFadingOut = true;
   }
 
+  /**
+   * Applys a change to the spinner (spins)
+   * @param pce The event that triggered the change
+   * @param l The layer that it is altering
+   */
   @Override
   public void applyPropertyChange(PropertyChangeEvent pce, JLayer l) {
     if ("tick".equals(pce.getPropertyName())) {

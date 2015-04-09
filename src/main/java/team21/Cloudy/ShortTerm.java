@@ -7,7 +7,9 @@ package team21.Cloudy;
  */
 public class ShortTerm extends TermObject
 {
-    /**** Fields ****/
+    /**
+     * Stores the array of data that holds weather data for this specific shortterm
+     */
     private ShortTermData[] Sdata;
 
     /**

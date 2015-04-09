@@ -17,10 +17,20 @@ import java.io.IOException;
  */
 public class LongTermParser extends Parser
 {
-    /**** Fields ****/
-    private String locationName; 	//Stores the name of the location
-    private LongTermData[] data; 	//Stores an array of forecasts (each element represent the forecast for that hour)
-    private Configuration config; 	//Stores the user's preference
+    /**
+     * Stores the name of the location
+     */
+    private String locationName;
+
+    /**
+     * Stores an array of forecasts (each element represent the forecast for that hour)
+     */
+    private LongTermData[] data;
+
+    /**
+     * Stores the user's preference
+     */
+    private Configuration config;
 
     /**
      * Constructor
