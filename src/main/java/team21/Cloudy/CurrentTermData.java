@@ -1,36 +1,45 @@
 package team21.Cloudy;
 
 /**
- * Class storing the current weather data. Extends BaseData and have additional attributes, precipitation, sunrise, and sunset
+ * Class storing the current weather data. Extends BaseData and have additional
+ * attributes, precipitation, sunrise, and sunset
  *
  * @author: Gurpreet
  */
 
-public class CurrentTermData extends BaseData
-{
-
-    private int precipitation;      //level or precipitation
-    private int sunrise;            //time of expected sunrise
-    private int sunset;             //time of expected sunset
+public class CurrentTermData extends BaseData {
+    /**
+     * level or precipitation
+     */
+    private int precipitation;
+    /**
+     * time of expected sunrise
+     */
+    private int sunrise;
+    /**
+     * time of expected sunset
+     */
+    private int sunset;
 
     /**
-     * Constructor initialize the attributes with the first three parameters and sends the rest to the super class
+     * Constructor initialize the attributes with the first three parameters and
+     * sends the rest to the super class
      *
      * @param precipitation the amount of precipitation predicted
-     * @param sunrise       time of expected sunrise
-     * @param sunset        time of expected sunset
-     * @param temp          the current temperature
-     * @param tempMin       the minimum predicted temperature
-     * @param tempMax       the maximum predicted temperature
-     * @param windSpeed     the expected wind speed
+     * @param sunrise time of expected sunrise
+     * @param sunset time of expected sunset
+     * @param temp the current temperature
+     * @param tempMin the minimum predicted temperature
+     * @param tempMax the maximum predicted temperature
+     * @param windSpeed the expected wind speed
      * @param windDirection the direction the wind blows
-     * @param pressure      the current air pressure
-     * @param iconID        the string representing the icon that will be used to visually display the current weather
-     * @param description   a short description of the weather
+     * @param pressure the current air pressure
+     * @param iconID the string representing the icon that will be used to visually display the current weather
+     * @param description a short description of the weather
      */
     public CurrentTermData(int precipitation, int sunrise, int sunset, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, String countryCode, int dt, double humidity)
     {
-        //Initialize fields and super class fields from parameters
+        // Initialize fields and super class fields from parameters
         super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description, dt, humidity);
         super.setCountryCode(countryCode);
         this.precipitation = precipitation;
@@ -45,8 +54,7 @@ public class CurrentTermData extends BaseData
      *
      * @return the precipitation level
      */
-    public int getPrecipitation()
-    {
+    public int getPrecipitation() {
         return precipitation;
     }
 
@@ -55,8 +63,7 @@ public class CurrentTermData extends BaseData
      *
      * @param precipitation the new precipitation level
      */
-    public void setPrecipitation(int precipitation)
-    {
+    public void setPrecipitation(int precipitation) {
         this.precipitation = precipitation;
     }
 
@@ -65,8 +72,7 @@ public class CurrentTermData extends BaseData
      *
      * @return the sunrise time
      */
-    public int getSunrise()
-    {
+    public int getSunrise() {
         return sunrise;
     }
 
@@ -75,8 +81,7 @@ public class CurrentTermData extends BaseData
      *
      * @param sunrise the new sunrise time
      */
-    public void setSunrise(int sunrise)
-    {
+    public void setSunrise(int sunrise) {
         this.sunrise = sunrise;
     }
 
@@ -85,18 +90,16 @@ public class CurrentTermData extends BaseData
      *
      * @return the sunset time
      */
-    public int getSunset()
-    {
+    public int getSunset() {
         return sunset;
     }
 
     /**
      * Update the sunset time
      *
-     * @param sunset the new  sunset time
+     * @param sunset the new sunset time
      */
-    public void setSunset(int sunset)
-    {
+    public void setSunset(int sunset) {
         this.sunset = sunset;
     }
-}//End of CurrentTermData class
+}// End of CurrentTermData class

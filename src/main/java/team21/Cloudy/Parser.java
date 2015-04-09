@@ -15,7 +15,6 @@ public abstract class Parser
     /**** Fields ****/
     protected OkHttpClient client;
     protected JSONObject dataRaw;
-    protected BaseData dataFormatted;
     protected final String baseURL = "http://api.openweathermap.org/data/2.5/";
     protected final String currentModifier = "weather?q=";
     protected final String shortModifier = "forecast?q=";

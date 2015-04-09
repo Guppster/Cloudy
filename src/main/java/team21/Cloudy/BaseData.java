@@ -1,40 +1,81 @@
 package team21.Cloudy;
 
-/*
- * Abstract Class for the storage of all common data related to weather regardless of specific time
+/**
+ * Abstract Class for the storage of all common data related to weather
+ * regardless of specific time
  *
  * @author: Gurpreet
  */
-public abstract class BaseData
-{
-    private double temp;                //current temperature
-    private double tempMin;             //minimum temperature
-    private double tempMax;             //maximum temperature
-    private double windSpeed;           //wind speed
-    private int windDirection;          //wind Direction
-    private double pressure;            //pressure
+public abstract class BaseData {
+    /**
+     * current temperature
+     */
+    private double temp;
+    /**
+     * minimum temperature
+     */
+    private double tempMin;
+    /**
+     * maximum temperature
+     *
+     */
+    private double tempMax; //
+    /**
+     * wind speed
+     */
+    private double windSpeed;
+    /**
+     * wind Direction
+     */
+    private int windDirection;
+    /**
+     * air pressure
+     */
+    private double pressure;
+    /**
+     * humidity level
+     */
     private double humidity;
-    private String iconID;              //address to icon
-    private String description;         //short description of current weather
+    /**
+     * address to icon
+     */
+    private String iconID;
+    /**
+     * short description of current weather
+     */
+    private String description;
+    /**
+     * short 2 letter code representing the country the city is located in
+     */
     private String countryCode;
+    /***
+     * Date time storage
+     */
     private int dt;
+    /**
+     * time of sunset
+     */
     private int sunset;
+    /**
+     * time of sunrise
+     */
     private int sunrise;
 
-    /*
+    /**
      * Class Constructor initialize all of attributes to the class
      *
-     * @param temp          the current temperature
-     * @param tempMin       the minimum predicted temperature
-     * @param tempMax       the maximum predicted temperature
-     * @param windSpeed     the expected wind speed
+     * @param temp the current temperature
+     * @param tempMin the minimum predicted temperature
+     * @param tempMax the maximum predicted temperature
+     * @param windSpeed the expected wind speed
      * @param windDirection the direction the wind blows
-     * @param pressure      the current air pressure
-     * @param iconID        the string representing the icon that will be used to visually display the current weather
-     * @param description   a short description of the weather
+     * @param pressure the current air pressure
+     * @param iconID the string representing the icon that will be used to visually display the current weather
+     * @param description a short description of the weather
      */
-    protected BaseData(double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, int dt, double humidity)
-    {
+    protected BaseData(double temp, double tempMin, double tempMax,
+                       double windSpeed, int windDirection, double pressure,
+                       String iconID, String description, int dt, double humidity) {
         this.temp = temp;
         this.tempMin = tempMin;
         this.tempMax = tempMax;
@@ -47,232 +88,234 @@ public abstract class BaseData
         this.humidity = humidity;
     }
 
-    /*
+    /**
      * Extract the current temperature.
      *
      * @return the current temperature
      */
-    public double getTemp()
-    {
+    public double getTemp() {
         return temp;
     }
 
-    /*
+    /**
      * Update the current temperature.
      *
      * @param temp the new current temperature to be stored
      */
-    public void setTemp(double temp)
-    {
+    public void setTemp(double temp) {
         this.temp = temp;
     }
 
-    /*
+    /**
      * Extract the minimum temperature
      *
      * @return the minimum temperature
      */
-    public double getTempMin()
-    {
+    public double getTempMin() {
         return tempMin;
     }
 
-    /*
+    /**
      * Update the minimum temperature
      *
      * @param tempMin the new minimum temperature to be stored
      */
-    public void setTempMin(double tempMin)
-    {
+    public void setTempMin(double tempMin) {
         this.tempMin = tempMin;
     }
 
-    /*
+    /**
      * Extract the maximum temperature
      *
      * @return the maximum temperature
      */
-    public double getTempMax()
-    {
+    public double getTempMax() {
         return tempMax;
     }
 
-    /*
+    /**
      * Update the maximum temperature
      *
      * @param tempMax the new maximum temperature to be stored
      */
-    public void setTempMax(double tempMax)
-    {
+    public void setTempMax(double tempMax) {
         this.tempMax = tempMax;
     }
 
-    /*
+    /**
      * Extract the wind speed
      *
      * @return the wind speed
      */
-    public double getWindSpeed()
-    {
+    public double getWindSpeed() {
         return windSpeed;
     }
 
-    /*
+    /**
      * Update the wind speed
      *
      * @param windSpeed the new wind speed to be stored
      */
-    public void setWindSpeed(double windSpeed)
-    {
+    public void setWindSpeed(double windSpeed) {
         this.windSpeed = windSpeed;
     }
 
-    /*
+    /**
      * Extract the wind direction
      *
      * @return the wind direction
      */
-    public int getWindDirection()
-    {
+    public int getWindDirection() {
         return windDirection;
     }
 
-    /*
+    /**
      * Update the wind direction
      *
      * @param windDirection the new wind direction to be stored
      */
-    public void setWindDirection(int windDirection)
-    {
+    public void setWindDirection(int windDirection) {
         this.windDirection = windDirection;
     }
 
-    /*
+    /**
      * Extract the air pressure
      *
      * @return the air pressure
      */
-    public double getPressure()
-    {
+    public double getPressure() {
         return pressure;
     }
 
-    /*
+    /**
      * Update the air pressure
      *
      * @param pressure the new air pressure to be stored
      */
-    public void setPressure(double pressure)
-    {
+    public void setPressure(double pressure) {
         this.pressure = pressure;
     }
 
-    /*
-     * Extract the string representing the image for this particular weather situation
+    /**
+     * Extract the string representing the image for this particular weather
+     * situation
      *
      * @return the string representing the icon
      */
-    public String getIconID()
-    {
+    public String getIconID() {
         return iconID;
     }
 
-    /*
-     * Update the string representing the image for this particular weather situation
+    /**
+     * Update the string representing the image for this particular weather
+     * situation
      *
      * @param iconID the new icon code
      */
-    public void setIconID(String iconID)
-    {
+    public void setIconID(String iconID) {
         this.iconID = iconID;
     }
 
-    /*
+    /**
      * Extract the short description on the current weather
      *
      * @return the short description on the current weather
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    /*
+    /**
      * Update the short description on the current weather
      *
      * @param description the new the short description on the current weather
      */
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    /*
-     *get the code of the country
+    /**
+     * Extract the country code of the location
+     *
+     * @return country code
      */
-    public String getCountryCode()
-    {
+    public String getCountryCode() {
         return countryCode;
     }
 
-    /*
-     *set the code of the country
+    /**
+     * Update the country code
+     *
+     * @param countryCode
      */
-    public void setCountryCode(String countryCode)
-    {
+    public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
     }
 
-    public String getName()
-    {
+    /**
+     * Extract the Name of the location
+     *
+     * @return dt followed by empty string
+     */
+    public String getName() {
         return dt + "";
     }
 
-    /*
-     *get the humidity
+    /**
+     * Extract the humidity level of the current weather
+     *
+     * @return humidity level
      */
-    public double getHumidity()
-    {
+    public double getHumidity() {
         return humidity;
     }
 
-     /*
-      *set the humidity
-      */    
-    public void setHumidity(double humidity)
-    {
+    /**
+     * Update the humidity level to that of the new value in the parameter
+     *
+     * @param humidity
+     */
+    public void setHumidity(double humidity) {
         this.humidity = humidity;
     }
 
-     /*
-      *get the time of sunset
-      */
-    public int getSunset()
-    {
+    /**
+     * Retrieve the time for the sunset
+     *
+     * @return the time for predicted sunset
+     */
+    public int getSunset() {
         return sunset;
     }
 
-     /*
-      *set the time of sunset
-      */
-    public void setSunset(int sunset)
-    {
+    /**
+     * Update the time for the sunset
+     *
+     * @param sunset
+     *            - time
+     */
+    public void setSunset(int sunset) {
         this.sunset = sunset;
     }
 
-    /*
-     *get the time of sunrise
+    /**
+     *
+     * Retrieve the time for the sunrise
+     *
+     * @return the time for predicted sunrise
+     *
      */
-    public int getSunrise()
-    {
+    public int getSunrise() {
         return sunrise;
     }
 
-    /*
-     *set the time of sunrise
+    /**
+     ** Update the time for the sunrise
+     *
+     * @param sunrise
+     *            - time
      */
-    public void setSunrise(int sunrise)
-    {
+    public void setSunrise(int sunrise) {
         this.sunrise = sunrise;
     }
-}//End of BaseData class
+}// End of BaseData class
