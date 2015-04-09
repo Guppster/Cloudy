@@ -1,8 +1,6 @@
-﻿## Team21
-Private repository for Team21
 
-## Title
-Weather App, 21Cloudy,  Version 1.0   01/04/2015
+## Cloudy
+Weather App, Team21-Cloudy,  Version 1.0   01/04/2015
 
 ##Synopsis
   - This is a fully functional java program provides the short-term and long-term weather information of various locations. You can use the auto-completion to help you search for locations in many cities around the world.
