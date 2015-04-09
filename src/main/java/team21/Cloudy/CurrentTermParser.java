@@ -12,10 +12,20 @@ import java.io.IOException;
  */
 public class CurrentTermParser extends Parser
 {
-    /**** Fields ****/
-    private String locationName;        //Stores the name of the location
-    private CurrentTermData[] data;     //Stores an array containing just one element with the current weather
-    private Configuration config;       //Stores the user's saved preferences
+    /**
+     * Stores the name of the location
+     */
+    private String locationName;
+
+    /**
+     * Stores an array containing just one element with the current weather
+     */
+    private CurrentTermData[] data;
+
+    /**
+     * Stores the user's saved preferences
+     */
+    private Configuration config;
 
     /**
      * Constructor
