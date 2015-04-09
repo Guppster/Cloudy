@@ -13,6 +13,7 @@ public class ShortTerm extends TermObject
     private ShortTermData[] Sdata;
 
     /**
+     * The Constructor
      * @param Sdata The array of data retrieved from the API call
      */
     public ShortTerm(ShortTermData[] Sdata)
@@ -24,7 +25,7 @@ public class ShortTerm extends TermObject
     }//End of constructor
 
     /**
-     *
+     * Returns the stored array of data
      * @return Returns the stored array of information in this object
      */
     public BaseData[] getData()

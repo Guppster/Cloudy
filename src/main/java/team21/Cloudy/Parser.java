@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 /**
- * Apstract class used to obtain Json objects from the website and decodes its content
+ * Abstract class used to obtain Json objects from the website and decodes its content
  *
  * @author: Gurpreet
  */
@@ -74,6 +74,7 @@ public abstract class Parser
     protected abstract TermObject parse() throws IOException;
 
     /**
+     * Createes a BaseData object from rawJsonData
      * @param rawJSONData The data retrieved from the API call
      * @return base data object
      */

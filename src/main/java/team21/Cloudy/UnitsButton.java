@@ -196,7 +196,7 @@ public class UnitsButton extends JToggleButton implements ActionListener, Runnab
     }
 
     /**
-     *
+     * Unused method that must be implemented
      * @param arg0 The event taking place
      */
     @Override
@@ -205,7 +205,7 @@ public class UnitsButton extends JToggleButton implements ActionListener, Runnab
     }
 
     /**
-     *
+     * Unused method that must be implemented
      * @param arg0 The event taking place
      */
     @Override
@@ -214,7 +214,7 @@ public class UnitsButton extends JToggleButton implements ActionListener, Runnab
     }
 
     /**
-     *
+     * Unused method that must be implemented
      * @param arg0 The event taking place
      */
     @Override
@@ -223,7 +223,7 @@ public class UnitsButton extends JToggleButton implements ActionListener, Runnab
     }
 
     /**
-     *
+     * Unused method that must be implemented
      * @param arg0 The event taking place
      */
     @Override
@@ -232,7 +232,7 @@ public class UnitsButton extends JToggleButton implements ActionListener, Runnab
     }
 
     /**
-     *
+     * Unused method that must be implemented
      * @param arg0 The event taking place
      */
     @Override
@@ -242,7 +242,7 @@ public class UnitsButton extends JToggleButton implements ActionListener, Runnab
     }
 
     /**
-     *
+     * Unused method that must be implemented
      * @param arg0 The event taking place
      */
     @Override
@@ -264,7 +264,7 @@ public class UnitsButton extends JToggleButton implements ActionListener, Runnab
     }
 
     /**
-     *
+     * When anything changes, start the thread
      * @param arg0 The event taking place
      */
     @Override

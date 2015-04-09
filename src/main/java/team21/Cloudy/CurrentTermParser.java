@@ -28,7 +28,7 @@ public class CurrentTermParser extends Parser
     private Configuration config;
 
     /**
-     * Constructor
+     * Class Constructor initialize all of attributes to the class
      *
      * @param locationName A formatted (city, province) string
      */

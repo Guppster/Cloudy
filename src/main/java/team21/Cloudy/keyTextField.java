@@ -26,7 +26,7 @@ public class keyTextField extends KeyAdapter
     private List<String> regions;
 
     /**
-     * Constructor
+     * Class Constructor initialize all of attributes to the class
      * @param txtFieldParam the textfield which is attached to this listener
      */
     public keyTextField(JTextField txtFieldParam)

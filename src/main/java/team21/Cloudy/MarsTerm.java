@@ -13,6 +13,7 @@ public class MarsTerm extends TermObject
     private MarsData[] Mdata;
 
     /**
+     * The Constructor
      * @param Mdata The data used to initialize the TermObject
      */
     public MarsTerm(MarsData [] Mdata)
@@ -23,7 +24,7 @@ public class MarsTerm extends TermObject
     }
 
     /**
-     *
+     * Returns the data array
      * @return Mars BaseData Array
      */
     public BaseData[] getData()
