@@ -7,12 +7,14 @@ package team21.Cloudy;
  */
 public abstract class TermObject
 {
-    /**** Fields ****/
+    /**
+     * The array of data storing weather information
+     */
     protected BaseData[] data;
 
     /**
      *
-     * @param size
+     * @param size The size needed for the array of data
      */
     protected TermObject(int size)
     {
@@ -20,8 +22,11 @@ public abstract class TermObject
 
     }//End of constructor
 
+    /**
+     * Returns the data array from this object
+     * @return The data array from this object
+     */
     protected abstract BaseData[] getData();
-
 
     /**
      * Fill in data field with a specific type of BaseData,

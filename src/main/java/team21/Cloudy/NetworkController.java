@@ -24,7 +24,7 @@ public class NetworkController
 
     /**
      * Specific constructor 
-     * @param location
+     * @param location The location this controller is made to get data for
      */
     public NetworkController(Location location)
     {
@@ -35,6 +35,7 @@ public class NetworkController
 
     /**
      * Updates all terms for current location object
+     * @return True if fetch is successful, false if fetch is unsuccessful
      */
     public boolean fetch()
     {
@@ -75,6 +76,7 @@ public class NetworkController
 
     /**
      * Updates the Current term object inside of the stored location
+     * @throws IOException when the fetch is not successful this exception is thrown
      */
     private void fetchMars() throws IOException
     {
@@ -90,6 +92,7 @@ public class NetworkController
 
     /**
      * Updates the Current term object inside of the stored location
+     * @throws IOException when the fetch is not successful this exception is thrown
      */
     private void fetchCurrent() throws IOException
     {
@@ -112,6 +115,7 @@ public class NetworkController
 
     /**
      * Updates the Long term object inside of the stored location
+     * @throws IOException when the fetch is not successful this exception is thrown
      */
     private void fetchLong() throws IOException
     {
@@ -127,6 +131,7 @@ public class NetworkController
 
     /**
      *  Updates the Short term object inside of the stored location
+     *  @throws IOException when the fetch is not successful this exception is thrown
      */
     private void fetchShort() throws IOException
     {
@@ -151,7 +156,7 @@ public class NetworkController
 
     /**
      * Sets the current location
-     * @param location
+     * @param location The location object to set it to
      */
     public void setLocation(Location location)
     {

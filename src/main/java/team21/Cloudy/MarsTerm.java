@@ -7,11 +7,13 @@ package team21.Cloudy;
  */
 public class MarsTerm extends TermObject
 {
-    /**** Fields ****/
+    /**
+     * The mars data array of information
+     */
     private MarsData[] Mdata;
 
     /**
-     * @param Mdata
+     * @param Mdata The data used to initialize the TermObject
      */
     public MarsTerm(MarsData [] Mdata)
     {
@@ -22,7 +24,7 @@ public class MarsTerm extends TermObject
 
     /**
      *
-     * @return
+     * @return Mars BaseData Array
      */
     public BaseData[] getData()
     {

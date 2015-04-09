@@ -33,32 +33,16 @@ public abstract class Parser
     }
 
     /**
-     *
-     * @return term object
+     * Parses the data into an TermObject object
+     * @return TermObject object
+     * @throws IOException When the object cannot be fully parsed this exception is thrown
      */
     protected abstract TermObject parse() throws IOException;
 
     /**
-     *
-     * @param rawJSONData
+     * @param rawJSONData The data retrieved from the API call
      * @return base data object
      */
     protected abstract BaseData getDetails(String rawJSONData);
 
 }//End of parser abstract class
-
-/*
-                Template for fetching all types of data 
-                
-                rain.getInt("3h"),
-                sys.getInt("sunrise"),
-                sys.getInt("sunset"),
-                main.getDouble("temp"),
-                main.getDouble("temp_min"),
-                main.getDouble("temp_max"),
-                wind.getDouble("speed"),
-                wind.getInt("deg"),
-                main.getDouble("pressure"),
-                weather.getString("icon"),
-                weather.getString("description")
- */

@@ -12,7 +12,7 @@ public class CurrentTerm extends TermObject
 
     /**
      * Constructor
-     * @param Cdata Set of current term data
+     * @param Cdata The array of data retrieved from the API call
      */
     public CurrentTerm(CurrentTermData[] Cdata)
     {

@@ -101,7 +101,7 @@ public class Main
     /**
      * *
      *The main method executes the entire program
-     * @param args
+     * @param args The arguments passed into the program
      */
     public static void main(String[] args)
     {
@@ -1205,7 +1205,7 @@ public class Main
      * gets the correct image for GUI
      * @param data location data that will be used to get weather condition
      * @param size size of the image you wish to retrieve
-     * @return
+     * @return The correct icon to be used
      */
     private static Icon getCorrectImage(BaseData data, String size)
     {
@@ -1249,7 +1249,7 @@ public class Main
      * Returns descripotion with uppercase first letter
      * @param hours number of hours
      * @param term the term object data is taken from
-     * @return
+     * @return The description of the TermObject in UpperCase
      */
     private static String GetUpperCaseDescription(int hours, TermObject term)
     {
@@ -1261,7 +1261,7 @@ public class Main
     /**
      * Returns input with first letter captialized
      * @param input any string
-     * @return input with first letter capitialized
+     * @return Input with first letter capitialized
      */
     private static String firstLetterToUpperCase(String input)
     {

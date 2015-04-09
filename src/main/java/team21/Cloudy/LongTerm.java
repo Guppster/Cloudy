@@ -12,7 +12,7 @@ public class LongTerm extends TermObject
 
     /**
      * Constructor
-     * @param Ldata initializes class with LongTermData object
+     * @param Ldata The array of data retrieved from the API call
      */
     public LongTerm(LongTermData[] Ldata)
     {

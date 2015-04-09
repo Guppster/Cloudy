@@ -17,10 +17,20 @@ import java.io.IOException;
  */
 public class ShortTermParser extends Parser
 {
-    /**** Fields ****/
-    private String locationName;        //Stores the name of the location
-    private ShortTermData[] data;       //Stores an array of forecasts (each element represent the forecast for that hour)
-    private Configuration config;       //Stores the user's preference
+    /**
+     * Name of the location
+     */
+    private String locationName;
+
+    /**
+     * Stores an array of forecasts (each element represent the forecast for that hour)
+     */
+    private ShortTermData[] data;
+
+    /**
+     * Stores the user's preference
+     */
+    private Configuration config;
 
     /**
      * Constructor
@@ -39,6 +49,7 @@ public class ShortTermParser extends Parser
      * use the preferred units to get specific versions of data in the given units and extract the JSONObject
      *
      * @return a ShortTerm object
+     * @throws IOException When the parse is not successful this exception is thrown
      */
     @Override
     protected TermObject parse() throws IOException
@@ -84,7 +95,8 @@ public class ShortTermParser extends Parser
     /**
      * Extracting groups of data from the JSONObject. (there are 8 sets of data -- 3 hour forecasts for 24 hours)
      *
-     * @param jsonData
+     * @param jsonData the raw data retrieved from the API call
+     * @throws JSONException When the data cannot be put into a JSON object, this exception is thrown
      */
     private void getArray(String jsonData) throws JSONException
     {
@@ -104,7 +116,7 @@ public class ShortTermParser extends Parser
     /**
      * Extract Specific data from each group and storing to ShortTermData
      *
-     * @param rawJSONData
+     * @param rawJSONData The data retrieved from the API call
      * @return ShortTermData object
      */
     @Override

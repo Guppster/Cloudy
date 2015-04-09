@@ -190,7 +190,7 @@ public class Configuration {
      * * store the locations information into byteArray
      *
      * @return the byteArray
-     * @throws IOException
+     * @throws IOException If no data is found this exception is thrown
      */
     private byte[] locationsToByteArray() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -207,9 +207,9 @@ public class Configuration {
      * * convert those bytes in byteArray to locations and store them in a new
      * array
      *
-     * @param bytes
-     * @return new array with the locations
-     * @throws IOException
+     * @param bytes The bytes that will be converted into a Location ArrayList
+     * @return New array with the locations
+     * @throws IOException When no data is found this exception is thrown
      */
     private ArrayList<Location> byteArrayToLocations(byte[] bytes)
             throws IOException {
@@ -233,7 +233,7 @@ public class Configuration {
      * * Parses the byte array and sets 1s to true and 0s to false and returns
      * boolean array
      *
-     * @param bytes
+     * @param bytes The bytes that will be converted into a boolean array
      * @return boolean array parsing byte array
      */
     private boolean[] byteArrayToBoolean(byte[] bytes) {
@@ -280,7 +280,7 @@ public class Configuration {
     /**
      * set degrees with proper units
      *
-     * @param degrees
+     * @param degrees The type of units to be set
      */
     public void setDegrees(tempUnits degrees) {
         this.degrees = degrees;

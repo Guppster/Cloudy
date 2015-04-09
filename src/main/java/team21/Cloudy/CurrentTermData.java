@@ -36,6 +36,9 @@ public class CurrentTermData extends BaseData {
      * @param pressure the current air pressure
      * @param iconID the string representing the icon that will be used to visually display the current weather
      * @param description a short description of the weather
+     * @param countryCode The two letter code representing the country this data is from
+     * @param dt The date time object indicating the time this was retrieved
+     * @param humidity The amount of humidity present in this data object
      */
     public CurrentTermData(int precipitation, int sunrise, int sunset, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, String countryCode, int dt, double humidity)
     {

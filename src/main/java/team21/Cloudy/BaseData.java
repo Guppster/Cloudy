@@ -72,10 +72,10 @@ public abstract class BaseData {
      * @param pressure the current air pressure
      * @param iconID the string representing the icon that will be used to visually display the current weather
      * @param description a short description of the weather
+     * @param dt The date time object indicating the time this was retrieved                    
+     * @param humidity The amount of humidity present in this data object
      */
-    protected BaseData(double temp, double tempMin, double tempMax,
-                       double windSpeed, int windDirection, double pressure,
-                       String iconID, String description, int dt, double humidity) {
+    protected BaseData(double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, int dt, double humidity) {
         this.temp = temp;
         this.tempMin = tempMin;
         this.tempMax = tempMax;
@@ -237,7 +237,7 @@ public abstract class BaseData {
     /**
      * Extract the country code of the location
      *
-     * @return country code
+     * @return Gets the two letter country code from this object
      */
     public String getCountryCode() {
         return countryCode;
@@ -246,7 +246,7 @@ public abstract class BaseData {
     /**
      * Update the country code
      *
-     * @param countryCode
+     * @param countryCode Sets the two letter country code in this object
      */
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
@@ -273,7 +273,7 @@ public abstract class BaseData {
     /**
      * Update the humidity level to that of the new value in the parameter
      *
-     * @param humidity
+     * @param humidity The humidity value to set in this object
      */
     public void setHumidity(double humidity) {
         this.humidity = humidity;
@@ -291,8 +291,7 @@ public abstract class BaseData {
     /**
      * Update the time for the sunset
      *
-     * @param sunset
-     *            - time
+     * @param sunset The sunset time
      */
     public void setSunset(int sunset) {
         this.sunset = sunset;
@@ -312,8 +311,7 @@ public abstract class BaseData {
     /**
      ** Update the time for the sunrise
      *
-     * @param sunrise
-     *            - time
+     * @param sunrise The sunrise time
      */
     public void setSunrise(int sunrise) {
         this.sunrise = sunrise;

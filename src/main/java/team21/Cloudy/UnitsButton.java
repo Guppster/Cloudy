@@ -70,7 +70,7 @@ public class UnitsButton extends JToggleButton implements ActionListener,
 
     /**
      * Painting the elements to the screen
-     * @param g
+     * @param g The graphics to be painted onto the screen
      */
     public void paint(Graphics g)
     {
@@ -87,7 +87,7 @@ public class UnitsButton extends JToggleButton implements ActionListener,
 
     /**
      * Every time button is clicked
-     * @param e
+     * @param e The action that was performed
      */
     @Override
     public void actionPerformed(ActionEvent e)

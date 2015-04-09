@@ -96,7 +96,7 @@ public class CurrentTermParser extends Parser
     /**
      * Extract Specific data from each group and storing to CurrentTermData
      *
-     * @param rawJSONData
+     * @param rawJSONData String retrieved from the API Call
      * @return CurrentTermData Object
      */
     @Override

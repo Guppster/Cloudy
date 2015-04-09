@@ -12,15 +12,17 @@ public class ShortTermData extends BaseData
     /**
      * Constructor initialize the attribute with the first parameter and sends the rest to the super class
      *
-     * @param time          the time at which for the other attributes are true
-     * @param temp          the current temperature
-     * @param tempMin       the minimum predicted temperature
-     * @param tempMax       the maximum predicted temperature
-     * @param windSpeed     the expected wind speed
-     * @param windDirection the direction the wind blows
-     * @param pressure      the current air pressure
-     * @param iconID        the string representing the icon that will be used to visually display the current weather
-     * @param description   a short description of the weather
+     * @param time          The time at which for the other attributes are true
+     * @param temp          The current temperature
+     * @param tempMin       The minimum predicted temperature
+     * @param tempMax       The maximum predicted temperature
+     * @param windSpeed     The expected wind speed
+     * @param windDirection The direction the wind blows
+     * @param pressure      The current air pressure
+     * @param iconID        The string representing the icon that will be used to visually display the current weather
+     * @param description   A short description of the weather
+     * @param dt            The date time object indicating the time this was retrieved
+     * @param humidity      The amount of humidity present in this data object
      */
     public ShortTermData(String time, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, int dt, double humidity)
     {

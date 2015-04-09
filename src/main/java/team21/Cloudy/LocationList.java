@@ -10,7 +10,7 @@ public class LocationList
     private ArrayList<Location> regions; // a list of locations
 
     /**
-     * General Constructor initialize regions with an empty {@ArrayList}
+     * General Constructor initialize regions with an empty
      */
     public LocationList()
     {
@@ -47,31 +47,8 @@ public class LocationList
             }
         }
 
-        //return london as default
+        //return null as default
         return null;
-
-    }
-
-    /**
-     * Check if the location exist in the list. It's similar to search list, except it passes a Location argument and returns a boolean value.
-     *
-     * @param location
-     * @return
-     */
-    public boolean isLocationInList(Location location)
-    {
-        if (!isListEmpty())
-        {
-            //if the list is not empty, illiterate to see if location exist
-            for (int i = 0; i < regions.size(); i++)
-            {
-                if (regions.get(i).equals(location))
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     /**
@@ -121,15 +98,5 @@ public class LocationList
     public ArrayList<Location> getLocationList()
     {
         return regions;
-    }
-
-    /**
-     * Update the entire list of locations
-     *
-     * @param regions a new list of locations
-     */
-    public void setLocationList(ArrayList<Location> regions)
-    {
-        this.regions = regions;
     }
 }//End of LocationList

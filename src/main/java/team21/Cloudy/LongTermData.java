@@ -35,6 +35,8 @@ public class LongTermData extends BaseData {
      * @param pressure the current air pressure
      * @param iconID the string representing the icon that will be used to visually display the current weather
      * @param description a short description of the weather
+     * @param dt The date time object indicating the time this was retrieved
+     * @param humidity The amount of humidity present in this data object
      */
     public LongTermData(double tempNight, double tempEve, double tempMorn, double temp, double tempMin, double tempMax, double windSpeed, int windDirection, double pressure, String iconID, String description, int dt, double humidity) {
         super(temp, tempMin, tempMax, windSpeed, windDirection, pressure, iconID, description, dt, humidity);

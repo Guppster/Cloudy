@@ -14,9 +14,19 @@ import java.io.IOException;
  */
 public class MarsTermParser extends Parser
 {
-    /**** Fields ****/
+    /**
+     * The name of the location
+     */
     private String locationName;
+
+    /**
+     * The array of data
+     */
     private MarsData[] data;
+
+    /**
+     * The configuration storing preferences
+     */
     private Configuration config;
 
     /**
@@ -68,7 +78,7 @@ public class MarsTermParser extends Parser
     /**
      * Extract Specific data from each group and storing to MarsData
      *
-     * @param rawJSONData
+     * @param rawJSONData The data retrieved from the API Call
      * @return MarsData object
      */
     @Override
@@ -111,9 +121,9 @@ public class MarsTermParser extends Parser
 
     /**
      * Return the average of the two parameters
-     * @param tempMin
-     * @param tempMax
-     * @return
+     * @param tempMin The minimum temperature
+     * @param tempMax The maximum temperature
+     * @return The average of the max and min temperatures
      */
     private double getAvg(double tempMin, double tempMax)
     {
