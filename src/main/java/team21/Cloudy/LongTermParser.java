@@ -23,7 +23,7 @@ public class LongTermParser extends Parser
     private String locationName;
 
     /**
-     * Stores an array of forecasts (each element represent the forecast for that hour)
+     * Stores an array of forecasts (each element represent the forecast for that day)
      */
     private LongTermData[] data;
 
