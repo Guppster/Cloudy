@@ -1,6 +1,6 @@
 package team21.Cloudy;
 
-/**
+/*
  * Abstract Class for the storage of all common data related to weather regardless of specific time
  *
  * @author: Gurpreet
@@ -21,7 +21,7 @@ public abstract class BaseData
     private int sunset;
     private int sunrise;
 
-    /**
+    /*
      * Class Constructor initialize all of attributes to the class
      *
      * @param temp          the current temperature
@@ -47,7 +47,7 @@ public abstract class BaseData
         this.humidity = humidity;
     }
 
-    /**
+    /*
      * Extract the current temperature.
      *
      * @return the current temperature
@@ -57,7 +57,7 @@ public abstract class BaseData
         return temp;
     }
 
-    /**
+    /*
      * Update the current temperature.
      *
      * @param temp the new current temperature to be stored
@@ -67,7 +67,7 @@ public abstract class BaseData
         this.temp = temp;
     }
 
-    /**
+    /*
      * Extract the minimum temperature
      *
      * @return the minimum temperature
@@ -77,7 +77,7 @@ public abstract class BaseData
         return tempMin;
     }
 
-    /**
+    /*
      * Update the minimum temperature
      *
      * @param tempMin the new minimum temperature to be stored
@@ -87,7 +87,7 @@ public abstract class BaseData
         this.tempMin = tempMin;
     }
 
-    /**
+    /*
      * Extract the maximum temperature
      *
      * @return the maximum temperature
@@ -97,7 +97,7 @@ public abstract class BaseData
         return tempMax;
     }
 
-    /**
+    /*
      * Update the maximum temperature
      *
      * @param tempMax the new maximum temperature to be stored
@@ -107,7 +107,7 @@ public abstract class BaseData
         this.tempMax = tempMax;
     }
 
-    /**
+    /*
      * Extract the wind speed
      *
      * @return the wind speed
@@ -117,7 +117,7 @@ public abstract class BaseData
         return windSpeed;
     }
 
-    /**
+    /*
      * Update the wind speed
      *
      * @param windSpeed the new wind speed to be stored
@@ -127,7 +127,7 @@ public abstract class BaseData
         this.windSpeed = windSpeed;
     }
 
-    /**
+    /*
      * Extract the wind direction
      *
      * @return the wind direction
@@ -137,7 +137,7 @@ public abstract class BaseData
         return windDirection;
     }
 
-    /**
+    /*
      * Update the wind direction
      *
      * @param windDirection the new wind direction to be stored
@@ -147,7 +147,7 @@ public abstract class BaseData
         this.windDirection = windDirection;
     }
 
-    /**
+    /*
      * Extract the air pressure
      *
      * @return the air pressure
@@ -157,7 +157,7 @@ public abstract class BaseData
         return pressure;
     }
 
-    /**
+    /*
      * Update the air pressure
      *
      * @param pressure the new air pressure to be stored
@@ -167,7 +167,7 @@ public abstract class BaseData
         this.pressure = pressure;
     }
 
-    /**
+    /*
      * Extract the string representing the image for this particular weather situation
      *
      * @return the string representing the icon
@@ -177,7 +177,7 @@ public abstract class BaseData
         return iconID;
     }
 
-    /**
+    /*
      * Update the string representing the image for this particular weather situation
      *
      * @param iconID the new icon code
@@ -187,7 +187,7 @@ public abstract class BaseData
         this.iconID = iconID;
     }
 
-    /**
+    /*
      * Extract the short description on the current weather
      *
      * @return the short description on the current weather
@@ -197,7 +197,7 @@ public abstract class BaseData
         return description;
     }
 
-    /**
+    /*
      * Update the short description on the current weather
      *
      * @param description the new the short description on the current weather
@@ -207,11 +207,17 @@ public abstract class BaseData
         this.description = description;
     }
 
+    /*
+     *get the code of the country
+     */
     public String getCountryCode()
     {
         return countryCode;
     }
 
+    /*
+     *set the code of the country
+     */
     public void setCountryCode(String countryCode)
     {
         this.countryCode = countryCode;
@@ -222,31 +228,49 @@ public abstract class BaseData
         return dt + "";
     }
 
+    /*
+     *get the humidity
+     */
     public double getHumidity()
     {
         return humidity;
     }
 
+     /*
+      *set the humidity
+      */    
     public void setHumidity(double humidity)
     {
         this.humidity = humidity;
     }
 
+     /*
+      *get the time of sunset
+      */
     public int getSunset()
     {
         return sunset;
     }
 
+     /*
+      *set the time of sunset
+      */
     public void setSunset(int sunset)
     {
         this.sunset = sunset;
     }
 
+    /*
+     *get the time of sunrise
+     */
     public int getSunrise()
     {
         return sunrise;
     }
 
+    /*
+     *set the time of sunrise
+     */
     public void setSunrise(int sunrise)
     {
         this.sunrise = sunrise;
